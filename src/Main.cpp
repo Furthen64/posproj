@@ -4,25 +4,24 @@
 
 #include <iostream>
 
+
+
+// Absolutely needed for the Singletons to compile
+WindowSingleton* WindowSingleton::m_instanceSingleton = nullptr;        // This static member needs to exist super early
+
+
+
+
 int main(int argc, char **argv)
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+        RunResult *rres  = nullptr;
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+        Core *core = new Core();
 
-    return 0;
+        rres = core->lifecycle();
+
+        rres->dump();
+
+        return 0;
 }

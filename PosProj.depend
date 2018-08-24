@@ -4,14 +4,18 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535016317 source:c:\github\posproj\src\core.cpp
+1535110893 source:c:\github\posproj\src\core.cpp
+	"Core.hpp"
 
-1535018563 source:c:\github\posproj\src\main.cpp
+1535106981 source:c:\github\posproj\src\main.cpp
 	<SFML/Graphics.hpp>
 	"Core.hpp"
 	<iostream>
 
-1535016317 c:\github\posproj\include\core.hpp
+1535110853 c:\github\posproj\include\core.hpp
+	<iostream>
+	<string>
+	"../src/Singletons/WindowSingleton.hpp"
 
 1535016317 source:c:\github\posproj\src\utilities\utils.cpp
 
@@ -423,4 +427,21 @@
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
+
+1535110520 source:c:\github\posproj\src\singletons\windowsingleton.cpp
+	"WindowSingleton.hpp"
+
+1535109880 c:\github\posproj\include\singletons\windowsingleton.hpp
+	<string>
+	<iostream>
+	<SFML/Graphics.hpp>
+	"Constants.hpp"
+
+1535109748 c:\github\posproj\include\constants.hpp
+
+1535110865 c:\github\posproj\src\singletons\windowsingleton.hpp
+	<string>
+	<iostream>
+	<SFML/Graphics.hpp>
+	"Constants.hpp"
 

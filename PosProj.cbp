@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="PosProj" />
+		<Option title="posproj" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -53,10 +53,13 @@
 		<Linker>
 			<Add directory="$(#sfml.lib)" />
 		</Linker>
+		<Unit filename="include/Constants.hpp" />
 		<Unit filename="include/Core.hpp" />
+		<Unit filename="include/Singletons/WindowSingleton.hpp" />
 		<Unit filename="include/Utilities/Utils.hpp" />
 		<Unit filename="src/Core.cpp" />
 		<Unit filename="src/Main.cpp" />
+		<Unit filename="src/Singletons/WindowSingleton.cpp" />
 		<Unit filename="src/Utilities/Utils.cpp" />
 		<Extensions>
 			<code_completion />
