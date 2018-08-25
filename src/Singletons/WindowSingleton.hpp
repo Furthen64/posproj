@@ -6,7 +6,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Constants.hpp"
-
+#include "SView.hpp"
 
 
 /// Example usage:
@@ -17,8 +17,6 @@
 //
 //  Then to use functions from it://
 //     int returnStatus = win->allocateWindow();
-
-
 
 
 class WindowSingleton
@@ -35,6 +33,7 @@ public:
 
     // Basic functions
     void allocateWindow();
+    sf::RenderWindow *getWPtr();
 
 
 
@@ -57,7 +56,7 @@ private:
 
         bool windowAllocated = false;
         std::string cn = "WindowSingleton.cpp";
-        sf::RenderWindow *wPtr;
+        sf::RenderWindow *wPtr = nullptr;               // Set when allocateWindow() is run
 
 
 

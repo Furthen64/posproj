@@ -5,7 +5,10 @@
 #include <iostream>
 #include <string>
 
-#include "../src/Singletons/WindowSingleton.hpp"
+#include "../src/Singletons/WindowSingleton.hpp"        // <== SView
+
+#include "Canvas.hpp"
+
 
 
 
@@ -59,6 +62,11 @@ public:
 
     RunResult *run();
 
+    void resume();
+    void pause();
+    void resizeWindow();
+
+
     int setup();
 
 
@@ -68,9 +76,23 @@ public:
 
 
 private:
-    std::string cn = "Core.cpp";
+
 
     WindowSingleton* dummy= nullptr;    // Absolutely needed for the WindowSingleton.hpp/cpp to compile.
+
+    sf::RenderWindow *wPtr = nullptr;       // Set after we allocateWindow from the singleton, done in Core() constructor
+
+    sf::View *view = nullptr;
+
+    Canvas *canvas = nullptr;
+
+
+    bool isRunning = true;              // Used for Pause and Resume
+
+    std::string cn = "Core.cpp";
+    std::string ind1 = "";
+    std::string ind2 = "";
+    std::string ind3 = "";
 };
 
 

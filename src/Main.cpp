@@ -6,22 +6,19 @@
 
 
 
-// Absolutely needed for the Singletons to compile
-WindowSingleton* WindowSingleton::m_instanceSingleton = nullptr;        // This static member needs to exist super early
-
-
+// Absolutely needed for the Singletons to compile, the static member "m_instanceSingleton" needs to exist super early
+WindowSingleton* WindowSingleton::m_instanceSingleton = nullptr;
 
 
 int main(int argc, char **argv)
 {
+    RunResult *rres  = nullptr;
 
-        RunResult *rres  = nullptr;
+    Core *core = new Core();
 
-        Core *core = new Core();
+    core->lifecycle();
 
-        rres = core->lifecycle();
+    rres->dump();
 
-        rres->dump();
-
-        return 0;
+    return 0;
 }

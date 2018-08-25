@@ -53,12 +53,21 @@
 		<Linker>
 			<Add directory="$(#sfml.lib)" />
 		</Linker>
+		<Unit filename="include/Canvas.hpp" />
 		<Unit filename="include/Constants.hpp" />
 		<Unit filename="include/Core.hpp" />
-		<Unit filename="include/Singletons/WindowSingleton.hpp" />
+		<Unit filename="include/Input.hpp" />
+		<Unit filename="include/IsoPos.hpp" />
+		<Unit filename="include/OrPos.hpp" />
+		<Unit filename="include/SView.hpp" />
 		<Unit filename="include/Utilities/Utils.hpp" />
+		<Unit filename="src/Canvas.cpp" />
 		<Unit filename="src/Core.cpp" />
+		<Unit filename="src/Input.cpp" />
+		<Unit filename="src/IsoPos.cpp" />
 		<Unit filename="src/Main.cpp" />
+		<Unit filename="src/OrPos.cpp" />
+		<Unit filename="src/SView.cpp" />
 		<Unit filename="src/Singletons/WindowSingleton.cpp" />
 		<Unit filename="src/Utilities/Utils.cpp" />
 		<Extensions>
