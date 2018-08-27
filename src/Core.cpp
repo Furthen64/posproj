@@ -1,6 +1,9 @@
 #include "Core.hpp"
 
+#include "OrMatrix.hpp"
 
+
+#include <math.h>
 
 
 // (--)
@@ -31,7 +34,25 @@ void Core::pause()  { isRunning = false; }
 void Core::resizeWindow()
 {
 
-    view->setSize(320.0f,240.0f);
+    // The current Window width and height are
+    //  * wPtr->getSize().x
+    //  * wPtr->getSize().y
+
+
+
+
+
+
+
+
+    // Set the sfml view size to the newly resized window size
+    view->setSize(wPtr->getSize().x , wPtr->getSize().y);
+
+    // Place the view, locked against top left corner of Canvas
+    view->setCenter( (float)round(wPtr->getSize().x/2),
+                     (float)round(wPtr->getSize().y/2) );
+
+    // Assign this view to the current window to make the update
     wPtr->setView(*view);
 
 }
@@ -48,6 +69,9 @@ RunResult *Core::run()
     sf::Event event;
 
     bool lmbPressed = false;
+
+
+    OrMatrix *orMat1 = new OrMatrix(20,20);
 
 
     std::cout << ind1 << "run() started ***** \n";
@@ -122,8 +146,13 @@ RunResult *Core::run()
             lmbPressed = false;
         }
 
-        // Left mouse button pressed
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed)
+
+
+
+
+        // Left mouse button pressed,
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed && isRunning)
         {
             lmbPressed = true;
 
@@ -166,7 +195,7 @@ RunResult *Core::run()
 
         canvas->drawAll(*wPtr);
 
-
+        orMat1->drawAll(*wPtr);
 
 
         wPtr->display();
@@ -182,11 +211,6 @@ RunResult *Core::run()
 
 
 
-
-
-
-    //
-
     std::cout << ind1 << "} (run ended)\n\n";
 
     return rres;
@@ -195,11 +219,9 @@ RunResult *Core::run()
 
 
 
+// (--)
 void Core::allocateSingletons()
 {
-
-    std::cout << "allocateSingletons() stub\n";
-
     /// WindowSingleton
     WindowSingleton *win;
     win = win->getInstance();

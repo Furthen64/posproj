@@ -14,8 +14,6 @@
 
 
 
-
-
 enum RUNRESULTS { RR_QUIT, RR_LOADNEWMAP, RR_NEWMAP };
 
 
@@ -52,6 +50,11 @@ private:
 
 
 
+
+
+
+
+
 class Core
 {
 public:
@@ -76,9 +79,6 @@ public:
 
 
 private:
-
-
-    WindowSingleton* dummy= nullptr;    // Absolutely needed for the WindowSingleton.hpp/cpp to compile.
 
     sf::RenderWindow *wPtr = nullptr;       // Set after we allocateWindow from the singleton, done in Core() constructor
 
