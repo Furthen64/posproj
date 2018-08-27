@@ -10,13 +10,12 @@
 
 
 /// Example usage:
-//
-//  Create a handle wherever:
-//     WindowSingleton *win;
-//     win = win->getInstance();
-//
-//  Then to use functions from it://
-//     int returnStatus = win->allocateWindow();
+///  Create a handle wherever:
+///     WindowSingleton *win;
+///     win = win->getInstance();
+///
+///  Then to use functions from it://
+///     int returnStatus = win->allocateWindow();
 
 
 class WindowSingleton

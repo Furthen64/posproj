@@ -443,13 +443,13 @@
 
 1535394172 c:\github\posproj\include\constants.hpp
 
-1535394449 c:\github\posproj\src\singletons\windowsingleton.hpp
+1535411936 c:\github\posproj\src\singletons\windowsingleton.hpp
 	<string>
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535394635 source:c:\github\posproj\src\canvas.cpp
+1535396330 source:c:\github\posproj\src\canvas.cpp
 	"Canvas.hpp"
 
 1535117719 source:c:\github\posproj\src\isopos.cpp
