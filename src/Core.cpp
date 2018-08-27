@@ -10,8 +10,8 @@
 Core::Core()
 {
     allocateSingletons();               // This is done once per application session
-    view = new sf::View(sf::Vector2f(0,0), sf::Vector2f(1024, 768));
     canvas = new Canvas();
+    hview = canvas->getHView();
 }
 
 
@@ -35,25 +35,13 @@ void Core::resizeWindow()
 {
 
     // The current Window width and height are
-    //  * wPtr->getSize().x
-    //  * wPtr->getSize().y
+    //  * rwPtr->getSize().x
+    //  * rwPtr->getSize().y
 
 
+    hview->resizeViewToWindow();
 
 
-
-
-
-
-    // Set the sfml view size to the newly resized window size
-    view->setSize(wPtr->getSize().x , wPtr->getSize().y);
-
-    // Place the view, locked against top left corner of Canvas
-    view->setCenter( (float)round(wPtr->getSize().x/2),
-                     (float)round(wPtr->getSize().y/2) );
-
-    // Assign this view to the current window to make the update
-    wPtr->setView(*view);
 
 }
 
@@ -70,6 +58,7 @@ RunResult *Core::run()
 
     bool lmbPressed = false;
 
+    win = win->getInstance();
 
     OrMatrix *orMat1 = new OrMatrix(20,20);
 
@@ -82,14 +71,14 @@ RunResult *Core::run()
 
     std::cout << "\n\n\n---------------run--------------------\n";
 
-    while (wPtr->isOpen())
+    while (rwPtr->isOpen())
     {
 
         if(!isRunning) {
 
             /// Paused
             // Check for Events
-            while (wPtr->pollEvent(event)) {
+            while (rwPtr->pollEvent(event)) {
                 if (event.type == sf::Event::GainedFocus) {
                     resume();
                 }
@@ -102,7 +91,7 @@ RunResult *Core::run()
 
         /// Events
 
-        while (wPtr->pollEvent(event))
+        while (rwPtr->pollEvent(event))
         {
             if (event.type == sf::Event::LostFocus) {
                 pause();
@@ -119,7 +108,7 @@ RunResult *Core::run()
                     rres->quitresult =RR_QUIT;
 
 
-                    wPtr->close();
+                    rwPtr->close();
 
             }
 
@@ -157,7 +146,7 @@ RunResult *Core::run()
             lmbPressed = true;
 
             // Get mouse position
-            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *wPtr );
+            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
 
             // What does it look like now that I am using SView?
             std::cout << ind2 << " - lmb pressed at sfml:getPosition = " << mousePos_i.y << ", " << mousePos_i.x << "\n";
@@ -188,21 +177,27 @@ RunResult *Core::run()
 
         /// Render
 
-        wPtr->clear();
+        rwPtr->clear();
+
+
+        // The Three Layers?
+
+
+
+        hview->drawAll(*rwPtr);
+        canvas->drawAll(*rwPtr);
+        win->drawAll(*rwPtr);
 
 
 
 
-        canvas->drawAll(*wPtr);
+        // The Gameboard (orMatrix or isoMatrix, whatever is visible )
 
-        orMat1->drawAll(*wPtr);
-
-
-        wPtr->display();
+        //orMat1->drawAll(*rwPtr);
 
 
 
-
+        rwPtr->display();
 
 
     } // (window.isOpen)
@@ -210,8 +205,8 @@ RunResult *Core::run()
 
 
 
-
-    std::cout << ind1 << "} (run ended)\n\n";
+    std::cout << "\n\n\n---------------run ENDED -------------\n";
+    std::cout << ind1 << "} \n\n";
 
     return rres;
 
@@ -226,7 +221,7 @@ void Core::allocateSingletons()
     WindowSingleton *win;
     win = win->getInstance();
     win->allocateWindow();
-    this->wPtr = win->getWPtr();        // Now Core has a pointer to the Window, which is handy , but you can also use the singleton to fetch it anywhere
+    this->rwPtr = win->getRwPtr();        // Now Core has a pointer to the Window, which is handy , but you can also use the singleton to fetch it anywhere
 
 
     /// TextureSingleton

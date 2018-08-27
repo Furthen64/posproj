@@ -20,6 +20,8 @@ public:
     void drawAll(sf::RenderTarget& rt);
     bool isAllocated();
 
+
+
 private:
     std::string cn = "OrMatrix.cpp";
 
@@ -27,6 +29,7 @@ private:
     bool allocated = false;
     int rows = 0;
     int cols = 0;
+
 };
 
 

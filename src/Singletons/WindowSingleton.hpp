@@ -6,7 +6,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Constants.hpp"
-#include "SView.hpp"
+
 
 
 /// Example usage:
@@ -23,7 +23,6 @@ class WindowSingleton
 {
 public:
 
-
     // Singleton specific Functions
     static WindowSingleton* getInstance() {
         return (!m_instanceSingleton) ?
@@ -33,30 +32,30 @@ public:
 
     // Basic functions
     void allocateWindow();
-    sf::RenderWindow *getWPtr();
+    sf::RenderWindow *getRwPtr();
+    void drawAll(sf::RenderTarget &rt);
 
 
 
 
 private:
 
-    // Singleton specific:
-
+    // Singleton specifics
         WindowSingleton() {  }
         ~WindowSingleton() { }
-
-
         // private copy constructor and assignment operator
         WindowSingleton(const WindowSingleton&);
         WindowSingleton& operator=(const WindowSingleton&);
-
         static WindowSingleton *m_instanceSingleton;
+
+
+
 
     // Regular private members
 
         bool windowAllocated = false;
         std::string cn = "WindowSingleton.cpp";
-        sf::RenderWindow *wPtr = nullptr;               // Set when allocateWindow() is run
+        sf::RenderWindow *rwPtr = nullptr;               // Set when allocateWindow() is run
 
 
 

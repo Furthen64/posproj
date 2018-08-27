@@ -11,7 +11,7 @@
 
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 enum RUNRESULTS { RR_QUIT, RR_LOADNEWMAP, RR_NEWMAP };
@@ -23,7 +23,6 @@ class RunResult
 {
 public:
     RunResult() {}
-    ~RunResult() {}
 
     void dump()
     {
@@ -49,11 +48,7 @@ private:
 };
 
 
-
-
-
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Core
 {
@@ -80,11 +75,12 @@ public:
 
 private:
 
-    sf::RenderWindow *wPtr = nullptr;       // Set after we allocateWindow from the singleton, done in Core() constructor
+    sf::RenderWindow *rwPtr = nullptr;       // Set after we allocateWindow from the singleton, done in Core() constructor
 
-    sf::View *view = nullptr;
+    WindowSingleton *win;                 // win = win->getInstance(); to use it!
 
-    Canvas *canvas = nullptr;
+    Canvas *canvas = nullptr;             // See Core()
+    HView *hview = nullptr;               // See Core()
 
 
     bool isRunning = true;              // Used for Pause and Resume

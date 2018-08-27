@@ -16,9 +16,11 @@ int main(int argc, char **argv)
 
     Core *core = new Core();
 
-    core->lifecycle();
+    rres = core->lifecycle();
 
     rres->dump();
+
+
 
     return 0;
 }

@@ -4,17 +4,17 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535359039 source:c:\github\posproj\src\core.cpp
+1535395855 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	"OrMatrix.hpp"
 	<math.h>
 
-1535114748 source:c:\github\posproj\src\main.cpp
+1535393323 source:c:\github\posproj\src\main.cpp
 	<SFML/Graphics.hpp>
 	"Core.hpp"
 	<iostream>
 
-1535357919 c:\github\posproj\include\core.hpp
+1535394569 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
 	"../src/Singletons/WindowSingleton.hpp"
@@ -432,7 +432,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1535116885 source:c:\github\posproj\src\singletons\windowsingleton.cpp
+1535396200 source:c:\github\posproj\src\singletons\windowsingleton.cpp
 	"WindowSingleton.hpp"
 
 1535109880 c:\github\posproj\include\singletons\windowsingleton.hpp
@@ -441,16 +441,15 @@
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535358498 c:\github\posproj\include\constants.hpp
+1535394172 c:\github\posproj\include\constants.hpp
 
-1535119518 c:\github\posproj\src\singletons\windowsingleton.hpp
+1535394449 c:\github\posproj\src\singletons\windowsingleton.hpp
 	<string>
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
-	"SView.hpp"
 
-1535358215 source:c:\github\posproj\src\canvas.cpp
+1535394635 source:c:\github\posproj\src\canvas.cpp
 	"Canvas.hpp"
 
 1535117719 source:c:\github\posproj\src\isopos.cpp
@@ -477,13 +476,14 @@
 
 1535203160 source:c:\github\posproj\src\input.cpp
 
-1535223167 c:\github\posproj\include\canvas.hpp
+1535394607 c:\github\posproj\include\canvas.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
+	"HView.hpp"
 	"Constants.hpp"
 
-1535358963 c:\github\posproj\include\ormatrix.hpp
+1535359921 c:\github\posproj\include\ormatrix.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -496,7 +496,17 @@
 	<unistd.h>
 	<direct.h>
 
-1535358994 source:c:\github\posproj\src\ormatrix.cpp
+1535359157 source:c:\github\posproj\src\ormatrix.cpp
 	"OrMatrix.hpp"
 	"Utilities/Utils.hpp"
+
+1535394977 c:\github\posproj\include\hview.hpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<string>
+
+1535395416 source:c:\github\posproj\src\hview.cpp
+	"HView.hpp"
+	<math.h>
+	"Singletons/WindowSingleton.hpp"
 
