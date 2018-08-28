@@ -1,15 +1,22 @@
 #include "Core.hpp"
 
-#include "OrMatrix.hpp"
-
-
+#include <stdexcept>
 #include <math.h>
+
+#include "RenderTree.hpp"
+#include "OrMatrix.hpp"
+#include "TextFactory.hpp"
+
 
 
 // (--)
 Core::Core()
 {
-    allocateSingletons();               // This is done once per application session
+    // This is done once per application session
+    if(!allocateSingletons()) {
+         throw std::runtime_error( "missing files - aborting with exception" );
+    }
+
     canvas = new Canvas();
     hview = canvas->getHView();
 }
@@ -60,8 +67,9 @@ RunResult *Core::run()
 
     win = win->getInstance();
 
-    OrMatrix *orMat1 = new OrMatrix(20,20);
+    OrMatrix *orMat1 = new OrMatrix(10,4);
 
+    RenderTree *rendertree = new RenderTree();
 
     std::cout << ind1 << "run() started ***** \n";
     std::cout << ind1 << "{\n";
@@ -143,13 +151,35 @@ RunResult *Core::run()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed && isRunning)
         {
+
+
             lmbPressed = true;
 
-            // Get mouse position
+            // Get sfml mouse position
             sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
 
-            // What does it look like now that I am using SView?
-            std::cout << ind2 << " - lmb pressed at sfml:getPosition = " << mousePos_i.y << ", " << mousePos_i.x << "\n";
+            std::string strMousePos = "sfml position(";
+            strMousePos += std::to_string( mousePos_i.y );
+            strMousePos += ", ";
+            strMousePos += std::to_string( mousePos_i.x );
+            strMousePos += ")";
+
+            // Delete all other old text objects that we've created
+            rendertree->clearMiscTexts();
+
+            // Create text object from factory to display position
+            sf::Text *textPtr = TextFactory::getText(strMousePos,12,sf::Color(255,255,255,255));
+            textPtr->setPosition(sf::Vector2f(mousePos_i.x, mousePos_i.y));
+
+            if(textPtr == nullptr) {
+                std::cout << "ERROR textptr is null\n";
+            }
+
+
+            // Add it to the render tree
+            rendertree->addMiscText(textPtr);
+
+
 
             // convert it to our type of position
 
@@ -169,6 +199,8 @@ RunResult *Core::run()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
+            rendertree->clearAll();
+            rendertree->clearMiscTexts();
         }
 
 
@@ -179,23 +211,31 @@ RunResult *Core::run()
 
         rwPtr->clear();
 
-
         // The Three Layers?
-
-
-
-        hview->drawAll(*rwPtr);
-        canvas->drawAll(*rwPtr);
-        win->drawAll(*rwPtr);
-
-
-
+        canvas->drawAll(*rwPtr);    // Blue
+        hview->drawAll(*rwPtr);     // Green
+        win->drawAll(*rwPtr);       // Red
 
         // The Gameboard (orMatrix or isoMatrix, whatever is visible )
+        orMat1->drawAll(*rwPtr);
 
-        //orMat1->drawAll(*rwPtr);
+
+        // RenderTree contents
+        for (std::vector<sf::Text *>::iterator textObjIt = rendertree->miscTexts.begin(); textObjIt!= rendertree->miscTexts.end(); ++textObjIt)
+        {
+            // Dereference our iterator into an sf::Text *
+            sf::Text *textPtr = *textObjIt;
+
+            if(textPtr == nullptr) {
+                break;
+            }
+
+            // Now dereference that too, and draw it
+            rwPtr->draw( *textPtr);
 
 
+
+        }
 
         rwPtr->display();
 
@@ -215,7 +255,7 @@ RunResult *Core::run()
 
 
 // (--)
-void Core::allocateSingletons()
+bool Core::allocateSingletons()
 {
     /// WindowSingleton
     WindowSingleton *win;
@@ -224,11 +264,21 @@ void Core::allocateSingletons()
     this->rwPtr = win->getRwPtr();        // Now Core has a pointer to the Window, which is handy , but you can also use the singleton to fetch it anywhere
 
 
+
+    /// ResourceHolder
+    ResourceHolder* res;
+    res = res->getInstance();
+    if(!res->allocateFonts()) {
+        return false;
+    }
+
+
     /// TextureSingleton
 
 
 
     /// ConfigSingleton
+    return true;
 
 }
 

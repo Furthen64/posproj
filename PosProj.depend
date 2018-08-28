@@ -4,20 +4,24 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535395855 source:c:\github\posproj\src\core.cpp
+1535452299 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
-	"OrMatrix.hpp"
+	<stdexcept>
 	<math.h>
+	"RenderTree.hpp"
+	"OrMatrix.hpp"
+	"TextFactory.hpp"
 
-1535393323 source:c:\github\posproj\src\main.cpp
+1535448991 source:c:\github\posproj\src\main.cpp
 	<SFML/Graphics.hpp>
 	"Core.hpp"
 	<iostream>
 
-1535394569 c:\github\posproj\include\core.hpp
+1535451057 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
 	"../src/Singletons/WindowSingleton.hpp"
+	"../src/Singletons/ResourceHolder.hpp"
 	"Canvas.hpp"
 
 1535312536 source:c:\github\posproj\src\utilities\utils.cpp
@@ -432,7 +436,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1535396200 source:c:\github\posproj\src\singletons\windowsingleton.cpp
+1535444926 source:c:\github\posproj\src\singletons\windowsingleton.cpp
 	"WindowSingleton.hpp"
 
 1535109880 c:\github\posproj\include\singletons\windowsingleton.hpp
@@ -449,8 +453,9 @@
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535396330 source:c:\github\posproj\src\canvas.cpp
+1535452123 source:c:\github\posproj\src\canvas.cpp
 	"Canvas.hpp"
+	"Singletons/WindowSingleton.hpp"
 
 1535117719 source:c:\github\posproj\src\isopos.cpp
 	"IsoPos.hpp"
@@ -505,8 +510,30 @@
 	<iostream>
 	<string>
 
-1535395416 source:c:\github\posproj\src\hview.cpp
+1535444893 source:c:\github\posproj\src\hview.cpp
 	"HView.hpp"
 	<math.h>
 	"Singletons/WindowSingleton.hpp"
+
+1535452021 source:c:\github\posproj\src\rendertree.cpp
+	"RenderTree.hpp"
+	<iostream>
+
+1535451895 c:\github\posproj\include\rendertree.hpp
+	<vector>
+	<SFML/Graphics.hpp>
+
+1535445643 source:c:\github\posproj\src\textfactory.cpp
+
+1535451029 c:\github\posproj\src\singletons\resourceholder.hpp
+	<string>
+	<iostream>
+	<SFML/Graphics.hpp>
+	"Constants.hpp"
+
+1535451375 source:c:\github\posproj\src\singletons\resourceholder.cpp
+	"ResourceHolder.hpp"
+
+1535450939 c:\github\posproj\include\textfactory.hpp
+	"../src/Singletons/ResourceHolder.hpp"
 

@@ -18,7 +18,7 @@ void WindowSingleton::drawAll(sf::RenderTarget &rt)
 
 
 
-    sf::RectangleShape rect( sf::Vector2f(rwPtr->getSize().x-2, rwPtr->getSize().y-2));
+    sf::RectangleShape rect( sf::Vector2f(rwPtr->getSize().x-2, rwPtr->getSize().y-4));
 
 
     rect.setPosition(sf::Vector2f(1,1));

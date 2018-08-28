@@ -20,6 +20,9 @@ HView *Canvas::getHView()
 }
 
 
+
+// The canvas is where we draw the gameboard on
+// The canvas has a grid that you can enable to make it easier for development
 // (--)
 void Canvas::drawAll(sf::RenderTarget& rt)
 {
@@ -29,18 +32,18 @@ void Canvas::drawAll(sf::RenderTarget& rt)
     win = win->getInstance();
 
 
-
-
     int canvasXOffset = 4;
     int canvasYOffset = 4;
 
-    // Draw rough grid lines of the Canvas
+    // Draw Blue grid lines of the Canvas
 
     int gridSpacingPx = 64;
 
     int windowHeightPx = win->getRwPtr()->getSize().y;
     int windowWidthPx = win->getRwPtr()->getSize().x;
 
+
+    // The lines are actually very thin squares
 
     for(int y = 0; y < windowHeightPx; y+= gridSpacingPx)
     {

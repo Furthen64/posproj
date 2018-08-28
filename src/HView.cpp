@@ -52,8 +52,9 @@ void HView::setTopLeft(void *ptr)
 
 void HView::drawAll(sf::RenderTarget &rt)
 {
+    // Draw a Green rectangle to show the View size (which always is the size of the Window)
 
-    sf::RectangleShape rect(sf::Vector2f(sfView->getSize().x-6,sfView->getSize().y-6));
+    sf::RectangleShape rect(sf::Vector2f(sfView->getSize().x-6,sfView->getSize().y-8));
     rect.setPosition(3,3);  // Window position
     rect.setOutlineThickness(1.0f);
 

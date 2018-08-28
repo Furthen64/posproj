@@ -61,6 +61,8 @@
 		<Unit filename="include/IsoPos.hpp" />
 		<Unit filename="include/OrMatrix.hpp" />
 		<Unit filename="include/OrPos.hpp" />
+		<Unit filename="include/RenderTree.hpp" />
+		<Unit filename="include/TextFactory.hpp" />
 		<Unit filename="include/Utilities/Utils.hpp" />
 		<Unit filename="src/Canvas.cpp" />
 		<Unit filename="src/Core.cpp" />
@@ -70,8 +72,10 @@
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/OrMatrix.cpp" />
 		<Unit filename="src/OrPos.cpp" />
+		<Unit filename="src/RenderTree.cpp" />
 		<Unit filename="src/Singletons/WindowSingleton.cpp" />
 		<Unit filename="src/Singletons/WindowSingleton.hpp" />
+		<Unit filename="src/TextFactory.cpp" />
 		<Unit filename="src/Utilities/Utils.cpp" />
 		<Extensions>
 			<code_completion />

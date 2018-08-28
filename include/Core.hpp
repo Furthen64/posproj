@@ -6,6 +6,7 @@
 #include <string>
 
 #include "../src/Singletons/WindowSingleton.hpp"        // <== SView
+#include "../src/Singletons/ResourceHolder.hpp"
 
 #include "Canvas.hpp"
 
@@ -70,7 +71,7 @@ public:
 
     // Specific
 
-    void allocateSingletons();
+    bool allocateSingletons();
 
 
 private:

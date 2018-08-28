@@ -43,10 +43,10 @@ void OrMatrix::drawAll(sf::RenderTarget& rt)
                             topLeftPos.y + ( y * ORMATRIX_TILE_HEIGHT_PX ) ));   // Figure out where to place them
 
             if(everyOtherChangeColor) {
-                rect.setFillColor(sf::Color(209,175,21,255));   // Lovely orange
+                rect.setFillColor(sf::Color(209,175,21,125));   // Lovely orange
                 everyOtherChangeColor = !everyOtherChangeColor;
             } else {
-                rect.setFillColor(sf::Color(203,77,43,255));   // Reddish
+                rect.setFillColor(sf::Color(203,77,43,125));   // Reddish
                 everyOtherChangeColor = !everyOtherChangeColor;
             }
             rt.draw(rect);
