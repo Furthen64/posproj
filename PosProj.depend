@@ -482,12 +482,11 @@
 
 1535203160 source:c:\github\posproj\src\input.cpp
 
-1535536355 c:\github\posproj\include\canvas.hpp
+1535548843 c:\github\posproj\include\canvas.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
 	"HView.hpp"
-	"Constants.hpp"
 
 1535359921 c:\github\posproj\include\ormatrix.hpp
 	<SFML/Graphics.hpp>
@@ -506,12 +505,13 @@
 	"OrMatrix.hpp"
 	"Utilities/Utils.hpp"
 
-1535394977 c:\github\posproj\include\hview.hpp
+1535548995 c:\github\posproj\include\hview.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
+	"CanvasPos.hpp"
 
-1535444893 source:c:\github\posproj\src\hview.cpp
+1535547539 source:c:\github\posproj\src\hview.cpp
 	"HView.hpp"
 	<math.h>
 	"Singletons/WindowSingleton.hpp"
@@ -538,10 +538,11 @@
 1535531543 c:\github\posproj\include\textfactory.hpp
 	"../src/Singletons/ResourceHolder.hpp"
 
-1535537682 source:c:\github\posproj\src\canvaspos.cpp
+1535538293 source:c:\github\posproj\src\canvaspos.cpp
 	"CanvasPos.hpp"
+	<assert.h>
 
-1535538130 c:\github\posproj\include\canvaspos.hpp
+1535538306 c:\github\posproj\include\canvaspos.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>

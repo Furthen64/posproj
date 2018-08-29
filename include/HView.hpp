@@ -1,11 +1,11 @@
 #ifndef HVIEW_H
 #define HVIEW_H
 
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
 
+#include "CanvasPos.hpp"
 
 class HView
 {
@@ -15,17 +15,18 @@ public:
 
     void resizeViewToWindow();
 
-    void *getTopLeft();
+    CanvasPos *getTopLeft();
 
-    void setTopLeft(void *ptr);
+    void setTopLeft(CanvasPos *ptr);
 
     void drawAll(sf::RenderTarget &rt);
 
 private:
     std::string cn = "HView.cpp";
 
-    sf::View *sfView;
-    void *topLeft;
+    sf::View *sfView = nullptr;
+
+    CanvasPos *topLeft = nullptr;
 
 
 };
