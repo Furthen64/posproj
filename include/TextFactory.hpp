@@ -24,11 +24,16 @@ public:
     static sf::Text *getText(std::string inputStr, int fontSizePx, sf::Color color)
     {
 
+
+
+
+
         ResourceHolder *res;
         res = res->getInstance();
 
         // What!!??! DPONT DETGE DISTRACTED??? I GET DISTRACTED ALL TEH TIME
-        sf::Text *sftext = new sf::Text(inputStr, *(res->arialFont) , fontSizePx);
+
+        sf::Text *sftext = new sf::Text(inputStr, *(res->fixedsysFont) , fontSizePx);   // Hardcoded what font to use and size
 
         // set the color
         sftext->setFillColor(color);

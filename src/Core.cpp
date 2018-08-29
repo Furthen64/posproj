@@ -59,6 +59,24 @@ void Core::resizeWindow()
 // (---)
 RunResult *Core::run()
 {
+
+
+    /// Unit Testing
+    {
+        int res = true;
+        CanvasPos  *cpos = new CanvasPos(0,0);
+        res = cpos->testCanvasPos();
+
+        if(!res) {
+            // You don goof now
+            std::cout << "ERROR " << cn <<  "testCanvasPos failed unit testing of canvas positions. Very serious issue!\n";
+            return new RunResult(-1);
+        }
+
+    }
+
+
+
     RunResult *rres = new RunResult();
 
     sf::Event event;
@@ -151,37 +169,36 @@ RunResult *Core::run()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed && isRunning)
         {
-
-
+            // Mouse click logic
             lmbPressed = true;
+            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );     // Get sfml mouse position
 
-            // Get sfml mouse position
-            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
 
-            std::string strMousePos = "sfml position(";
-            strMousePos += std::to_string( mousePos_i.y );
-            strMousePos += ", ";
-            strMousePos += std::to_string( mousePos_i.x );
-            strMousePos += ")";
+            // Display positions
+            {
+                std::string strMousePos = "window position(";
+                strMousePos += std::to_string( mousePos_i.y );
+                strMousePos += ", ";
+                strMousePos += std::to_string( mousePos_i.x );
+                strMousePos += ")";
 
-            // Delete all other old text objects that we've created
-            rendertree->clearMiscTexts();
+                // Delete all other old text objects that we've created
+                rendertree->clearMiscTexts();
 
-            // Create text object from factory to display position
-            sf::Text *textPtr = TextFactory::getText(strMousePos,12,sf::Color(255,255,255,255));
-            textPtr->setPosition(sf::Vector2f(mousePos_i.x, mousePos_i.y));
+                // Create text object from factory to display position
+                sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(255,25,25,255));
 
-            if(textPtr == nullptr) {
-                std::cout << "ERROR textptr is null\n";
+                // Find out if we're outside the view scope
+
+                textPtr->setPosition(sf::Vector2f(mousePos_i.x+ 15, mousePos_i.y-10));
+
+                // Add it to the render tree
+                rendertree->addMiscText(textPtr);
+
+
             }
 
 
-            // Add it to the render tree
-            rendertree->addMiscText(textPtr);
-
-
-
-            // convert it to our type of position
 
         }
 

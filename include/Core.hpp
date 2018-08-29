@@ -9,6 +9,7 @@
 #include "../src/Singletons/ResourceHolder.hpp"
 
 #include "Canvas.hpp"
+#include "CanvasPos.hpp"
 
 
 
@@ -24,6 +25,10 @@ class RunResult
 {
 public:
     RunResult() {}
+    RunResult(int _intReturn)
+    {
+        intReturn = _intReturn;
+    }
 
     void dump()
     {

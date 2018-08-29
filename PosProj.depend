@@ -4,7 +4,7 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535452299 source:c:\github\posproj\src\core.cpp
+1535537707 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
@@ -17,12 +17,13 @@
 	"Core.hpp"
 	<iostream>
 
-1535451057 c:\github\posproj\include\core.hpp
+1535537697 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
 	"../src/Singletons/WindowSingleton.hpp"
 	"../src/Singletons/ResourceHolder.hpp"
 	"Canvas.hpp"
+	"CanvasPos.hpp"
 
 1535312536 source:c:\github\posproj\src\utilities\utils.cpp
 	"Utilities/Utils.hpp"
@@ -453,7 +454,7 @@
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535452123 source:c:\github\posproj\src\canvas.cpp
+1535534123 source:c:\github\posproj\src\canvas.cpp
 	"Canvas.hpp"
 	"Singletons/WindowSingleton.hpp"
 
@@ -481,7 +482,7 @@
 
 1535203160 source:c:\github\posproj\src\input.cpp
 
-1535394607 c:\github\posproj\include\canvas.hpp
+1535536355 c:\github\posproj\include\canvas.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -501,7 +502,7 @@
 	<unistd.h>
 	<direct.h>
 
-1535359157 source:c:\github\posproj\src\ormatrix.cpp
+1535452379 source:c:\github\posproj\src\ormatrix.cpp
 	"OrMatrix.hpp"
 	"Utilities/Utils.hpp"
 
@@ -525,15 +526,23 @@
 
 1535445643 source:c:\github\posproj\src\textfactory.cpp
 
-1535451029 c:\github\posproj\src\singletons\resourceholder.hpp
+1535531355 c:\github\posproj\src\singletons\resourceholder.hpp
 	<string>
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535451375 source:c:\github\posproj\src\singletons\resourceholder.cpp
+1535531424 source:c:\github\posproj\src\singletons\resourceholder.cpp
 	"ResourceHolder.hpp"
 
-1535450939 c:\github\posproj\include\textfactory.hpp
+1535531543 c:\github\posproj\include\textfactory.hpp
 	"../src/Singletons/ResourceHolder.hpp"
+
+1535537682 source:c:\github\posproj\src\canvaspos.cpp
+	"CanvasPos.hpp"
+
+1535538130 c:\github\posproj\include\canvaspos.hpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<string>
 

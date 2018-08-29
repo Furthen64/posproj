@@ -34,6 +34,7 @@ public:
 
     // Basic members
     sf::Font *arialFont;
+    sf::Font *fixedsysFont;
 
 
 

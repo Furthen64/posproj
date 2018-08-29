@@ -37,7 +37,7 @@ void Canvas::drawAll(sf::RenderTarget& rt)
 
     // Draw Blue grid lines of the Canvas
 
-    int gridSpacingPx = 64;
+    int gridSpacingPx = ORMATRIX_TILE_HEIGHT_PX ;
 
     int windowHeightPx = win->getRwPtr()->getSize().y;
     int windowWidthPx = win->getRwPtr()->getSize().x;
