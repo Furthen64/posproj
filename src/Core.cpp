@@ -239,10 +239,42 @@ RunResult *Core::run()
 
         // Right mouse button pressed - Pan the map
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+/*        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
-            rendertree->clearAll();
-            rendertree->clearMiscTexts();
+
+            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr);
+            hview->setTopLeft(mousePos_i.y, mousePos_i.x);
+
+        */
+
+            // Try this on for panning
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            {
+                sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
+
+                int clickedY = mousePos_i.y;
+                int clickedX = mousePos_i.x;
+
+                int centerY = ceil(SCREEN_HEIGHT/2);
+                int centerX = ceil(SCREEN_WIDTH/2);
+
+                // Find out how far it is to that clicked position
+                int relativeY = clickedY - centerY;
+
+                // Adjust value for pan speed / mouse sensitivity and also use magic nrs for ratio of screen
+                relativeY =  ( (float) relativeY * mouseSensitivity/80 );
+
+                // Now use that value to move our view closer to the clicked position, the farther away the clicked position compared to center point we are, the faster we pan
+                viewHPos->gpix_y_topleft -= relativeY;
+
+                // Now, do x
+                int relativeX = clickedX - centerX;
+                relativeX =  ( (float) relativeX * mouseSensitivity/120 );
+                viewHPos->gpix_x_topleft -= relativeX;
+
+
+            }
+
         }
 
 

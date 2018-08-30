@@ -12,6 +12,7 @@ OrMatrix::OrMatrix(int _rows,int _cols)
     cols = _cols;
     matrix = allocateMatrix(rows,cols);
     allocated = true;
+    cpos = new CanvasPos( ORMATRIX_TILE_HEIGHT_PX * rows + 2 , ORMATRIX_TILE_WIDTH_PX * cols + 2);
 }
 
 bool OrMatrix::isAllocated()
@@ -20,15 +21,27 @@ bool OrMatrix::isAllocated()
 }
 
 
+
+void OrMatrix::setPosition(CanvasPos *cpos)
+{
+
+}
+
 void OrMatrix::drawAll(sf::RenderTarget& rt)
 {
     if(!allocated) { return ; }
 
+    // TopLeft is the topleft of the internal cpos member
+
+    sf::Vector2f topLeftPos(cpos->y,cpos->x);
+
+
+
+
+
     // What are the tile sizes of the orMatrix?
     // Thats a good question...
     // 46 x 46 apparently
-
-    sf::Vector2f topLeftPos(0,0);
 
     bool everyOtherChangeColor = false;
 
@@ -55,6 +68,9 @@ void OrMatrix::drawAll(sf::RenderTarget& rt)
     }
 
 }
+
+
+
 
 
 

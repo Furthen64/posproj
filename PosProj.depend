@@ -4,7 +4,7 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535537707 source:c:\github\posproj\src\core.cpp
+1535621581 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
@@ -17,7 +17,7 @@
 	"Core.hpp"
 	<iostream>
 
-1535537697 c:\github\posproj\include\core.hpp
+1535551072 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
 	"../src/Singletons/WindowSingleton.hpp"
@@ -488,10 +488,11 @@
 	<string>
 	"HView.hpp"
 
-1535359921 c:\github\posproj\include\ormatrix.hpp
+1535621405 c:\github\posproj\include\ormatrix.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
+	"CanvasPos.hpp"
 	"Constants.hpp"
 
 1535312550 c:\github\posproj\include\utilities\utils.hpp
@@ -501,17 +502,17 @@
 	<unistd.h>
 	<direct.h>
 
-1535452379 source:c:\github\posproj\src\ormatrix.cpp
+1535621402 source:c:\github\posproj\src\ormatrix.cpp
 	"OrMatrix.hpp"
 	"Utilities/Utils.hpp"
 
-1535548995 c:\github\posproj\include\hview.hpp
+1535623014 c:\github\posproj\include\hview.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
 	"CanvasPos.hpp"
 
-1535547539 source:c:\github\posproj\src\hview.cpp
+1535622960 source:c:\github\posproj\src\hview.cpp
 	"HView.hpp"
 	<math.h>
 	"Singletons/WindowSingleton.hpp"

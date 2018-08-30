@@ -34,14 +34,12 @@ void HView::resizeViewToWindow()
 
     // Place the view, locked against top left corner of Canvas
     sfView->setCenter( (float)round(rwPtr->getSize().x/2),
-                     (float)round(rwPtr->getSize().y/2) );
+                       (float)round(rwPtr->getSize().y/2) );
 
 
 
     /// Wishlist: deal with the sfView moving around :>
     /// /!\ Dont forget to update topLeft
-
-
 
 
     // Assign this view to the current window to make the update
@@ -58,6 +56,26 @@ CanvasPos *HView::getTopLeft()
 void HView::setTopLeft(CanvasPos *ptr)
 {
     topLeft = ptr;
+
+    WindowSingleton *win; win = win->getInstance();
+    sf::RenderWindow *rwPtr = win->getRwPtr();
+
+
+    // Update Window's view to make the update
+    updateWindowView();
+
+    rwPtr->setView(*sfView);    // Dereference our sfView because setView takes a parameter &sf::View object)
+
+}
+
+
+void HView::updateWindowView()
+{
+    WindowSingleton *win; win = win->getInstance();
+    sf::RenderWindow *rwPtr = win->getRwPtr();
+
+
+    rwPtr->setView(*sfView);
 }
 
 void HView::drawAll(sf::RenderTarget &rt)
@@ -74,3 +92,19 @@ void HView::drawAll(sf::RenderTarget &rt)
     rt.draw(rect);
 }
 
+
+
+void HView::setTopLeft(int y, int x)
+{
+    topLeft = new CanvasPos(y,x);
+
+    WindowSingleton *win; win = win->getInstance();
+    sf::RenderWindow *rwPtr = win->getRwPtr();
+
+    // From the TopLeft we have to figure out the center position based on the window size at the moment
+    sfView->setCenter( x + (float)round(rwPtr->getSize().x/2),
+                       y + (float)round(rwPtr->getSize().y/2) );
+
+
+    updateWindowView(); // Make the update happen in the window
+}

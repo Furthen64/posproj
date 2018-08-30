@@ -14,11 +14,10 @@ public:
     HView(sf::Vector2f _a, sf::Vector2f _b);
 
     void resizeViewToWindow();
-
     CanvasPos *getTopLeft();
-
-    void setTopLeft(CanvasPos *ptr);
-
+    void updateWindowView();
+    void setTopLeft(CanvasPos *ptr);    // Updates the Window view with this new position
+    void setTopLeft(int y, int x);      // Updates the Window view with this new position
     void drawAll(sf::RenderTarget &rt);
 
 private:
@@ -26,9 +25,7 @@ private:
 
     sf::View *sfView = nullptr;
 
-    CanvasPos *topLeft = nullptr;
-
-
+    CanvasPos *topLeft = nullptr;           // This is the reason why I created this class. Whenever you change this topleft, the sfml view is updated.
 };
 
 

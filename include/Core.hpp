@@ -55,12 +55,31 @@ private:
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Hey there new developer!
+//
+// Core allocates all the singletons and managers, and also contains the main loop.
+// The order is basically
+//      Allocate all things
+//      Setup
+//      Enter a LifeCycle
+//              Run()
+//              Something happens... User loads new map
+//      Enter a new Lifecycle
+//              Run()
+//              user restarts map
+//              Run()
+
 
 class Core
 {
 public:
 
     Core();
+
+    bool allocateSingletons();
+
+    int setup();
 
     RunResult *lifecycle();
 
@@ -71,12 +90,6 @@ public:
     void resizeWindow();
 
 
-    int setup();
-
-
-    // Specific
-
-    bool allocateSingletons();
 
 
 private:
