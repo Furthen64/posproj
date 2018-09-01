@@ -5,9 +5,11 @@
 #include <iostream>
 #include <string>
 
+#include "../src/Singletons/HConfig.hpp"
 #include "../src/Singletons/WindowSingleton.hpp"        // <== SView
 #include "../src/Singletons/ResourceHolder.hpp"
 
+#include "Utilities/Utils.hpp"
 #include "Canvas.hpp"
 #include "CanvasPos.hpp"
 
@@ -60,6 +62,8 @@ private:
 //
 // Core allocates all the singletons and managers, and also contains the main loop.
 // The order is basically
+//
+//  Main runs a Core
 //      Allocate all things
 //      Setup
 //      Enter a LifeCycle
@@ -79,7 +83,7 @@ public:
 
     bool allocateSingletons();
 
-    int setup();
+    bool setup();
 
     RunResult *lifecycle();
 
@@ -101,6 +105,8 @@ private:
     Canvas *canvas = nullptr;             // See Core()
     HView *hview = nullptr;               // See Core()
 
+
+    int mouseSensitivity = 0;
 
     bool isRunning = true;              // Used for Pause and Resume
 

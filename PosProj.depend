@@ -4,28 +4,31 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535621581 source:c:\github\posproj\src\core.cpp
+1535801417 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
+	"Singletons/Logger.hpp"
 	"RenderTree.hpp"
 	"OrMatrix.hpp"
 	"TextFactory.hpp"
 
-1535448991 source:c:\github\posproj\src\main.cpp
+1535795508 source:c:\github\posproj\src\main.cpp
 	<SFML/Graphics.hpp>
 	"Core.hpp"
 	<iostream>
 
-1535551072 c:\github\posproj\include\core.hpp
+1535801197 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
+	"../src/Singletons/HConfig.hpp"
 	"../src/Singletons/WindowSingleton.hpp"
 	"../src/Singletons/ResourceHolder.hpp"
+	"Utilities/Utils.hpp"
 	"Canvas.hpp"
 	"CanvasPos.hpp"
 
-1535312536 source:c:\github\posproj\src\utilities\utils.cpp
+1535794760 source:c:\github\posproj\src\utilities\utils.cpp
 	"Utilities/Utils.hpp"
 
 1525593210 c:\fat64\libs\sfml_2.5.0_fat64\include\sfml\graphics.hpp
@@ -437,8 +440,9 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1535444926 source:c:\github\posproj\src\singletons\windowsingleton.cpp
+1535801338 source:c:\github\posproj\src\singletons\windowsingleton.cpp
 	"WindowSingleton.hpp"
+	"HConfig.hpp"
 
 1535109880 c:\github\posproj\include\singletons\windowsingleton.hpp
 	<string>
@@ -448,7 +452,7 @@
 
 1535394172 c:\github\posproj\include\constants.hpp
 
-1535411936 c:\github\posproj\src\singletons\windowsingleton.hpp
+1535801226 c:\github\posproj\src\singletons\windowsingleton.hpp
 	<string>
 	<iostream>
 	<SFML/Graphics.hpp>
@@ -495,10 +499,11 @@
 	"CanvasPos.hpp"
 	"Constants.hpp"
 
-1535312550 c:\github\posproj\include\utilities\utils.hpp
+1535794709 c:\github\posproj\include\utilities\utils.hpp
 	<iostream>
 	<time.h>
 	<random>
+	"../../src/Singletons/Logger.hpp"
 	<unistd.h>
 	<direct.h>
 
@@ -506,13 +511,13 @@
 	"OrMatrix.hpp"
 	"Utilities/Utils.hpp"
 
-1535623014 c:\github\posproj\include\hview.hpp
+1535800690 c:\github\posproj\include\hview.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
 	"CanvasPos.hpp"
 
-1535622960 source:c:\github\posproj\src\hview.cpp
+1535800872 source:c:\github\posproj\src\hview.cpp
 	"HView.hpp"
 	<math.h>
 	"Singletons/WindowSingleton.hpp"
@@ -539,12 +544,29 @@
 1535531543 c:\github\posproj\include\textfactory.hpp
 	"../src/Singletons/ResourceHolder.hpp"
 
-1535538293 source:c:\github\posproj\src\canvaspos.cpp
+1535795832 source:c:\github\posproj\src\canvaspos.cpp
 	"CanvasPos.hpp"
 	<assert.h>
 
-1535538306 c:\github\posproj\include\canvaspos.hpp
+1535795842 c:\github\posproj\include\canvaspos.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
+	<string>
+
+1535801164 source:c:\github\posproj\src\singletons\hconfig.cpp
+	"HConfig.hpp"
+
+1535745802 c:\github\posproj\src\singletons\hconfig.hpp
+	<string>
+	<iostream>
+	<SFML/Graphics.hpp>
+	"Constants.hpp"
+
+1535795574 source:c:\github\posproj\src\singletons\logger.cpp
+	"Logger.hpp"
+
+1535795726 c:\github\posproj\src\singletons\logger.hpp
+	<iostream>
+	<fstream>
 	<string>
 

@@ -47,26 +47,17 @@ void HView::resizeViewToWindow()
 
 }
 
-CanvasPos *HView::getTopLeft()
+int HView::getTopLeft_y()
 {
-    return topLeft;
+    return topLeft->y;
 }
 
 
-void HView::setTopLeft(CanvasPos *ptr)
+int HView::getTopLeft_x()
 {
-    topLeft = ptr;
-
-    WindowSingleton *win; win = win->getInstance();
-    sf::RenderWindow *rwPtr = win->getRwPtr();
-
-
-    // Update Window's view to make the update
-    updateWindowView();
-
-    rwPtr->setView(*sfView);    // Dereference our sfView because setView takes a parameter &sf::View object)
-
+    return topLeft->x;
 }
+
 
 
 void HView::updateWindowView()
@@ -93,7 +84,26 @@ void HView::drawAll(sf::RenderTarget &rt)
 }
 
 
+// Needs boundaries (no moving to the left or top of canvaspos(0,0)
+// (--)
+void HView::setTopLeft(CanvasPos *ptr)
+{
+    topLeft = ptr;
 
+    WindowSingleton *win; win = win->getInstance();
+    sf::RenderWindow *rwPtr = win->getRwPtr();
+
+
+    // Update Window's view to make the update
+    updateWindowView();
+
+    rwPtr->setView(*sfView);    // Dereference our sfView because setView takes a parameter &sf::View object)
+
+}
+
+
+// Needs boundaries (no moving to the left or top of canvaspos(0,0)
+// (--)
 void HView::setTopLeft(int y, int x)
 {
     topLeft = new CanvasPos(y,x);

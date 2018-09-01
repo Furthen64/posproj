@@ -25,7 +25,7 @@ public:
     bool isEqual(CanvasPos *other);
 
     // Unit tests
-    bool testCanvasPos(int debugLevel = 0);
+    void testCanvasPos(int debugLevel = 0);
 
     int y;
     int x;

@@ -153,3 +153,13 @@ int **copySubMatrix(int **srcMtx, int srcRows, int srcCols, int startY, int star
     return destMtx;
 
 }
+
+
+void logErr (std::string str)
+{
+    // Open up the Logger singleton and write to file
+    Logger *logger;
+    logger = logger->getInstance();
+
+    logger->logError(str);
+}

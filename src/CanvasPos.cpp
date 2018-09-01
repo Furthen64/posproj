@@ -71,10 +71,8 @@ bool CanvasPos::isEqual(CanvasPos *other)
 
 
 
-bool CanvasPos::testCanvasPos(int debugLevel)
+void CanvasPos::testCanvasPos(int debugLevel)
 {
-
-    int intRet;
     std::cout << "testCanvasPos()------------------------------------\n";
 
     CanvasPos *a = new CanvasPos();
@@ -93,8 +91,6 @@ bool CanvasPos::testCanvasPos(int debugLevel)
 
     assert(!c->isEqual(c2));
     assert(!d->isEqual(d2));
-
-    return intRet;
 }
 
 

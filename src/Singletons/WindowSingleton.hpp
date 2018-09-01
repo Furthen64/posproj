@@ -56,6 +56,9 @@ private:
         std::string cn = "WindowSingleton.cpp";
         sf::RenderWindow *rwPtr = nullptr;               // Set when allocateWindow() is run
 
+        bool fpsLockOn = true;  // Overridden by HConfig
+        int fpsLock = 30;       // Overridden by HConfig
+
 
 
 };

@@ -10,15 +10,17 @@
 class HView
 {
 public:
-    HView();
-    HView(sf::Vector2f _a, sf::Vector2f _b);
+HView();
+HView(sf::Vector2f _a, sf::Vector2f _b);
 
-    void resizeViewToWindow();
-    CanvasPos *getTopLeft();
-    void updateWindowView();
-    void setTopLeft(CanvasPos *ptr);    // Updates the Window view with this new position
-    void setTopLeft(int y, int x);      // Updates the Window view with this new position
-    void drawAll(sf::RenderTarget &rt);
+int getTopLeft_y();
+int getTopLeft_x();
+
+void resizeViewToWindow();
+void updateWindowView();
+void setTopLeft(CanvasPos *ptr);    // Updates the Window view with this new position
+void setTopLeft(int y, int x);      // Updates the Window view with this new position
+void drawAll(sf::RenderTarget &rt);
 
 private:
     std::string cn = "HView.cpp";

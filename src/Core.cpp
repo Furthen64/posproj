@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include <math.h>
 
+
+#include "Singletons/Logger.hpp"
 #include "RenderTree.hpp"
 #include "OrMatrix.hpp"
 #include "TextFactory.hpp"
@@ -14,10 +16,20 @@ Core::Core()
 {
     // This is done once per application session
     if(!allocateSingletons()) {
-         throw std::runtime_error( "missing files - aborting with exception" );
+         throw std::runtime_error( "ERROR: missing files - aborting with exception" );
     }
 
+
+    // This is done once per application session, too!
+    if(!setup()) {
+        throw std::runtime_error("ERROR: core had issues running setup() - aborting with exception");
+    }
+
+    // Allocate all Core members
     canvas = new Canvas();
+
+
+    // Store handy pointers in Core
     hview = canvas->getHView();
 }
 
@@ -36,6 +48,37 @@ RunResult *Core::lifecycle()
 }
 
 
+
+
+/// \brief Loads up the Settings from the "defaults.ini" file. All settings can be reached from the singletong HConfig.
+// (--)
+bool Core::setup()
+{
+    std::cout << "core::setup()------------------------------------\n";
+    // Read all the settings
+    HConfig *cfg;
+    cfg = cfg->getInstance();
+
+
+    cfg->loadSettingsFromDefaultsIni();
+
+    // Make some handy copies
+    std::string settingStr = cfg->getSetting("mouseSensitivity");
+
+    if(settingStr != "") {
+        try{
+            mouseSensitivity = std::stoi(settingStr);
+        } catch( std::invalid_argument &e) {
+            logErr(cn + " Could not convert string to int: \"" + settingStr + "\"\n");
+        }
+    }
+    std::cout << " - setup done\n";
+
+
+    return true;
+}
+
+
 void Core::resume() { isRunning = true; }
 void Core::pause()  { isRunning = false; }
 void Core::resizeWindow()
@@ -47,7 +90,6 @@ void Core::resizeWindow()
 
 
     hview->resizeViewToWindow();
-
 
 
 }
@@ -63,20 +105,12 @@ RunResult *Core::run()
 
     /// Unit Testing
     {
-        int res = true;
         CanvasPos  *cpos = new CanvasPos(0,0);
-        res = cpos->testCanvasPos();
-
-        if(!res) {
-            // You don goof now
-            std::cout << "ERROR " << cn <<  "testCanvasPos failed unit testing of canvas positions. Very serious issue!\n";
-            return new RunResult(-1);
-        }
-
+        cpos->testCanvasPos();
     }
 
 
-
+    /// Create and setup objects needed in this scope for the game loop
     RunResult *rres = new RunResult();
 
     sf::Event event;
@@ -162,11 +196,7 @@ RunResult *Core::run()
         }
 
 
-
-
-
-        // Left mouse button pressed,
-
+        // Left mouse button pressed
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed && isRunning)
         {
             // Mouse click logic
@@ -203,8 +233,8 @@ RunResult *Core::run()
             {
 
 
-                int canvasYPos = mousePos_i.y + hview->getTopLeft()->y;
-                int canvasXPos = mousePos_i.x + hview->getTopLeft()->x;
+                int canvasYPos = mousePos_i.y + hview->getTopLeft_y();
+                int canvasXPos = mousePos_i.x + hview->getTopLeft_x();
 
                 std::string strMousePos = "canvas position(";
                 strMousePos += std::to_string( canvasYPos  );
@@ -238,45 +268,40 @@ RunResult *Core::run()
         ///
 
         // Right mouse button pressed - Pan the map
-
-/*        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
 
-            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr);
-            hview->setTopLeft(mousePos_i.y, mousePos_i.x);
+            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
 
-        */
+            int clickedY = mousePos_i.y;
+            int clickedX = mousePos_i.x;
 
-            // Try this on for panning
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-            {
-                sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
+            int centerY = ceil(rwPtr->getSize().y/2);       // SCREEN HEIGHT / 2
+            int centerX = ceil(rwPtr->getSize().x/2);       // SCREEN WIDTH / 2
 
-                int clickedY = mousePos_i.y;
-                int clickedX = mousePos_i.x;
+            // Find out how far it is to that clicked position
+            int relativeY = clickedY - centerY;
 
-                int centerY = ceil(SCREEN_HEIGHT/2);
-                int centerX = ceil(SCREEN_WIDTH/2);
-
-                // Find out how far it is to that clicked position
-                int relativeY = clickedY - centerY;
-
-                // Adjust value for pan speed / mouse sensitivity and also use magic nrs for ratio of screen
-                relativeY =  ( (float) relativeY * mouseSensitivity/80 );
-
-                // Now use that value to move our view closer to the clicked position, the farther away the clicked position compared to center point we are, the faster we pan
-                viewHPos->gpix_y_topleft -= relativeY;
-
-                // Now, do x
-                int relativeX = clickedX - centerX;
-                relativeX =  ( (float) relativeX * mouseSensitivity/120 );
-                viewHPos->gpix_x_topleft -= relativeX;
+            // Adjust value for pan speed / mouse sensitivity and also use magic nrs for ratio of screen
+            relativeY =  ( (float) relativeY * mouseSensitivity/80 );
 
 
-            }
+
+            // Now, do x too
+            int relativeX = clickedX - centerX;
+            relativeX =  ( (float) relativeX * mouseSensitivity/120 );
+
+
+
+
+            // Update the view against this relative motion
+            hview->setTopLeft( hview->getTopLeft_y() + relativeY,
+                               hview->getTopLeft_x() + relativeX);
+
+
+
 
         }
-
 
 
 
@@ -346,12 +371,12 @@ bool Core::allocateSingletons()
         return false;
     }
 
+    /// Logger
+    Logger *logger;
+    logger = logger->getInstance();
+    logger->bootLogger();
 
-    /// TextureSingleton
 
-
-
-    /// ConfigSingleton
     return true;
 
 }

@@ -75,6 +75,10 @@
 		<Unit filename="src/OrMatrix.cpp" />
 		<Unit filename="src/OrPos.cpp" />
 		<Unit filename="src/RenderTree.cpp" />
+		<Unit filename="src/Singletons/HConfig.cpp" />
+		<Unit filename="src/Singletons/HConfig.hpp" />
+		<Unit filename="src/Singletons/Logger.cpp" />
+		<Unit filename="src/Singletons/Logger.hpp" />
 		<Unit filename="src/Singletons/ResourceHolder.cpp" />
 		<Unit filename="src/Singletons/ResourceHolder.hpp" />
 		<Unit filename="src/Singletons/WindowSingleton.cpp" />
