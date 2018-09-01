@@ -1,8 +1,6 @@
 #include "Canvas.hpp"
 
-
 #include "Singletons/WindowSingleton.hpp"
-
 
 Canvas::Canvas()
 {
@@ -21,8 +19,8 @@ HView *Canvas::getHView()
 
 
 
-// The canvas is where we draw the gameboard on
-// The canvas has a grid that you can enable to make it easier for development
+// The canvas is where we draw the gameboard on.
+// It has a grid that you can enable to make it easier for development
 // (--)
 void Canvas::drawAll(sf::RenderTarget& rt)
 {
@@ -62,10 +60,5 @@ void Canvas::drawAll(sf::RenderTarget& rt)
         rt.draw(line);
 
     }
-
-
-
-
-
 
 }

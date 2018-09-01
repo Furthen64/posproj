@@ -9,6 +9,7 @@
 
 #include "Singletons/Logger.hpp"
 #include "RenderTree.hpp"
+#include "IsoMatrix.hpp"
 #include "OrMatrix.hpp"
 #include "TextFactory.hpp"
 
@@ -122,9 +123,12 @@ RunResult *Core::run()
 
     win = win->getInstance();
 
-    OrMatrix *orMat1 = new OrMatrix(10,4);
+    OrMatrix *orMat1 = new OrMatrix(10,10);
+    IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
 
     RenderTree *rendertree = new RenderTree();
+
+
 
     std::cout << ind1 << "run() started ***** \n";
     std::cout << ind1 << "{\n";
@@ -211,6 +215,11 @@ RunResult *Core::run()
             // Delete all other old text objects that we've created
             rendertree->clearMiscTexts();
 
+
+
+
+            // Wishlist: make this easier on the developer:
+
 // Display Window Position
 {
     std::string strMousePos = "window click (";
@@ -263,6 +272,35 @@ RunResult *Core::run()
 
 
 
+// Canvas Position  (where in the gamelogic did you click?)
+{
+
+
+    int canvasYPos = mousePos_i.y + hview->getTopLeft_y();
+    int canvasXPos = mousePos_i.x + hview->getTopLeft_x();
+
+    std::string strMousePos = "CanvasPos (";
+    strMousePos += std::to_string( canvasYPos  );
+    strMousePos += ", ";
+    strMousePos += std::to_string( canvasXPos );
+    strMousePos += ")";
+
+    // Create text object from factory to display position
+    sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(66,66,255,255));
+
+    // Wishlist:  Find out if we're outside the view scope
+
+    textPtr->setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x+ 15, hview->getTopLeft_y() + mousePos_i.y+15));
+
+    // Add it to the render tree
+    rendertree->addMiscText(textPtr);
+}
+
+
+
+bool showCalculationOfCanvasPos = false;
+
+if(showCalculationOfCanvasPos) {
 // View topleft Position
 {
 
@@ -339,7 +377,7 @@ RunResult *Core::run()
     // Add it to the render tree
     rendertree->addMiscText(textPtr);
 }
-
+} // (Show calc of canvaspos = true)
 
 
 

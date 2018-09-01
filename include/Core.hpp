@@ -6,7 +6,7 @@
 #include <string>
 
 #include "../src/Singletons/HConfig.hpp"
-#include "../src/Singletons/WindowSingleton.hpp"        // <== SView
+#include "../src/Singletons/WindowSingleton.hpp"        // <== HView
 #include "../src/Singletons/ResourceHolder.hpp"
 
 #include "Utilities/Utils.hpp"

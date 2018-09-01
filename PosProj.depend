@@ -4,12 +4,13 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535832325 source:c:\github\posproj\src\core.cpp
+1535836657 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
 	"Singletons/Logger.hpp"
 	"RenderTree.hpp"
+	"IsoMatrix.hpp"
 	"OrMatrix.hpp"
 	"TextFactory.hpp"
 
@@ -18,7 +19,7 @@
 	"Core.hpp"
 	<iostream>
 
-1535801197 c:\github\posproj\include\core.hpp
+1535835969 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
 	"../src/Singletons/HConfig.hpp"
@@ -459,7 +460,7 @@
 	"Constants.hpp"
 	"HView.hpp"
 
-1535830694 source:c:\github\posproj\src\canvas.cpp
+1535835992 source:c:\github\posproj\src\canvas.cpp
 	"Canvas.hpp"
 	"Singletons/WindowSingleton.hpp"
 
@@ -493,7 +494,7 @@
 	<string>
 	"HView.hpp"
 
-1535621405 c:\github\posproj\include\ormatrix.hpp
+1535837831 c:\github\posproj\include\ormatrix.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -508,7 +509,7 @@
 	<unistd.h>
 	<direct.h>
 
-1535621402 source:c:\github\posproj\src\ormatrix.cpp
+1535836449 source:c:\github\posproj\src\ormatrix.cpp
 	"OrMatrix.hpp"
 	"Utilities/Utils.hpp"
 
@@ -570,4 +571,12 @@
 	<iostream>
 	<fstream>
 	<string>
+
+1535837081 c:\github\posproj\include\isomatrix.hpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<string>
+	"OrMatrix.hpp"
+	"CanvasPos.hpp"
+	"Constants.hpp"
 
