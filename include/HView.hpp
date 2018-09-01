@@ -9,12 +9,18 @@
 
 class HView
 {
+
+// lagt till nya funktioner
+// view rör sig inte enligt sfml:s view /eller så gör den det, men det reflekteras inte när man kör drawAll/
 public:
+
 HView();
 HView(sf::Vector2f _a, sf::Vector2f _b);
 
 int getTopLeft_y();
 int getTopLeft_x();
+
+std::string toString();
 
 void resizeViewToWindow();
 void updateWindowView();

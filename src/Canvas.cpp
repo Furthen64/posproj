@@ -32,8 +32,8 @@ void Canvas::drawAll(sf::RenderTarget& rt)
     win = win->getInstance();
 
 
-    int canvasXOffset = 4;
-    int canvasYOffset = 4;
+    int canvasXOffset = 0;      // The canvas starts at 0,0 and defines the gameboard!
+    int canvasYOffset = 0;
 
     // Draw Blue grid lines of the Canvas
 

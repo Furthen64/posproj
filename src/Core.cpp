@@ -1,3 +1,6 @@
+
+
+
 #include "Core.hpp"
 
 #include <stdexcept>
@@ -72,7 +75,7 @@ bool Core::setup()
             logErr(cn + " Could not convert string to int: \"" + settingStr + "\"\n");
         }
     }
-    std::cout << " - setup done\n";
+    std::cout << " - setup done\n\n";
 
 
     return true;
@@ -162,13 +165,13 @@ RunResult *Core::run()
             }
 
             if (event.type == sf::Event::Closed) {
-                 // usecase: User clicked on Close Window
-                    rres->retStr1 = "User clicked on Close Window.";
-                    rres->intReturn = 0;
-                    rres->quitresult =RR_QUIT;
+                // usecase: User clicked on Close Window
+                rres->retStr1 = "User clicked on Close Window.";
+                rres->intReturn = 0;
+                rres->quitresult =RR_QUIT;
 
 
-                    rwPtr->close();
+                rwPtr->close();
 
             }
 
@@ -208,50 +211,136 @@ RunResult *Core::run()
             // Delete all other old text objects that we've created
             rendertree->clearMiscTexts();
 
-            // Display Window Position
-            {
-                std::string strMousePos = "window position(";
-                strMousePos += std::to_string( mousePos_i.y );
-                strMousePos += ", ";
-                strMousePos += std::to_string( mousePos_i.x );
-                strMousePos += ")";
+// Display Window Position
+{
+    std::string strMousePos = "window click (";
+    strMousePos += std::to_string( mousePos_i.y );
+    strMousePos += ", ";
+    strMousePos += std::to_string( mousePos_i.x );
+    strMousePos += ")";
 
 
 
-                // Create text object from factory to display position
-                sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(255,25,25,255));
+    // Create text object from factory to display position
+    sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(255,25,25,255));
 
-                // Find out if we're outside the view scope
+    // Wishlist:  Find out if we're outside the view scope
 
-                textPtr->setPosition(sf::Vector2f(mousePos_i.x+ 15, mousePos_i.y-10));
-
-                // Add it to the render tree
-                rendertree->addMiscText(textPtr);
-            }
-
-            // Display Canvas Position  (where in the gamelogic did you click?)
-            {
+    // The position... iish.
+    // mousePos_i.x + 15
+    // and also offset for the view so it gets placed under the mousecursor at where the view is at ?
+    // Makes sense? No? well yea... I need to make a function or something. Or not.
+    textPtr->setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x+ 15, hview->getTopLeft_y() + mousePos_i.y-10));
 
 
-                int canvasYPos = mousePos_i.y + hview->getTopLeft_y();
-                int canvasXPos = mousePos_i.x + hview->getTopLeft_x();
+    // Add it to the render tree
+    rendertree->addMiscText(textPtr);
+}
 
-                std::string strMousePos = "canvas position(";
-                strMousePos += std::to_string( canvasYPos  );
-                strMousePos += ", ";
-                strMousePos += std::to_string( canvasXPos );
-                strMousePos += ")";
 
-                // Create text object from factory to display position
-                sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(25,25,255,255));
 
-                // Find out if we're outside the view scope
+// View click Position
+{
+    int viewYPos = mousePos_i.y;
+    int viewXPos = mousePos_i.x;
 
-                textPtr->setPosition(sf::Vector2f(mousePos_i.x+ 15, mousePos_i.y+2));
+    std::string strMousePos = "view click   (";
+    strMousePos += std::to_string( viewYPos  );
+    strMousePos += ", ";
+    strMousePos += std::to_string( viewXPos );
+    strMousePos += ")";
 
-                // Add it to the render tree
-                rendertree->addMiscText(textPtr);
-            }
+    // Create text object from factory to display position
+    sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(25,255,25,255));
+
+    // Wishlist: Find out if we're outside the view scope
+
+    textPtr->setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x+ 15, hview->getTopLeft_y() + mousePos_i.y+2));
+
+    // Add it to the render tree
+    rendertree->addMiscText(textPtr);
+}
+
+
+
+// View topleft Position
+{
+
+    int viewtopleftYPos = hview->getTopLeft_y();
+    int viewtopleftXPos = hview->getTopLeft_x();
+
+    std::string strMousePos = "  view topleft (";
+    strMousePos += std::to_string( viewtopleftYPos  );
+    strMousePos += ", ";
+    strMousePos += std::to_string( viewtopleftXPos );
+    strMousePos += ")";
+
+    // Create text object from factory to display position
+    sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(25,255,25,255));
+
+    // Wishlist: Find out if we're outside the view scope
+
+    textPtr->setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x+ 250, hview->getTopLeft_y() + mousePos_i.y+2));
+    //textPtr->setPosition(sf::Vector2f(mousePos_i.x+ 315, mousePos_i.y+2));
+
+    // Add it to the render tree
+    rendertree->addMiscText(textPtr);
+}
+
+
+
+
+
+// + window click
+{
+
+
+    int canvasYPos = mousePos_i.y + hview->getTopLeft_y();
+    int canvasXPos = mousePos_i.x + hview->getTopLeft_x();
+
+    std::string strMousePos = "+ window click (";
+    strMousePos += std::to_string( mousePos_i.y );
+    strMousePos += ", ";
+    strMousePos += std::to_string( mousePos_i.x );
+    strMousePos += ")";
+
+
+    // Create text object from factory to display position
+    sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(255,25,25,255));
+
+    // Wishlist: Find out if we're outside the view scope
+    textPtr->setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x+ 250, hview->getTopLeft_y() + mousePos_i.y+15));
+
+
+    // Add it to the render tree
+    rendertree->addMiscText(textPtr);
+}
+
+// Canvas Position  (where in the gamelogic did you click?)
+{
+
+
+    int canvasYPos = mousePos_i.y + hview->getTopLeft_y();
+    int canvasXPos = mousePos_i.x + hview->getTopLeft_x();
+
+    std::string strMousePos = "= canvas click (";
+    strMousePos += std::to_string( canvasYPos  );
+    strMousePos += ", ";
+    strMousePos += std::to_string( canvasXPos );
+    strMousePos += ")";
+
+    // Create text object from factory to display position
+    sf::Text *textPtr = TextFactory::getText(strMousePos,15,sf::Color(66,66,255,255));
+
+    // Wishlist:  Find out if we're outside the view scope
+
+    textPtr->setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x+ 250, hview->getTopLeft_y() + mousePos_i.y+30));
+
+    // Add it to the render tree
+    rendertree->addMiscText(textPtr);
+}
+
+
 
 
 
@@ -301,7 +390,39 @@ RunResult *Core::run()
 
 
 
+            // Delete debug output before adding new one
+            rendertree->clearMiscTexts();
+
+
+            // Debug output, view topleft text
+            {
+
+                // Create text object from factory to display topleft of view
+                sf::Text *textPtr = TextFactory::getText(hview->toString(),15,sf::Color(55,250,55,255));
+
+
+                // sfml's "setPosition()" operates in sfml canvas space.
+                // So we need to adjust with our view to always lock this to what is displayed on the Window.
+                // We do this by offseting with view's topleft.
+
+
+                textPtr->setPosition(hview->getTopLeft_x() + 6,
+                                     hview->getTopLeft_y() + 4);
+
+
+
+                // Add it to the render tree
+                rendertree->addMiscText(textPtr);
+            }
+
+
+
+
         }
+
+
+
+
 
 
 
@@ -311,9 +432,11 @@ RunResult *Core::run()
         rwPtr->clear();
 
         // The Three Layers?
+
         canvas->drawAll(*rwPtr);    // Blue
-        hview->drawAll(*rwPtr);     // Green
-        win->drawAll(*rwPtr);       // Red
+        // Fixme, add hview to canvas too
+        hview->drawAll(*rwPtr);            // Green
+        win->drawAll(*rwPtr, hview);       // Red
 
         // The Gameboard (orMatrix or isoMatrix, whatever is visible )
         orMat1->drawAll(*rwPtr);
@@ -329,10 +452,8 @@ RunResult *Core::run()
                 break;
             }
 
-            // Now dereference that too, and draw it
+            // Now dereference our text and draw it
             rwPtr->draw( *textPtr);
-
-
 
         }
 

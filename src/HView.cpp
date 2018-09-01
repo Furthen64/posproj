@@ -74,7 +74,21 @@ void HView::drawAll(sf::RenderTarget &rt)
     // Draw a Green rectangle to show the View size (which always is the size of the Window)
 
     sf::RectangleShape rect(sf::Vector2f(sfView->getSize().x-6,sfView->getSize().y-8));
-    rect.setPosition(3,3);  // Window positioning
+
+    // If the view has not been moved, make it in the top left corner of the window by default
+    int xDefault = 3;
+    int yDefault = 3;
+
+
+
+    // sfml's "setPosition()" operates in sfml canvas space.
+    // So we need to adjust with our view to always lock this to what is displayed on the Window.
+    // We do this by offseting with view's topleft.
+
+    rect.setPosition(topLeft->x + xDefault,
+                     topLeft->y + yDefault);
+
+
     rect.setOutlineThickness(1.0f);
 
     rect.setFillColor(sf::Color(0,0,0,0));
@@ -117,4 +131,16 @@ void HView::setTopLeft(int y, int x)
 
 
     updateWindowView(); // Make the update happen in the window
+}
+
+
+// (--)
+std::string HView::toString()
+{
+    std::string str = "view topleft canvaspos(";
+    str += std::to_string(topLeft->y);
+    str += ", ";
+    str += std::to_string(topLeft->x);
+    str += ")";
+    return str;
 }
