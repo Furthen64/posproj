@@ -5,8 +5,8 @@
 
 #define WINDOW_WIDTH_PX 1024
 #define WINDOW_HEIGHT_PX 768
-#define WINDOW_WIDTH_CENTER_PX (WINDOW_WIDTH_PX/2)
-#define WINDOW_HEIGHT_CENTER_PX (WINDOW_HEIGHT_PX/2)
+#define WINDOW_WIDTH_PX_CENTER (WINDOW_WIDTH_PX/2)
+#define WINDOW_HEIGHT_PX_CENTER (WINDOW_HEIGHT_PX/2)
 
 #define ORMATRIX_TILE_HEIGHT_PX 46      // These nrs are from doing a scale of height only 198% of the isometric grid, and then doing a 45 deg left rotation
 #define ORMATRIX_TILE_WIDTH_PX  46      // what I ended up with was a square matrix with tiles size of 46 x 46 px

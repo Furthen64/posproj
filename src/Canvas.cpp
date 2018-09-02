@@ -6,7 +6,7 @@ Canvas::Canvas()
 {
     // Set a default view at the topleft corner of the canvas
     hview = new HView(
-            sf::Vector2f( WINDOW_WIDTH_CENTER_PX, WINDOW_HEIGHT_CENTER_PX ),
+            sf::Vector2f( WINDOW_WIDTH_PX_CENTER, WINDOW_HEIGHT_PX_CENTER ),
             sf::Vector2f( WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX ) );
 
 }

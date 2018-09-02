@@ -4,10 +4,17 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535836657 source:c:\github\posproj\src\core.cpp
+1535876956 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
+	<cstdint>
+	<algorithm>
+	<iostream>
+	<iomanip>
+	<random>
+	<SFML/OpenGL.hpp>
+	"Constants.hpp"
 	"Singletons/Logger.hpp"
 	"RenderTree.hpp"
 	"IsoMatrix.hpp"
@@ -451,7 +458,7 @@
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535394172 c:\github\posproj\include\constants.hpp
+1535876926 c:\github\posproj\include\constants.hpp
 
 1535808824 c:\github\posproj\src\singletons\windowsingleton.hpp
 	<string>
@@ -460,7 +467,7 @@
 	"Constants.hpp"
 	"HView.hpp"
 
-1535835992 source:c:\github\posproj\src\canvas.cpp
+1535876940 source:c:\github\posproj\src\canvas.cpp
 	"Canvas.hpp"
 	"Singletons/WindowSingleton.hpp"
 
@@ -494,7 +501,7 @@
 	<string>
 	"HView.hpp"
 
-1535837831 c:\github\posproj\include\ormatrix.hpp
+1535837956 c:\github\posproj\include\ormatrix.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -572,11 +579,30 @@
 	<fstream>
 	<string>
 
-1535837081 c:\github\posproj\include\isomatrix.hpp
+1535837967 c:\github\posproj\include\isomatrix.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
 	"OrMatrix.hpp"
 	"CanvasPos.hpp"
 	"Constants.hpp"
+
+1535837860 source:c:\github\posproj\src\isomatrix.cpp
+	"IsoMatrix.hpp"
+	"Utilities/Utils.hpp"
+
+1525593210 c:\fat64\libs\sfml_2.5.0_fat64\include\sfml\opengl.hpp
+	<SFML/Config.hpp>
+	<windows.h>
+	<GL/gl.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<OpenGLES/ES1/gl.h>
+	<OpenGLES/ES1/glext.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GLES2/gl2platform.h>
+	<GLES2/gl2ext.h>
 

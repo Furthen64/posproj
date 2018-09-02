@@ -23,6 +23,7 @@
 					<Add library="sfml-graphics-d" />
 					<Add library="sfml-window-d" />
 					<Add library="sfml-system-d" />
+					<Add library="libopengl32" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -52,6 +53,7 @@
 		</Compiler>
 		<Linker>
 			<Add directory="$(#sfml.lib)" />
+			<Add directory="$(#mingw.lib)" />
 		</Linker>
 		<Unit filename="include/Canvas.hpp" />
 		<Unit filename="include/CanvasPos.hpp" />
@@ -59,6 +61,7 @@
 		<Unit filename="include/Core.hpp" />
 		<Unit filename="include/HView.hpp" />
 		<Unit filename="include/Input.hpp" />
+		<Unit filename="include/IsoMatrix.hpp" />
 		<Unit filename="include/IsoPos.hpp" />
 		<Unit filename="include/OrMatrix.hpp" />
 		<Unit filename="include/OrPos.hpp" />
@@ -70,6 +73,7 @@
 		<Unit filename="src/Core.cpp" />
 		<Unit filename="src/HView.cpp" />
 		<Unit filename="src/Input.cpp" />
+		<Unit filename="src/IsoMatrix.cpp" />
 		<Unit filename="src/IsoPos.cpp" />
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/OrMatrix.cpp" />

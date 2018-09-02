@@ -1,12 +1,16 @@
-
-
-
 #include "Core.hpp"
 
 #include <stdexcept>
 #include <math.h>
+#include <cstdint>
+#include <algorithm>
+#include <iostream>
+#include <iomanip>
+#include <random>
 
+#include <SFML/OpenGL.hpp>
 
+#include "Constants.hpp"
 #include "Singletons/Logger.hpp"
 #include "RenderTree.hpp"
 #include "IsoMatrix.hpp"
@@ -14,13 +18,22 @@
 #include "TextFactory.hpp"
 
 
+float glConv_x(int windowPos_x)
+{
+    return (float)windowPos_x;
+}
+
+float glConv_y(int windowPos_y)
+{
+    return (float)windowPos_y;
+}
 
 // (--)
 Core::Core()
 {
     // This is done once per application session
     if(!allocateSingletons()) {
-         throw std::runtime_error( "ERROR: missing files - aborting with exception" );
+        throw std::runtime_error("ERROR: missing files - aborting with exception" );
     }
 
 
@@ -31,7 +44,6 @@ Core::Core()
 
     // Allocate all Core members
     canvas = new Canvas();
-
 
     // Store handy pointers in Core
     hview = canvas->getHView();
@@ -124,9 +136,15 @@ RunResult *Core::run()
     win = win->getInstance();
 
     OrMatrix *orMat1 = new OrMatrix(10,10);
-    IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
+    //IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
+
+
 
     RenderTree *rendertree = new RenderTree();
+
+sf::RectangleShape horizontalLine(sf::Vector2f(1280,2));
+sf::RectangleShape clickedMarker(sf::Vector2f(4,4));
+sf::RectangleShape origoMarker(sf::Vector2f(4,4));
 
 
 
@@ -214,6 +232,29 @@ RunResult *Core::run()
 
             // Delete all other old text objects that we've created
             rendertree->clearMiscTexts();
+
+
+
+            clickedMarker.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x,
+                                                   hview->getTopLeft_y() + mousePos_i.y ));
+
+            origoMarker.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x - 200,
+                                                 hview->getTopLeft_y() + mousePos_i.y + 96));
+
+            // Make a horizontal line just below the click
+
+
+
+            horizontalLine.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x - 400,
+                                                    hview->getTopLeft_y() + mousePos_i.y + 100));
+
+
+
+
+
+
+
+
 
 
 
@@ -331,11 +372,6 @@ if(showCalculationOfCanvasPos) {
 
 // + window click
 {
-
-
-    int canvasYPos = mousePos_i.y + hview->getTopLeft_y();
-    int canvasXPos = mousePos_i.x + hview->getTopLeft_x();
-
     std::string strMousePos = "+ window click (";
     strMousePos += std::to_string( mousePos_i.y );
     strMousePos += ", ";
@@ -469,6 +505,13 @@ if(showCalculationOfCanvasPos) {
 
         rwPtr->clear();
 
+
+        rwPtr->pushGLStates();
+
+
+
+
+
         // The Three Layers?
 
         canvas->drawAll(*rwPtr);    // Blue
@@ -478,6 +521,13 @@ if(showCalculationOfCanvasPos) {
 
         // The Gameboard (orMatrix or isoMatrix, whatever is visible )
         orMat1->drawAll(*rwPtr);
+
+
+
+        // Clicked marker
+        rwPtr->draw(clickedMarker);
+
+        rwPtr->draw(origoMarker);
 
 
         // RenderTree contents
@@ -494,6 +544,51 @@ if(showCalculationOfCanvasPos) {
             rwPtr->draw( *textPtr);
 
         }
+
+        // Horizontal Line
+        rwPtr->draw(horizontalLine);
+
+
+
+
+
+
+
+        //// OpenGL Extras
+        rwPtr->popGLStates();       // from a PushGlStates further up
+
+
+
+
+
+
+
+        // Draw dotted line
+
+        glPushAttrib(GL_ENABLE_BIT);// glPushAttrib is done to return everything to normal after drawing
+        glPushMatrix();
+
+        glOrtho(hview->getTopLeft_x() , 1024 + hview->getTopLeft_x(), hview->getTopLeft_y() + 768, hview->getTopLeft_y(), 1, -1);
+
+        //glOrtho(glConv_x(hview->getTopLeft_x()), WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX, 0.0f, 0.0f, 1.0f);
+
+        glLineStipple(10, 0xAAAA);
+        glEnable(GL_LINE_STIPPLE);
+        glBegin(GL_LINES);
+
+
+            glVertex3f( (float) ( hview->getTopLeft_x() + glConv_x(2.0f)), (float) (hview->getTopLeft_y() + glConv_y(2.0f)), 0.0f) ;
+            glVertex3f( (float) ( hview->getTopLeft_x() + glConv_x(46.0f)), (float) (hview->getTopLeft_y() + glConv_y(46.0f)), 0.0f);
+            /*glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
+            glVertex3f( glConv_x(clickedMarker.getPosition().x), clickedMarker.getPosition().y, 0.0f);*/
+
+        glEnd();
+
+        glPopMatrix();
+        glPopAttrib();
+
+
+
 
         rwPtr->display();
 
