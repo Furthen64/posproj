@@ -157,9 +157,31 @@ int **copySubMatrix(int **srcMtx, int srcRows, int srcCols, int startY, int star
 
 void logErr (std::string str)
 {
+    // Check global errno too
+
+    if(errno == EDOM) {
+        std::cout << "ERROR errno is set=" << std::strerror(errno) << "\n";
+    }
+    errno = 0;
+
     // Open up the Logger singleton and write to file
     Logger *logger;
     logger = logger->getInstance();
 
     logger->logError(str);
+}
+
+
+
+float rotate_x(float previous_x, float previous_y, float angleCCW_deg)
+{
+    float retval = previous_x * cos(angleCCW_deg) - previous_y * sin(angleCCW_deg);     // See https://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/2drota.htm
+    return retval;
+}
+
+
+float rotate_y(float previous_x, float previous_y, float angleCCW_deg)
+{
+    float retval = previous_y * cos(angleCCW_deg) + previous_x* sin(angleCCW_deg);
+    return retval;
 }

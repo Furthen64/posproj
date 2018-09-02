@@ -144,8 +144,9 @@ RunResult *Core::run()
 
 sf::RectangleShape horizontalLine(sf::Vector2f(1280,2));
 sf::RectangleShape clickedMarker(sf::Vector2f(4,4));
+sf::RectangleShape rotatedMarker(sf::Vector2f(4,4));
 sf::RectangleShape origoMarker(sf::Vector2f(4,4));
-
+double beta = 1.0;   // Lets try rotate CCW 25 degrees
 
 
     std::cout << ind1 << "run() started ***** \n";
@@ -501,13 +502,41 @@ if(showCalculationOfCanvasPos) {
 
 
 
+        // Solve all sides of the triangle
+        float a=  (origoMarker.getPosition().y - clickedMarker.getPosition().y);
+        float b=   (clickedMarker.getPosition().x - origoMarker.getPosition().x);
+        float c=  abs( sqrt(a*a + b*b));
+
+        // Get the angle from horizontal line to clicked marker from origo marker
+        double alpha = asin ((double) a/c) * 180.0 / PI;
+        if (errno == EDOM) {
+            logErr("asin failed!\n");
+        }
+
+
+        // Animate the rotational degree
+        beta += 0.02;
+        //double beta = 25;   // Lets try rotate CCW 25 degrees
+
+        float previous_x = b;
+        float previous_y = a;
+
+        float rotated_x = rotate_x(previous_x, previous_y, beta);
+        float rotated_y = rotate_y(previous_x, previous_y, beta);
+
+        std::cout << "a=" << a  << " b=" << b << " c= " << c << " alpha=" << alpha << " | prev_pos = (" << previous_y << ", " << previous_x << ") | new_pos = (" << rotated_y << ", " << rotated_x << ")\n";
+
+
+        rotatedMarker.setPosition(sf::Vector2f(rotated_x, rotated_y));
+
+
+
+
         /// Render
 
         rwPtr->clear();
 
-
         rwPtr->pushGLStates();
-
 
 
 
@@ -549,16 +578,13 @@ if(showCalculationOfCanvasPos) {
         rwPtr->draw(horizontalLine);
 
 
-
+        rwPtr->draw(rotatedMarker);
 
 
 
 
         //// OpenGL Extras
         rwPtr->popGLStates();       // from a PushGlStates further up
-
-
-
 
 
 
@@ -570,22 +596,19 @@ if(showCalculationOfCanvasPos) {
 
         glOrtho(hview->getTopLeft_x() , 1024 + hview->getTopLeft_x(), hview->getTopLeft_y() + 768, hview->getTopLeft_y(), 1, -1);
 
-        //glOrtho(glConv_x(hview->getTopLeft_x()), WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX, 0.0f, 0.0f, 1.0f);
-
         glLineStipple(10, 0xAAAA);
         glEnable(GL_LINE_STIPPLE);
         glBegin(GL_LINES);
 
-
-            glVertex3f( (float) ( hview->getTopLeft_x() + glConv_x(2.0f)), (float) (hview->getTopLeft_y() + glConv_y(2.0f)), 0.0f) ;
-            glVertex3f( (float) ( hview->getTopLeft_x() + glConv_x(46.0f)), (float) (hview->getTopLeft_y() + glConv_y(46.0f)), 0.0f);
-            /*glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
-            glVertex3f( glConv_x(clickedMarker.getPosition().x), clickedMarker.getPosition().y, 0.0f);*/
+            glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
+            glVertex3f( glConv_x(clickedMarker.getPosition().x), clickedMarker.getPosition().y, 0.0f);
 
         glEnd();
 
         glPopMatrix();
         glPopAttrib();
+
+
 
 
 

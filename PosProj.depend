@@ -4,7 +4,7 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1535876956 source:c:\github\posproj\src\core.cpp
+1535923417 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
@@ -36,7 +36,7 @@
 	"Canvas.hpp"
 	"CanvasPos.hpp"
 
-1535794760 source:c:\github\posproj\src\utilities\utils.cpp
+1535923540 source:c:\github\posproj\src\utilities\utils.cpp
 	"Utilities/Utils.hpp"
 
 1525593210 c:\fat64\libs\sfml_2.5.0_fat64\include\sfml\graphics.hpp
@@ -508,10 +508,14 @@
 	"CanvasPos.hpp"
 	"Constants.hpp"
 
-1535794709 c:\github\posproj\include\utilities\utils.hpp
+1535923284 c:\github\posproj\include\utilities\utils.hpp
 	<iostream>
+	<cmath>
 	<time.h>
 	<random>
+	<cerrno>
+	<cstring>
+	<clocale>
 	"../../src/Singletons/Logger.hpp"
 	<unistd.h>
 	<direct.h>

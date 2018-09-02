@@ -2,10 +2,19 @@
 #define UTILS_H
 
 #include <iostream>
+#include <cmath>
 #include <time.h>
 #include <random>
+#include <cerrno>
+#include <cstring>
+#include <clocale>
+
+
 
 #include "../../src/Singletons/Logger.hpp"
+
+
+#define PI 3.1415926535897932
 
 
 #ifdef __linux__
@@ -26,5 +35,8 @@ int randBetween(int lowNr, int highNr);
 void waitForInput();
 std::string getFullUri(std::string relativeUri);
 void logErr (std::string str);
+
+float rotate_x(float previous_x, float previous_y, float angleCCW_deg);
+float rotate_y(float previous_x, float previous_y, float angleCCW_deg);
 
 #endif
