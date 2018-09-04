@@ -21,7 +21,7 @@ public:
     void dump(std::string ind);
     std::string dumpToString();
     CanvasPos *clone();
-
+    sf::Vector2f getSfVec();
     bool isEqual(CanvasPos *other);
 
     // Unit tests
@@ -29,6 +29,7 @@ public:
 
     int y;
     int x;
+
 
 
 private:

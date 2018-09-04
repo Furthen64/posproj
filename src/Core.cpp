@@ -1,3 +1,11 @@
+
+
+
+
+// Docs in docs\ folder, lot of images! showing you whats what!
+// Tips & Trix:         https://beta.etherpad.org/p/fat64_2
+
+
 #include "Core.hpp"
 
 #include <stdexcept>
@@ -10,23 +18,12 @@
 
 #include <SFML/OpenGL.hpp>
 
-#include "Constants.hpp"
+
 #include "Singletons/Logger.hpp"
-#include "RenderTree.hpp"
-#include "IsoMatrix.hpp"
-#include "OrMatrix.hpp"
+
 #include "TextFactory.hpp"
 
 
-float glConv_x(int windowPos_x)
-{
-    return (float)windowPos_x;
-}
-
-float glConv_y(int windowPos_y)
-{
-    return (float)windowPos_y;
-}
 
 // (--)
 Core::Core()
@@ -111,6 +108,26 @@ void Core::resizeWindow()
 }
 
 
+// What are some more permanent markers I could use in the long run?
+// Right now I am showing marker details for rotation of an OrMatrix into an IsoMatrix, not something I'd like to see later on.
+// But, calculating new pixel positions from OrMatrix to IsoMatrix might need troubleshooting and then it'd be great if
+// if could see the details of rotation.
+// So angles and horizontal lines used to do it should be visible for the developer. (see flag showRotationMarkers in Core.hpp)
+
+void Core::populateMarkers(RenderTree *rtree)
+{
+    std::cout << "STUB populateMarkers\n";
+    //
+    //sf::RectangleShape *horizontalLine = new sf::RectangleShape(sf::Vector2f(1280,2));
+    //sf::RectangleShape clickedMarker(sf::Vector2f(4,4));
+    //sf::RectangleShape rotatedMarker(sf::Vector2f(4,4));
+    //sf::RectangleShape origoMarker(sf::Vector2f(4,4));
+
+
+
+}
+
+
 /// \brief Makes a new run of the editor, called from lifeCycle()
 /// \brief A window and all the singletons and managers are already allocated. run() will do the main loop of the editor,
 /// \brief taking care of events, updating logic and drawing everything.
@@ -135,24 +152,55 @@ RunResult *Core::run()
 
     win = win->getInstance();
 
+
+    int clickIndex = 0;
     OrMatrix *orMat1 = new OrMatrix(10,10);
-    //IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
+    orMat1->setPosition(new CanvasPos(-30,-30));
+
+    IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
+    isoMat1->setPosition(new CanvasPos(-30,-30));
+
+
 
 
 
     RenderTree *rendertree = new RenderTree();
 
-sf::RectangleShape horizontalLine(sf::Vector2f(1280,2));
+
+    // Populate a couple of markers
+    populateMarkers(rendertree);
+
+
+
+LineRect *lineRect = new LineRect( new CanvasPos(0,0),
+                                   new CanvasPos(46,46),
+                                   new CanvasPos(92,0),
+                                   new CanvasPos(46,-46) );
+
+HRect *lineRect_boundingBox = new HRect(lineRect);
+
+
+
+
+sf::RectangleShape horizontalLine (sf::Vector2f(1280,2));
 sf::RectangleShape clickedMarker(sf::Vector2f(4,4));
 sf::RectangleShape rotatedMarker(sf::Vector2f(4,4));
 sf::RectangleShape origoMarker(sf::Vector2f(4,4));
-double beta = 1.0;   // Lets try rotate CCW 25 degrees
+origoMarker.setPosition(sf::Vector2f(0,0));
+double beta = 45;   // Lets try rotate CCW n degrees
+
+
+
 
 
     std::cout << ind1 << "run() started ***** \n";
     std::cout << ind1 << "{\n";
 
     //
+
+
+
+    //glShadeModel(GL_FLAT);
 
 
     std::cout << "\n\n\n---------------run--------------------\n";
@@ -225,11 +273,21 @@ double beta = 1.0;   // Lets try rotate CCW 25 degrees
         // Left mouse button pressed
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed && isRunning)
         {
+
             // Mouse click logic
             lmbPressed = true;
             sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );     // Get sfml mouse position
 
 
+
+// IsoMat1
+if(clickIndex == 1) {
+    isoMat1->scale2x();
+}
+if(clickIndex == 2) {
+    isoMat1->rotate45CCW();
+}
+clickIndex++;
 
             // Delete all other old text objects that we've created
             rendertree->clearMiscTexts();
@@ -239,15 +297,17 @@ double beta = 1.0;   // Lets try rotate CCW 25 degrees
             clickedMarker.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x,
                                                    hview->getTopLeft_y() + mousePos_i.y ));
 
-            origoMarker.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x - 200,
-                                                 hview->getTopLeft_y() + mousePos_i.y + 96));
+
+
+
+            //origoMarker.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x - 200,
+            //                                   hview->getTopLeft_y() + mousePos_i.y + 96));
 
             // Make a horizontal line just below the click
 
 
 
-            horizontalLine.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x - 400,
-                                                    hview->getTopLeft_y() + mousePos_i.y + 100));
+            horizontalLine.setPosition(sf::Vector2f(0,0));
 
 
 
@@ -261,7 +321,7 @@ double beta = 1.0;   // Lets try rotate CCW 25 degrees
 
 
             // Wishlist: make this easier on the developer:
-
+{
 // Display Window Position
 {
     std::string strMousePos = "window click (";
@@ -415,7 +475,7 @@ if(showCalculationOfCanvasPos) {
     rendertree->addMiscText(textPtr);
 }
 } // (Show calc of canvaspos = true)
-
+}
 
 
 
@@ -495,39 +555,46 @@ if(showCalculationOfCanvasPos) {
 
         }
 
+// Get the angle from horizontal line to clicked marker from origo marker
+/*double alpha = asin ((double) a/c) * 180.0 / PI;
+if (errno == EDOM) {
+    logErr("asin failed!\n");
+}*/
+
+
+
+
+
+//                    c              _ .
+//                            _   -    |
+//                 _     -             |  a
+//           _-________________________|
+//                           b
+//
+//
 
 
 
 
 
 
+// Solve all sides of the triangle
+float a=  (origoMarker.getPosition().y - clickedMarker.getPosition().y);
+float b=   (clickedMarker.getPosition().x - origoMarker.getPosition().x);
+//float c=  abs( sqrt(a*a + b*b));
 
-        // Solve all sides of the triangle
-        float a=  (origoMarker.getPosition().y - clickedMarker.getPosition().y);
-        float b=   (clickedMarker.getPosition().x - origoMarker.getPosition().x);
-        float c=  abs( sqrt(a*a + b*b));
+//std::cout << "                    beta = " << beta << "\n";
 
-        // Get the angle from horizontal line to clicked marker from origo marker
-        double alpha = asin ((double) a/c) * 180.0 / PI;
-        if (errno == EDOM) {
-            logErr("asin failed!\n");
-        }
+float previous_x = b;
+float previous_y = -a;
 
+float rotated_x = rotateCCW_x(previous_x, previous_y, beta);
+float rotated_y = rotateCCW_y(previous_x, previous_y, beta);
 
-        // Animate the rotational degree
-        beta += 0.02;
-        //double beta = 25;   // Lets try rotate CCW 25 degrees
-
-        float previous_x = b;
-        float previous_y = a;
-
-        float rotated_x = rotate_x(previous_x, previous_y, beta);
-        float rotated_y = rotate_y(previous_x, previous_y, beta);
-
-        std::cout << "a=" << a  << " b=" << b << " c= " << c << " alpha=" << alpha << " | prev_pos = (" << previous_y << ", " << previous_x << ") | new_pos = (" << rotated_y << ", " << rotated_x << ")\n";
+//std::cout << "a=" << a  << " b=" << b << " c= " << c << " alpha=" << alpha << " | prev_pos = (" << previous_y << ", " << previous_x << ") | new_pos = (" << rotated_y << ", " << rotated_x << ")\n";
 
 
-        rotatedMarker.setPosition(sf::Vector2f(rotated_x, rotated_y));
+rotatedMarker.setPosition(sf::Vector2f(rotated_x, rotated_y));
 
 
 
@@ -543,20 +610,24 @@ if(showCalculationOfCanvasPos) {
 
         // The Three Layers?
 
-        canvas->drawAll(*rwPtr);    // Blue
         // Fixme, add hview to canvas too
         hview->drawAll(*rwPtr);            // Green
         win->drawAll(*rwPtr, hview);       // Red
 
         // The Gameboard (orMatrix or isoMatrix, whatever is visible )
-        orMat1->drawAll(*rwPtr);
+        //orMat1->drawAll(*rwPtr);
+        isoMat1->drawAll(*rwPtr);
 
 
 
-        // Clicked marker
+        // Misc Debug output
         rwPtr->draw(clickedMarker);
-
         rwPtr->draw(origoMarker);
+        rwPtr->draw(horizontalLine);
+        rwPtr->draw(rotatedMarker);
+
+
+
 
 
         // RenderTree contents
@@ -574,13 +645,12 @@ if(showCalculationOfCanvasPos) {
 
         }
 
-        // Horizontal Line
-        rwPtr->draw(horizontalLine);
 
+        canvas->drawAll(*rwPtr);    // Blue
 
-        rwPtr->draw(rotatedMarker);
+        lineRect->drawAll(*rwPtr);
 
-
+        lineRect_boundingBox->drawAll(*rwPtr);
 
 
         //// OpenGL Extras
@@ -589,24 +659,29 @@ if(showCalculationOfCanvasPos) {
 
 
 
-        // Draw dotted line
+// Draw dotted line
 
-        glPushAttrib(GL_ENABLE_BIT);// glPushAttrib is done to return everything to normal after drawing
-        glPushMatrix();
+glPushAttrib(GL_ENABLE_BIT);// glPushAttrib is done to return everything to normal after drawing
+glPushMatrix();
 
-        glOrtho(hview->getTopLeft_x() , 1024 + hview->getTopLeft_x(), hview->getTopLeft_y() + 768, hview->getTopLeft_y(), 1, -1);
+glOrtho(hview->getTopLeft_x() , 1024 + hview->getTopLeft_x(), hview->getTopLeft_y() + 768, hview->getTopLeft_y(), 1, -1);
 
-        glLineStipple(10, 0xAAAA);
-        glEnable(GL_LINE_STIPPLE);
-        glBegin(GL_LINES);
+glColor3f(0.0f,1.0f,1.0f);
+glLineStipple(10, 0xAAAA);
+glEnable(GL_LINE_STIPPLE);
+glBegin(GL_LINES);
+    glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
+    glVertex3f( glConv_x(clickedMarker.getPosition().x), glConv_y(clickedMarker.getPosition().y), 0.0f);
+glEnd();
 
-            glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
-            glVertex3f( glConv_x(clickedMarker.getPosition().x), clickedMarker.getPosition().y, 0.0f);
 
-        glEnd();
+glBegin(GL_LINES);
+    glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
+    glVertex3f( glConv_x(rotatedMarker.getPosition().x), glConv_y(rotatedMarker.getPosition().y), 0.0f);
+glEnd();
 
-        glPopMatrix();
-        glPopAttrib();
+glPopMatrix();
+glPopAttrib();
 
 
 

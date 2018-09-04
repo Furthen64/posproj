@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 
+#include "LineRect.hpp"
 #include "OrMatrix.hpp"
 #include "CanvasPos.hpp"
 #include "Constants.hpp"
@@ -16,13 +17,15 @@ public:
     IsoMatrix(OrMatrix *);
     void drawAll(sf::RenderTarget& rt);
     void setPosition(CanvasPos *cpos);
+void scale2x();
+void rotate45CCW();
 
 
 private:
     std::string cn = "IsoMatrix.cpp";
     CanvasPos *topleft;
     OrMatrix *orMat;    // The parent matrix object
-
+    LineRect *lrect;
 };
 
 

@@ -1,0 +1,168 @@
+#include "LineRect.hpp"
+
+#include "Utilities/Utils.hpp"
+LineRect::LineRect()
+{
+    A = new CanvasPos(0,0);
+    B = new CanvasPos(0,10);
+    C = new CanvasPos(10,10);
+    D = new CanvasPos(10,0);
+}
+
+
+LineRect::LineRect(CanvasPos *_A, CanvasPos *_B, CanvasPos *_C, CanvasPos *_D)
+{
+    if(_A == nullptr) { logWarn(cn + "LineRect() A is nullptr\n"); }
+    if(_B == nullptr) { logWarn(cn + "LineRect() B is nullptr\n"); }
+    if(_C == nullptr) { logWarn(cn + "LineRect() C is nullptr\n"); }
+    if(_D == nullptr) { logWarn(cn + "LineRect() D is nullptr\n"); }
+
+
+    A = _A;
+    B = _B;
+    C = _C;
+    D = _D;
+}
+
+
+
+void LineRect::drawAll(sf::RenderTarget &rt)
+{
+    if(A == nullptr || B== nullptr || C== nullptr || D==nullptr) {
+        return ;
+    }
+    sf::Vertex lineA[2];
+    sf::Vertex lineB[2];
+    sf::Vertex lineC[2];
+    sf::Vertex lineD[2];
+
+    // A to B
+    lineA[0].color = sf::Color(0,255,0);
+    lineA[1].color = sf::Color(0,255,0);
+    lineA[0].position = A->getSfVec();
+    lineA[1].position = B->getSfVec();
+
+    // B to C
+    lineB[0].color = sf::Color(0,0,255);
+    lineB[1].color = sf::Color(0,0,255);
+    lineB[0].position = B->getSfVec();
+    lineB[1].position = C->getSfVec();
+
+    // C to D
+    lineC[0].color = sf::Color(255,0,0);
+    lineC[1].color = sf::Color(255,0,0);
+    lineC[0].position = C->getSfVec();
+    lineC[1].position = D->getSfVec();
+
+    // D to A
+    lineD[0].color = sf::Color(12,25,125);
+    lineD[1].color = sf::Color(12,25,125);
+    lineD[0].position = D->getSfVec();
+    lineD[1].position = A->getSfVec();
+
+
+
+    rt.draw(lineA, 2, sf::Lines);
+    rt.draw(lineB, 2, sf::Lines);
+    rt.draw(lineC, 2, sf::Lines);
+    rt.draw(lineD, 2, sf::Lines);
+
+}
+
+
+/// \brief Find the most top point out of A,B,C and D
+CanvasPos *LineRect::getTop_cpos()
+{
+    CanvasPos* currTop_cpos = A;
+    int yMin = A->y;
+
+    if(yMin > B->y) { yMin = B->y; currTop_cpos = B; }
+    if(yMin > C->y) { yMin = C->y; currTop_cpos = C;}
+    if(yMin > D->y) { yMin = D->y; currTop_cpos = D;}
+
+
+    return currTop_cpos;
+}
+
+CanvasPos *LineRect::getLeft_cpos()
+{
+    CanvasPos* currLeft_cpos = A;
+    int xMin = A->x;
+
+    if(xMin > B->x) { xMin = B->x; currLeft_cpos = B; }
+    if(xMin > C->x) { xMin = C->x; currLeft_cpos = C;}
+    if(xMin > D->x) { xMin = D->x; currLeft_cpos = D;}
+
+
+    return currLeft_cpos;
+}
+
+CanvasPos *LineRect::getRight_cpos()
+{
+    CanvasPos* currRight_cpos = A;
+    int xMax = A->x;
+
+    if(xMax < B->x) { xMax = B->x; currRight_cpos = B; }
+    if(xMax < C->x) { xMax = C->x; currRight_cpos = C;}
+    if(xMax < D->x) { xMax = D->x; currRight_cpos = D;}
+
+
+    return currRight_cpos;
+}
+
+CanvasPos *LineRect::getBottom_cpos()
+{
+    CanvasPos* currBottom_cpos = A;
+    int yMax = A->y;
+
+    if(yMax < B->y) { yMax = B->y; currBottom_cpos = B; }
+    if(yMax < C->y) { yMax = C->y; currBottom_cpos = C;}
+    if(yMax < D->y) { yMax = D->y; currBottom_cpos = D;}
+
+
+    return currBottom_cpos;
+}
+
+
+
+
+
+void LineRect::moveToOrigo()
+{
+
+std::cout << "how do I move 4 things that could look anytwhere"
+<< "to anything"
+<< "bounding box first"
+        <<"whiteboard plz\n";
+}
+
+void LineRect::moveBack()
+{
+
+}
+
+
+float LineRect::getSize_y()
+{
+    return (getBottom_cpos()->y - getTop_cpos()->y);
+}
+
+float LineRect::getSize_x()
+{
+    return (getRight_cpos()->x - getLeft_cpos()->x);
+}
+
+
+void LineRect::setSize_y(float size_y)
+{
+    std::cout << "STUB setSize_y\n";
+    //bottomRight->y = topLeft->y + size_y;
+}
+void LineRect::setSize_x(float size_x)
+{
+    //bottomRight->x = topLeft->x + size_x;
+    std::cout << "STUB setSize_x\n";
+}
+
+
+

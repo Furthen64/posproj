@@ -9,9 +9,15 @@
 #include "../src/Singletons/WindowSingleton.hpp"        // <== HView
 #include "../src/Singletons/ResourceHolder.hpp"
 
+#include "Constants.hpp"
+#include "RenderTree.hpp"
 #include "Utilities/Utils.hpp"
+#include "LineRect.hpp"
 #include "Canvas.hpp"
+
 #include "CanvasPos.hpp"
+#include "IsoMatrix.hpp"
+#include "OrMatrix.hpp"
 
 
 
@@ -75,6 +81,7 @@ private:
 //              Run()
 
 
+
 class Core
 {
 public:
@@ -88,6 +95,8 @@ public:
     RunResult *lifecycle();
 
     RunResult *run();
+
+    void populateMarkers(RenderTree *);
 
     void resume();
     void pause();
@@ -109,7 +118,7 @@ private:
     int mouseSensitivity = 0;
 
     bool isRunning = true;              // Used for Pause and Resume
-
+    bool showRotationMarkers = true;    // For developing, see "populateMarkers()" in Core.cpp
     std::string cn = "Core.cpp";
     std::string ind1 = "";
     std::string ind2 = "";

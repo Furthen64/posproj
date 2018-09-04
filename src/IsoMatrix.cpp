@@ -4,6 +4,10 @@
 IsoMatrix::IsoMatrix()
 {
     std::cout << "Warning: unallocated IsoMatrix!\n";
+
+
+
+
 }
 
 IsoMatrix::IsoMatrix(OrMatrix *_orMat)
@@ -16,6 +20,14 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
     orMat = _orMat;
     topleft = new CanvasPos( (ORMATRIX_TILE_HEIGHT_PX * orMat->getRows()) + 2 ,
                              (ORMATRIX_TILE_WIDTH_PX * orMat->getCols()) + 2);
+
+
+    std::cout << "isomatrix constr STUB create linerect with correct coordinates\n";
+    lrect = new LineRect( topleft,
+                          new CanvasPos(topleft->y, topleft->x + 460),
+                          new CanvasPos(topleft->y+460, topleft->x),
+                          new CanvasPos(topleft->y+460, topleft->x+460) );
+
 }
 
 
@@ -30,16 +42,41 @@ void IsoMatrix::setPosition(CanvasPos *_topleft)
 
 }
 
+
+void IsoMatrix::scale2x()
+{
+    lrect->setSize_y( lrect->getSize_y() * 2.0f);
+}
+
+void IsoMatrix::rotate45CCW()
+{
+    //lrect.setRotation(45);
+   std::cout << "rotate45ccw - please please pleaaaaaaaaase make this on whiteboard first... you have to run those geometric maths on all 4 canvasposes\n";
+   std::cout << "maybe also call to moveToOrigo and moveBack()\n";
+
+}
+
 void IsoMatrix::drawAll(sf::RenderTarget& rt)
 {
 
+    lrect->drawAll(rt);
 
+    /*
     sf::Vector2f topLeftVec(topleft->y,topleft->x);
 
     // What are the tile sizes of the IsoMatrix?
     // Thats a good question...
     // 46 x 46 apparently
 
+sf::RectangleShape spinRect(sf::Vector2f(460,460));
+spinRect.setRotation(45);
+spinRect.setFillColor(sf::Color(125,125,100,255));
+spinRect.setOutlineColor(sf::Color(255,255,255,255));
+spinRect.setOutlineThickness(1.0f);
+
+
+rt.draw(spinRect);
+*/
 /*
     bool everyOtherChangeColor = false;
     for(int y = 0; y < rows; y++)

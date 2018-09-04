@@ -172,16 +172,53 @@ void logErr (std::string str)
 }
 
 
-
-float rotate_x(float previous_x, float previous_y, float angleCCW_deg)
+void logWarn (std::string str)
 {
-    float retval = previous_x * cos(angleCCW_deg) - previous_y * sin(angleCCW_deg);     // See https://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/2drota.htm
+
+    // Open up the Logger singleton and write to file
+    Logger *logger;
+    logger = logger->getInstance();
+
+    logger->logWarning(str);
+}
+
+// Counter-Clockwise rotation , working from an origopoint on CanvasPos(0,0)
+float rotateCCW_x(float previous_x, float previous_y, float angleCCW_deg)
+{
+    // Not tested!!!
+    float retval = previous_x * cos(-angleCCW_deg*PI/180) - previous_y * sin(-angleCCW_deg*PI/180);     // See https://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/2drota.htm
     return retval;
 }
 
 
-float rotate_y(float previous_x, float previous_y, float angleCCW_deg)
+float rotateCCW_y(float previous_x, float previous_y, float angleCCW_deg)
 {
-    float retval = previous_y * cos(angleCCW_deg) + previous_x* sin(angleCCW_deg);
+    // Not tested!!!
+    float retval = previous_y * cos(-angleCCW_deg*PI/180) + previous_x* sin(-angleCCW_deg*PI/180);
     return retval;
+}
+
+// Clockwise rotation , working from an origopoint on CanvasPos(0,0)
+float rotateCW_x(float previous_x, float previous_y, float angleCW_deg)
+{
+    float retval = previous_x * cos(angleCW_deg*PI/180) - previous_y * sin(angleCW_deg*PI/180);
+    return retval;
+}
+
+
+float rotateCW_y(float previous_x, float previous_y, float angleCW_deg)
+{
+    float retval = previous_y * cos(angleCW_deg*PI/180) + previous_x* sin(angleCW_deg*PI/180);
+    return retval;
+}
+
+
+float glConv_x(int windowPos_x)
+{
+    return (float)windowPos_x;
+}
+
+float glConv_y(int windowPos_y)
+{
+    return (float)windowPos_y;
 }

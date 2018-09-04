@@ -36,6 +36,13 @@ void CanvasPos::drawAll(sf::RenderTarget &rt)
 }
 
 
+sf::Vector2f CanvasPos::getSfVec()
+{
+
+    return sf::Vector2f(x,y);
+
+}
+
 void CanvasPos::dump(std::string ind)
 {
     std::cout << ind << "(" << y << ", " << x << ")\n";

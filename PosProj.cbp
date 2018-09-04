@@ -59,10 +59,12 @@
 		<Unit filename="include/CanvasPos.hpp" />
 		<Unit filename="include/Constants.hpp" />
 		<Unit filename="include/Core.hpp" />
+		<Unit filename="include/HRect.hpp" />
 		<Unit filename="include/HView.hpp" />
 		<Unit filename="include/Input.hpp" />
 		<Unit filename="include/IsoMatrix.hpp" />
 		<Unit filename="include/IsoPos.hpp" />
+		<Unit filename="include/LineRect.hpp" />
 		<Unit filename="include/OrMatrix.hpp" />
 		<Unit filename="include/OrPos.hpp" />
 		<Unit filename="include/RenderTree.hpp" />
@@ -71,10 +73,12 @@
 		<Unit filename="src/Canvas.cpp" />
 		<Unit filename="src/CanvasPos.cpp" />
 		<Unit filename="src/Core.cpp" />
+		<Unit filename="src/HRect.cpp" />
 		<Unit filename="src/HView.cpp" />
 		<Unit filename="src/Input.cpp" />
 		<Unit filename="src/IsoMatrix.cpp" />
 		<Unit filename="src/IsoPos.cpp" />
+		<Unit filename="src/LineRect.cpp" />
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/OrMatrix.cpp" />
 		<Unit filename="src/OrPos.cpp" />

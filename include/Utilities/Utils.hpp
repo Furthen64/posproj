@@ -35,8 +35,19 @@ int randBetween(int lowNr, int highNr);
 void waitForInput();
 std::string getFullUri(std::string relativeUri);
 void logErr (std::string str);
+void logWarn (std::string str);
 
-float rotate_x(float previous_x, float previous_y, float angleCCW_deg);
-float rotate_y(float previous_x, float previous_y, float angleCCW_deg);
+
+
+// GL Utils, rotating and scaling ormatrix to an isomatrix, and back
+// and for knowing what a clicked position in an iso tile would be in an OrMatrix
+float glConv_x(int windowPos_x);
+float glConv_y(int windowPos_y);
+
+float rotateCCW_x(float previous_x, float previous_y, float angleCCW_deg);
+float rotateCCW_y(float previous_x, float previous_y, float angleCCW_deg);
+
+float rotateCW_x(float previous_x, float previous_y, float angleCW_deg);
+float rotateCW_y(float previous_x, float previous_y, float angleCW_deg);
 
 #endif
