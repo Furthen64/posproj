@@ -4,7 +4,7 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1536143158 source:c:\github\posproj\src\core.cpp
+1536153413 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
@@ -37,7 +37,7 @@
 	"IsoMatrix.hpp"
 	"OrMatrix.hpp"
 
-1535965214 source:c:\github\posproj\src\utilities\utils.cpp
+1536152258 source:c:\github\posproj\src\utilities\utils.cpp
 	"Utilities/Utils.hpp"
 
 1525593210 c:\fat64\libs\sfml_2.5.0_fat64\include\sfml\graphics.hpp
@@ -509,7 +509,7 @@
 	"CanvasPos.hpp"
 	"Constants.hpp"
 
-1535965080 c:\github\posproj\include\utilities\utils.hpp
+1536152267 c:\github\posproj\include\utilities\utils.hpp
 	<iostream>
 	<cmath>
 	<time.h>
@@ -559,11 +559,12 @@
 1535531543 c:\github\posproj\include\textfactory.hpp
 	"../src/Singletons/ResourceHolder.hpp"
 
-1536082343 source:c:\github\posproj\src\canvaspos.cpp
+1536152460 source:c:\github\posproj\src\canvaspos.cpp
 	"CanvasPos.hpp"
+	"Utilities/Utils.hpp"
 	<assert.h>
 
-1536051164 c:\github\posproj\include\canvaspos.hpp
+1536152292 c:\github\posproj\include\canvaspos.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -585,7 +586,7 @@
 	<fstream>
 	<string>
 
-1536143207 c:\github\posproj\include\isomatrix.hpp
+1536153134 c:\github\posproj\include\isomatrix.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -594,7 +595,7 @@
 	"CanvasPos.hpp"
 	"Constants.hpp"
 
-1536143216 source:c:\github\posproj\src\isomatrix.cpp
+1536153213 source:c:\github\posproj\src\isomatrix.cpp
 	"IsoMatrix.hpp"
 	"Utilities/Utils.hpp"
 
@@ -613,13 +614,13 @@
 	<GLES2/gl2platform.h>
 	<GLES2/gl2ext.h>
 
-1536084932 c:\github\posproj\include\linerect.hpp
+1536147146 c:\github\posproj\include\linerect.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
 	"HRect.hpp"
 
-1536144522 source:c:\github\posproj\src\linerect.cpp
+1536152446 source:c:\github\posproj\src\linerect.cpp
 	"LineRect.hpp"
 	"Utilities/Utils.hpp"
 

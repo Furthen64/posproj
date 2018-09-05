@@ -27,8 +27,16 @@ public:
     // Unit tests
     void testCanvasPos(int debugLevel = 0);
 
+
+void rotateAroundOrigoNDegCCW(float n);
+void rotateAroundOrigoNDegCW(float n);
+
     int y;
     int x;
+
+
+    float yf;
+    float xf;
 
 
 

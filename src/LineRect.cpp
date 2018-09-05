@@ -71,6 +71,11 @@ void LineRect::drawAll(sf::RenderTarget &rt)
     rt.draw(lineC, 2, sf::Lines);
     rt.draw(lineD, 2, sf::Lines);
 
+
+
+
+    boundingBox->drawAll(rt);
+
 }
 
 
@@ -161,13 +166,15 @@ void LineRect::setSize_y(float size_y)
 {
     std::cout << "STUB setSize_y\n";
     //bottomRight->y = topLeft->y + size_y;
-    //recalcBoundingBox
+
+    recalcBoundingBox();
 }
 void LineRect::setSize_x(float size_x)
 {
     //bottomRight->x = topLeft->x + size_x;
     std::cout << "STUB setSize_x\n";
-    // recalcBoundingBox
+
+    recalcBoundingBox();
 }
 
 
@@ -194,7 +201,6 @@ void LineRect::recalcBoundingBox()
 // Moves all 4 corners by recalculating their positions, also recaulcaltes the new boundingBox
 void LineRect::setTopLeft(CanvasPos *_topleft)
 {
-    std::cout << "LineRect :: setTopLeft - WIll it work? \n";
     if(boundingBox == nullptr) {
         logErr(cn + "setTopLeft boundingbox is nullptr\n");
         return ;
@@ -219,6 +225,27 @@ void LineRect::setTopLeft(CanvasPos *_topleft)
 
     recalcBoundingBox();
 }
+
+
+
+
+void LineRect::rotateAllPointsNDegCCW(float n)
+{
+
+    A->rotateAroundOrigoNDegCCW(n);
+    B->rotateAroundOrigoNDegCCW(n);
+    C->rotateAroundOrigoNDegCCW(n);
+    D->rotateAroundOrigoNDegCCW(n);
+
+}
+
+
+
+
+
+
+
+
 
 
 

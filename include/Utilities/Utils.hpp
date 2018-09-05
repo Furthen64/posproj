@@ -44,10 +44,10 @@ void logWarn (std::string str);
 float glConv_x(int windowPos_x);
 float glConv_y(int windowPos_y);
 
-float rotateCCW_x(float previous_x, float previous_y, float angleCCW_deg);
-float rotateCCW_y(float previous_x, float previous_y, float angleCCW_deg);
+float rotateCCW_x(float , float , float angleCCW_deg);
+float rotateCCW_y(float , float , float angleCCW_deg);
 
-float rotateCW_x(float previous_x, float previous_y, float angleCW_deg);
-float rotateCW_y(float previous_x, float previous_y, float angleCW_deg);
+float rotateCW_x(float , float , float angleCW_deg);
+float rotateCW_y(float , float , float angleCW_deg);
 
 #endif

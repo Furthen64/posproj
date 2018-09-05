@@ -1,5 +1,6 @@
 #include "CanvasPos.hpp"
 
+#include "Utilities/Utils.hpp"
 #include <assert.h>
 
 CanvasPos::CanvasPos()
@@ -103,7 +104,15 @@ void CanvasPos::testCanvasPos(int debugLevel)
 
 
 
+void CanvasPos::rotateAroundOrigoNDegCCW(float n)
+{
+    // Store away current value
+    int oldY = y;
+    int oldX = x;
 
+    y = rotateCCW_y(oldY, oldX, n);
+    x = rotateCCW_x(oldY, oldX, n);
+}
 
 
 

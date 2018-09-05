@@ -18,8 +18,9 @@ public:
     void drawAll(sf::RenderTarget& rt);
 void setTopLeft(int , int );
 void setTopLeft(CanvasPos *cpos);
+void setMiddleToCpos(CanvasPos *cpos);
 void scale2x();
-void rotate45CCW();
+void rotateNDegCCW(float n);
 
 
 private:

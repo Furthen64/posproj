@@ -1,9 +1,6 @@
-
-
-
-
-// Docs in docs\ folder, lot of images! showing you whats what!
-// Tips & Trix:         https://beta.etherpad.org/p/fat64_2
+// The documentation for HurkaLumos is mostly in the Docs\ folder.
+//
+// Some Tips & Trix can be found at       https://beta.etherpad.org/p/fat64_2       (2018-09)
 
 
 #include "Core.hpp"
@@ -55,7 +52,7 @@ RunResult *Core::lifecycle()
 {
     RunResult *rres = new RunResult();
 
-    run();
+    rres = run();
 
     return rres;
 }
@@ -154,6 +151,10 @@ RunResult *Core::run()
     int clickIndex = 0;
     RenderTree *rendertree = new RenderTree();  // For all the Text objects and loose debug objects visible on screen
 
+    /// Place our View at startup position
+    hview->setTopLeft(-460,-460);
+
+
     /// Populate a couple of markers
     /*populateMarkers(rendertree);*/
 
@@ -162,7 +163,9 @@ RunResult *Core::run()
     OrMatrix *orMat1 = new OrMatrix(10,10);
     orMat1->setPosition(new CanvasPos(-30,-30));
     IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
-    isoMat1->setTopLeft(new CanvasPos(0,0));
+    isoMat1->setTopLeft(new CanvasPos(46,46));
+
+    float angle = 0;
 
 
     /*    sf::RectangleShape horizontalLine (sf::Vector2f(1280,2));
@@ -170,7 +173,7 @@ RunResult *Core::run()
     sf::RectangleShape rotatedMarker(sf::Vector2f(4,4));
     sf::RectangleShape origoMarker(sf::Vector2f(4,4));
     origoMarker.setPosition(sf::Vector2f(0,0));
-    double beta = 45;   // Lets try rotate CCW n degree
+
     */
 
 
@@ -255,13 +258,14 @@ RunResult *Core::run()
             // Mouse click logic
             lmbPressed = true;
             sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );     // Get sfml mouse position
+            CanvasPos mousePos_cpos(mousePos_i.y + hview->getTopLeft_y(), mousePos_i.x + hview->getTopLeft_x());
 
 
 
 
             // Test TopLeft placement of IsoMat
 
-            isoMat1->setTopLeft( mousePos_i.y, mousePos_i.x);
+            isoMat1->setTopLeft( mousePos_cpos.clone() );
 
             // IsoMat1
             if(clickIndex == 0) {
@@ -534,6 +538,18 @@ if(showCalculationOfCanvasPos) {
 
 
         // Debug
+        angle+=0.002;
+        if(angle>360) { angle = 0; }
+
+        // isoMat1->setMiddleToCpos(new CanvasPos(0,0));   // center of the object should be in origo
+        // isoMat1->rotateNDegCCW(angle);  // now try rotating
+
+        // please try another shape that is not a perfect square
+
+
+
+
+
         /*
         // Solve all sides of the triangle
         float a=  (origoMarker.getPosition().y - clickedMarker.getPosition().y);

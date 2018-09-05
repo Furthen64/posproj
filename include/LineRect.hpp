@@ -27,15 +27,18 @@ float getSize_x();
 void setSize_y(float size_y);
 void setSize_x(float size_x);
 
-void setTopLeft(CanvasPos *_topleft);
+    void setTopLeft(CanvasPos *_topleft);
 
-void recalcBoundingBox();   // Run this every time you change any of the positions
+    void recalcBoundingBox();   // Run this every time you change any of the positions
 
-CanvasPos *getTop_cpos();       // find the most top point .. and so on
-CanvasPos *getLeft_cpos();
-CanvasPos *getRight_cpos();
-CanvasPos *getBottom_cpos();
+    CanvasPos *getTop_cpos();       // find the most top point .. and so on
+    CanvasPos *getLeft_cpos();
+    CanvasPos *getRight_cpos();
+    CanvasPos *getBottom_cpos();
 
+    void rotateAllPointsNDegCCW(float n);
+
+    // Vars
     CanvasPos *A = nullptr;
     CanvasPos *B = nullptr;
     CanvasPos *C = nullptr;

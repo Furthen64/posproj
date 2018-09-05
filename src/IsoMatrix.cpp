@@ -8,7 +8,8 @@ IsoMatrix::IsoMatrix()
 
 
 
-
+/// Problems we have to think about
+/// Changing one part of this matrix, needs to run an updatefunction that updates the topleft and updates the lrect and its bounding box. Yes? pLease?
 IsoMatrix::IsoMatrix(OrMatrix *_orMat)
 {
     if(_orMat == nullptr) {
@@ -30,11 +31,14 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
                           new CanvasPos(topleft->y+460, topleft->x) );
                           */
 
+
+
     std::cout << "IsoMatrix constructor hardcoded debug\n\n";
     lrect = new LineRect(new CanvasPos(46,92),
                          new CanvasPos(92,138),
                          new CanvasPos(138,92),
                          new CanvasPos(92,46));
+    setTopLeft(new CanvasPos(46,46));
 
 }
 
@@ -44,15 +48,25 @@ void IsoMatrix::setTopLeft(int _y, int _x)
     setTopLeft(new CanvasPos(_y, _x));
 }
 
+// (-+)
 void IsoMatrix::setTopLeft(CanvasPos *_topleft)
 {
-
+    // Update our topleft and also our LRect object so all the A,B,C,D's are updated
     topleft = _topleft;
-
-    // Test this:
     lrect->setTopLeft(_topleft);
-
 }
+
+void IsoMatrix::setMiddleToCpos(CanvasPos *cpos)
+{
+    lrect->setTopLeft(new CanvasPos(-46,-46));
+    // Find middle point
+    std::cout << "find middle point\n";
+
+    // Set all points around it
+    std::cout << "setmiddle stub\n";
+}
+
+
 
 
 void IsoMatrix::scale2x()
@@ -60,13 +74,18 @@ void IsoMatrix::scale2x()
     lrect->setSize_y( lrect->getSize_y() * 2.0f);
 }
 
-void IsoMatrix::rotate45CCW()
+
+void IsoMatrix::rotateNDegCCW(float n)
 {
-    //lrect.setRotation(45);
-   std::cout << "rotate45ccw - please please pleaaaaaaaaase make this on whiteboard first... you have to run those geometric maths on all 4 canvasposes\n";
-   std::cout << "maybe also call to moveToOrigo and moveBack()\n";
+    // Move to origo and back? for now does it where it is, against a origo in cpos(0,0)
+    lrect->rotateAllPointsNDegCCW(n);
+
+    // Update topleft now that we've altered the points
+
+
 
 }
+
 
 void IsoMatrix::drawAll(sf::RenderTarget& rt)
 {
