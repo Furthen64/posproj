@@ -80,7 +80,7 @@ bool CanvasPos::isEqual(CanvasPos *other)
 
 void CanvasPos::testCanvasPos(int debugLevel)
 {
-    std::cout << "testCanvasPos()------------------------------------\n";
+ //   std::cout << "testCanvasPos()------------------------------------\n";
 
     CanvasPos *a = new CanvasPos();
     CanvasPos *b = new CanvasPos();

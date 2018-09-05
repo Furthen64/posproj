@@ -18,18 +18,18 @@ public:
     LineRect(CanvasPos *, CanvasPos *, CanvasPos *, CanvasPos *);
 
 void drawAll(sf::RenderTarget &rt);
-
 void moveToOrigo();
 void moveBack();
-
-
-
 
 float getSize_y();
 float getSize_x();
 
 void setSize_y(float size_y);
 void setSize_x(float size_x);
+
+void setTopLeft(CanvasPos *_topleft);
+
+void recalcBoundingBox();   // Run this every time you change any of the positions
 
 CanvasPos *getTop_cpos();       // find the most top point .. and so on
 CanvasPos *getLeft_cpos();

@@ -16,7 +16,8 @@ public:
     IsoMatrix();
     IsoMatrix(OrMatrix *);
     void drawAll(sf::RenderTarget& rt);
-    void setPosition(CanvasPos *cpos);
+void setTopLeft(int , int );
+void setTopLeft(CanvasPos *cpos);
 void scale2x();
 void rotate45CCW();
 

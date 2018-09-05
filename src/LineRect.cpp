@@ -7,6 +7,8 @@ LineRect::LineRect()
     B = new CanvasPos(0,10);
     C = new CanvasPos(10,10);
     D = new CanvasPos(10,0);
+
+    recalcBoundingBox();
 }
 
 
@@ -22,6 +24,8 @@ LineRect::LineRect(CanvasPos *_A, CanvasPos *_B, CanvasPos *_C, CanvasPos *_D)
     B = _B;
     C = _C;
     D = _D;
+
+    recalcBoundingBox();
 }
 
 
@@ -55,8 +59,8 @@ void LineRect::drawAll(sf::RenderTarget &rt)
     lineC[1].position = D->getSfVec();
 
     // D to A
-    lineD[0].color = sf::Color(12,25,125);
-    lineD[1].color = sf::Color(12,25,125);
+    lineD[0].color = sf::Color(125,125,125);
+    lineD[1].color = sf::Color(125,125,125);
     lineD[0].position = D->getSfVec();
     lineD[1].position = A->getSfVec();
 
@@ -130,10 +134,10 @@ CanvasPos *LineRect::getBottom_cpos()
 void LineRect::moveToOrigo()
 {
 
-std::cout << "how do I move 4 things that could look anytwhere"
-<< "to anything"
-<< "bounding box first"
-        <<"whiteboard plz\n";
+    std::cout << "how do I move 4 things that could look anytwhere"
+    << "to anything"
+    << "bounding box first"
+    <<"whiteboard plz\n";
 }
 
 void LineRect::moveBack()
@@ -157,12 +161,69 @@ void LineRect::setSize_y(float size_y)
 {
     std::cout << "STUB setSize_y\n";
     //bottomRight->y = topLeft->y + size_y;
+    //recalcBoundingBox
 }
 void LineRect::setSize_x(float size_x)
 {
     //bottomRight->x = topLeft->x + size_x;
     std::cout << "STUB setSize_x\n";
+    // recalcBoundingBox
 }
+
+
+// (--) untested
+void LineRect::recalcBoundingBox()
+{
+    // find out the most top point (lowest y-value)
+    CanvasPos *top = getTop_cpos();
+    // find out the most left point .. and so on.
+    CanvasPos *left = getLeft_cpos();
+    CanvasPos *right = getRight_cpos();
+    CanvasPos *bottom = getBottom_cpos();
+
+
+    // Now make a square out of these coordinates
+    CanvasPos *_topLeft = new CanvasPos( top->y, left->x);
+    CanvasPos *_bottomRight = new CanvasPos( bottom->y, right->x);
+
+    boundingBox = new HRect(_topLeft, _bottomRight);
+}
+
+
+// (--)
+// Moves all 4 corners by recalculating their positions, also recaulcaltes the new boundingBox
+void LineRect::setTopLeft(CanvasPos *_topleft)
+{
+    std::cout << "LineRect :: setTopLeft - WIll it work? \n";
+    if(boundingBox == nullptr) {
+        logErr(cn + "setTopLeft boundingbox is nullptr\n");
+        return ;
+    }
+
+    if(boundingBox->topLeft == nullptr) {
+        logErr(cn + "setTopLeft boundingbox->topLeft is nullptr\n");
+        return ;
+    }
+
+    CanvasPos *oldTopLeft = boundingBox->topLeft;
+    CanvasPos *newTopLeft = _topleft;
+
+    // Diff between the two
+    int xDiff = newTopLeft->x - oldTopLeft->x;
+    int yDiff = newTopLeft->y - oldTopLeft->y;
+
+    A->y += yDiff;  A->x += xDiff;
+    B->y += yDiff;  B->x += xDiff;
+    C->y += yDiff;  C->x += xDiff;
+    D->y += yDiff;  D->x += xDiff;
+
+    recalcBoundingBox();
+}
+
+
+
+
+
 
 
 

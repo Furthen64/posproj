@@ -4,11 +4,10 @@
 IsoMatrix::IsoMatrix()
 {
     std::cout << "Warning: unallocated IsoMatrix!\n";
-
-
-
-
 }
+
+
+
 
 IsoMatrix::IsoMatrix(OrMatrix *_orMat)
 {
@@ -22,23 +21,36 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
                              (ORMATRIX_TILE_WIDTH_PX * orMat->getCols()) + 2);
 
 
-    std::cout << "isomatrix constr STUB create linerect with correct coordinates\n";
-    lrect = new LineRect( topleft,
+    std::cout << "IsoMatrix topleft_cpos = (" << topleft->y << ", " << topleft->x << ")\n";
+
+    // Exact square copy of the Ortho Matrix
+    /*lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
                           new CanvasPos(topleft->y, topleft->x + 460),
-                          new CanvasPos(topleft->y+460, topleft->x),
-                          new CanvasPos(topleft->y+460, topleft->x+460) );
+                          new CanvasPos(topleft->y+460, topleft->x+460),
+                          new CanvasPos(topleft->y+460, topleft->x) );
+                          */
+
+    std::cout << "IsoMatrix constructor hardcoded debug\n\n";
+    lrect = new LineRect(new CanvasPos(46,92),
+                         new CanvasPos(92,138),
+                         new CanvasPos(138,92),
+                         new CanvasPos(92,46));
 
 }
 
 
-
-// (-+)
-void IsoMatrix::setPosition(CanvasPos *_topleft)
+void IsoMatrix::setTopLeft(int _y, int _x)
 {
-    if(_topleft == nullptr) {
-        logErr(cn + " setPosition() got nullptr\n");
-    }
+    setTopLeft(new CanvasPos(_y, _x));
+}
+
+void IsoMatrix::setTopLeft(CanvasPos *_topleft)
+{
+
     topleft = _topleft;
+
+    // Test this:
+    lrect->setTopLeft(_topleft);
 
 }
 
