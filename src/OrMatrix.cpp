@@ -37,7 +37,7 @@ void OrMatrix::drawAll(sf::RenderTarget& rt)
 {
     if(!allocated) { return ; }
 
-    sf::Vector2f topLeftVec(topleft->y,topleft->x);
+    sf::Vector2f topLeftVec(topleft->x,topleft->y);
 
     // What are the tile sizes of the orMatrix?
     // Thats a good question...
@@ -64,9 +64,17 @@ void OrMatrix::drawAll(sf::RenderTarget& rt)
             }
             rt.draw(rect);
         }
-        everyOtherChangeColor = !everyOtherChangeColor;
+        if(cols%2==0) {
+            everyOtherChangeColor = !everyOtherChangeColor;
+        }
     }
 
+}
+
+
+CanvasPos *OrMatrix::getTopLeft_cpos()
+{
+    return topleft;
 }
 
 

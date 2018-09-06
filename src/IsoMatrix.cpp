@@ -17,37 +17,45 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
         throw std::runtime_error( "ERROR:  constructor IsoMatrix failed, nullptr argument" );
 
     }
+
     orMat = _orMat;
-    topleft = new CanvasPos( (ORMATRIX_TILE_HEIGHT_PX * orMat->getRows()) + 2 ,
-                             (ORMATRIX_TILE_WIDTH_PX * orMat->getCols()) + 2);
+
+    /*topleft =  new CanvasPos( (ORMATRIX_TILE_HEIGHT_PX * orMat->getRows()) + 2 ,
+                             (ORMATRIX_TILE_WIDTH_PX * orMat->getCols()) + 2) ;*/
+
+    topleft = orMat->getTopLeft_cpos()->clone();
 
 
-    // Exact square copy of the Ortho Matrix
-    /*lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
-                          new CanvasPos(topleft->y, topleft->x + 460),
-                          new CanvasPos(topleft->y+460, topleft->x+460),
-                          new CanvasPos(topleft->y+460, topleft->x) );
-                          */
+
+    lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
+                          new CanvasPos(topleft->y, topleft->x + (orMat->getCols() * ORMATRIX_TILE_WIDTH_PX) ),
+                          new CanvasPos(topleft->y+(orMat->getRows() * ORMATRIX_TILE_HEIGHT_PX), topleft->x+ (orMat->getCols() * ORMATRIX_TILE_WIDTH_PX) ),
+                          new CanvasPos(topleft->y+(orMat->getRows() * ORMATRIX_TILE_HEIGHT_PX), topleft->x) );
 
 
+    setTopLeft(topleft); // Run this to update lrect's topleft
+
+
+    /*
+
+    Use these to try out specific shapes:
 
     std::cout << "Remember: IsoMatrix is set to HARDCODED values!\n\n";
-    /*lrect = new LineRect(new CanvasPos(46,92),
+    lrect = new LineRect(new CanvasPos(46,92),
                          new CanvasPos(92,138),
                          new CanvasPos(138,92),
-                         new CanvasPos(92,46)); // en 45grader roterade kvadrat */
+                         new CanvasPos(92,46)); // 45 deg rotated square
 
     lrect = new LineRect( new CanvasPos(0,46),
                           new CanvasPos(138,92),
                           new CanvasPos(276,46),
                           new CanvasPos(138,0) ); // Squashed square
 
-    /*lrect = new LineRect(new CanvasPos(46,92),
+    lrect = new LineRect(new CanvasPos(46,92),
                          new CanvasPos(92,138),
                          new CanvasPos(368,92),
                          new CanvasPos(92,46));*/
 
-    setTopLeft(new CanvasPos(46,46));
 
 }
 
@@ -68,9 +76,9 @@ void IsoMatrix::setTopLeft(CanvasPos *_topleft)
 
 
 /// Beware: works with limited amount of shapes!
-void IsoMatrix::setPosByNewMiddle(CanvasPos *cpos)
+void IsoMatrix::setPosByNewMiddle(CanvasPos *_cpos)
 {
-    lrect->moveByMiddle(cpos);
+    lrect->moveByMiddle(_cpos);
 }
 
 
@@ -93,22 +101,30 @@ CanvasPos *IsoMatrix::getMiddle_cpos()
     return lrect->getMiddle_cpos();
 }
 
-void IsoMatrix::scale2x()
+CanvasPos *IsoMatrix::getTopLeft_cpos()
 {
-    lrect->setSize_y( lrect->getSize_y() * 2.0f);
+    return topleft;
 }
+
+void IsoMatrix::scale_y(float scaleFactor)
+{
+    lrect->scale_y( scaleFactor );
+}
+
+
+
 
 
 void IsoMatrix::rotateNDegCCW(float n)
 {
-    std::cout << "rotateNDegCCW fix\n";
-    //moveToOrigo();
+
+    moveToOrigo();
     {
         // Move to origo and back? for now does it where it is, against a origo in cpos(0,0)
         lrect->rotateAllPointsNDegCCW(n);
         topleft = lrect->getTopLeft()->clone();
     }
-   // moveBack();
+    moveBack();
 }
 
 void IsoMatrix::rotateNDegCW(float n)
@@ -178,4 +194,13 @@ rt.draw(spinRect);
 
 
 
+// please test
+void IsoMatrix::moveByTopLeftSaveMiddle(CanvasPos *_cpos)
+{
+    std::cout << "Untested moveByTopLeftSaveMiddle\n";
 
+    prev_cpos = getMiddle_cpos();
+
+    setTopLeft(_cpos);
+
+}

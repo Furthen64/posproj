@@ -23,7 +23,7 @@ public:
     void setPosition(CanvasPos *cpos);
     int getRows() { return rows; }
     int getCols() { return cols; }
-
+    CanvasPos *getTopLeft_cpos();
 
 private:
     std::string cn = "OrMatrix.cpp";

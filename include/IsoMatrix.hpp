@@ -17,14 +17,19 @@ public:
     IsoMatrix(OrMatrix *);
     void drawAll(sf::RenderTarget& rt);
     void setTopLeft(int , int );
-    void setTopLeft(CanvasPos *cpos);
-    void setPosByNewMiddle(CanvasPos *cpos);
+    void setTopLeft(CanvasPos *);
+    void setPosByNewMiddle(CanvasPos *);
+
     void moveToOrigo();
+void moveByTopLeftSaveMiddle(CanvasPos *);
     void moveBack();
-void scale2x();
+
+void scale_y(float scaleFactor);
     void rotateNDegCCW(float n);
     void rotateNDegCW(float n);
+
     CanvasPos *getMiddle_cpos();
+    CanvasPos *getTopLeft_cpos();
 
 
 

@@ -24,8 +24,8 @@ void moveBack();
 float getSize_y();
 float getSize_x();
 
-void setSize_y(float size_y);
-void setSize_x(float size_x);
+void scale_y(float );
+void scale_x(float );
 
     void setTopLeft(CanvasPos *_topleft);
 

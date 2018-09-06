@@ -145,17 +145,21 @@ float LineRect::getSize_x()
 }
 
 
-void LineRect::setSize_y(float size_y)
+void LineRect::scale_y(float scaleFactor)
 {
-    std::cout << "STUB setSize_y\n";
-    //bottomRight->y = topLeft->y + size_y;
+    // Squash! setSize is Scale really
+
+    A->y *= scaleFactor;
+    B->y *= scaleFactor;
+    C->y *= scaleFactor;
+    D->y *= scaleFactor;
 
     recalcBoundingBox();
 }
-void LineRect::setSize_x(float size_x)
+void LineRect::scale_x(float size_x)
 {
     //bottomRight->x = topLeft->x + size_x;
-    std::cout << "STUB setSize_x\n";
+    std::cout << "STUB scale_x\n";
 
     recalcBoundingBox();
 }

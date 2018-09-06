@@ -162,22 +162,19 @@ RunResult *Core::run()
 
 
     /// Debug Objects
-    OrMatrix *orMat1 = new OrMatrix(10,10);
-    orMat1->setPosition(new CanvasPos(-30,-30));
+    OrMatrix *orMat1 = new OrMatrix(5,5);
+    orMat1->setPosition(new CanvasPos(184,184));
+
+
     IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
 
-
-    bool rotEnabled = false;
-    float rotAngle = 1;
+    isoMat1->rotateNDegCCW(45);
 
 
-    /*    sf::RectangleShape horizontalLine (sf::Vector2f(1280,2));
-    sf::RectangleShape clickedMarker(sf::Vector2f(4,4));
-    sf::RectangleShape rotatedMarker(sf::Vector2f(4,4));
-    sf::RectangleShape origoMarker(sf::Vector2f(4,4));
-    origoMarker.setPosition(sf::Vector2f(0,0));
 
-    */
+
+        /*bool rotEnabled = true;
+    float rotAngle = 1;*/
 
 
 
@@ -271,22 +268,23 @@ RunResult *Core::run()
 
             if(clickIndex == 0) {
 
-                isoMat1->setPosByNewMiddle(new CanvasPos(460,240));
-
+               isoMat1->moveByTopLeftSaveMiddle(new CanvasPos(0,0));
             }
+
+
             if(clickIndex == 1) {
 
-                isoMat1->moveToOrigo();
-
+                isoMat1->scale_y(0.5);
 
             }
             if(clickIndex == 2) {
 
-                isoMat1->rotateNDegCCW(45);
+
+                isoMat1->moveBack();
 
             }
             if(clickIndex == 3) {
-                   isoMat1->setPosByNewMiddle(new CanvasPos(460,240));
+
             }
             clickIndex++;
 
@@ -294,15 +292,6 @@ RunResult *Core::run()
             // Delete all other old text objects that we've created
             rendertree->clearMiscTexts();
 
-
-            // Debug objects
-
-            //clickedMarker.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x,
-              //                                     hview->getTopLeft_y() + mousePos_i.y ));
-            //origoMarker.setPosition(sf::Vector2f(hview->getTopLeft_x() + mousePos_i.x - 200,
-            //                                   hview->getTopLeft_y() + mousePos_i.y + 96));
-            // Make a horizontal line just below the click
-            //horizontalLine.setPosition(sf::Vector2f(0,0));
 
 
 
@@ -470,13 +459,6 @@ if(showCalculationOfCanvasPos) {
 
 
 
-        /// Debug
-        /*if(rotEnabled) {
-            isoMat1->rotateNDegCCW(45);
-        }*/
-
-
-
 
 
 
@@ -550,7 +532,6 @@ if(showCalculationOfCanvasPos) {
 
 
 
-
         /// Render
 
         rwPtr->clear();                 // Clear window
@@ -563,7 +544,7 @@ if(showCalculationOfCanvasPos) {
 
         // The Gameboard (orMatrix or isoMatrix )
 
-        // orMat1->drawAll(*rwPtr);
+        orMat1->drawAll(*rwPtr);
         isoMat1->drawAll(*rwPtr);
 
 
