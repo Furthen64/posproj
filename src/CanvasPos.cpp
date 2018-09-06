@@ -10,10 +10,17 @@ CanvasPos::CanvasPos()
 }
 
 
-CanvasPos::CanvasPos(int _y, int _x)
+CanvasPos::CanvasPos(float _y,float _x)
 {
     y = _y;
     x = _x;
+
+}
+
+CanvasPos::CanvasPos(int _y, int _x)
+{
+    y = (int)_y;
+    x = (int)_x;
 }
 
 CanvasPos::CanvasPos(sf::Vector2f _vecPos)
@@ -31,31 +38,29 @@ CanvasPos::CanvasPos(CanvasPos *other)
 
 void CanvasPos::drawAll(sf::RenderTarget &rt)
 {
-    sf::RectangleShape rect(sf::Vector2f(1.0f,1.0f));   // Make a 1x1 px square
-    rect.setPosition(sf::Vector2f(y,x));
+    sf::RectangleShape rect(sf::Vector2f(5.0f,5.0f));   // Make a 1x1 px square
+    rect.setPosition(getSfVec().x-3, getSfVec().y-3);
     rt.draw(rect);
 }
 
 
 sf::Vector2f CanvasPos::getSfVec()
 {
-
     return sf::Vector2f(x,y);
-
 }
 
 void CanvasPos::dump(std::string ind)
 {
-    std::cout << ind << "(" << y << ", " << x << ")\n";
+    std::cout << ind << "(" << (int)y << ", " << x << ")        float(" << y << ", " << x << ")\n";
 }
 
 
 std::string CanvasPos::dumpToString()
 {
     std::string str = "(";
-    str += std::to_string(y);
+    str += std::to_string((int)y);
     str += ", ";
-    str += std::to_string(x);
+    str += std::to_string((int)x);
     str += ")";
     return str;
 }
@@ -67,8 +72,8 @@ CanvasPos *CanvasPos::clone()
 
 bool CanvasPos::isEqual(CanvasPos *other)
 {
-    if( (other->y == this->y) &&
-        (other->x == this->x) ) {
+    if( ( (int)other->y == (int)this->y) &&
+        ( (int)other->x == (int)this->x) ) {
             return true;
         }
 
@@ -107,12 +112,23 @@ void CanvasPos::testCanvasPos(int debugLevel)
 void CanvasPos::rotateAroundOrigoNDegCCW(float n)
 {
     // Store away current value
-    int oldY = y;
-    int oldX = x;
+    float oldY = y;
+    float oldX = x;
 
     y = rotateCCW_y(oldY, oldX, n);
     x = rotateCCW_x(oldY, oldX, n);
 }
+
+void CanvasPos::rotateAroundOrigoNDegCW(float n)
+{
+    // Store away current value
+    float oldY = y;
+    float oldX = x;
+
+    y = rotateCW_y(oldY, oldX, n);
+    x = rotateCW_x(oldY, oldX, n);
+}
+
 
 
 

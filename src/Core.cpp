@@ -68,8 +68,6 @@ bool Core::setup()
     // Read all the settings
     HConfig *cfg;
     cfg = cfg->getInstance();
-
-
     cfg->loadSettingsFromDefaultsIni();
 
     // Make some handy copies
@@ -91,6 +89,10 @@ bool Core::setup()
 
 void Core::resume() { isRunning = true; }
 void Core::pause()  { isRunning = false; }
+
+
+
+/// Not done, needs more consideration
 void Core::resizeWindow()
 {
 
@@ -163,9 +165,10 @@ RunResult *Core::run()
     OrMatrix *orMat1 = new OrMatrix(10,10);
     orMat1->setPosition(new CanvasPos(-30,-30));
     IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
-    isoMat1->setTopLeft(new CanvasPos(46,46));
 
-    float angle = 0;
+
+    bool rotEnabled = false;
+    float rotAngle = 1;
 
 
     /*    sf::RectangleShape horizontalLine (sf::Vector2f(1280,2));
@@ -263,23 +266,27 @@ RunResult *Core::run()
 
 
 
-            // Test TopLeft placement of IsoMat
-
-            isoMat1->setTopLeft( mousePos_cpos.clone() );
 
             // IsoMat1
+
             if(clickIndex == 0) {
 
+                isoMat1->setPosByNewMiddle(new CanvasPos(460,240));
 
             }
             if(clickIndex == 1) {
 
+                isoMat1->moveToOrigo();
 
 
             }
             if(clickIndex == 2) {
 
+                isoMat1->rotateNDegCCW(45);
 
+            }
+            if(clickIndex == 3) {
+                   isoMat1->setPosByNewMiddle(new CanvasPos(460,240));
             }
             clickIndex++;
 
@@ -463,6 +470,12 @@ if(showCalculationOfCanvasPos) {
 
 
 
+        /// Debug
+        /*if(rotEnabled) {
+            isoMat1->rotateNDegCCW(45);
+        }*/
+
+
 
 
 
@@ -537,42 +550,6 @@ if(showCalculationOfCanvasPos) {
 
 
 
-        // Debug
-        angle+=0.002;
-        if(angle>360) { angle = 0; }
-
-        // isoMat1->setMiddleToCpos(new CanvasPos(0,0));   // center of the object should be in origo
-        // isoMat1->rotateNDegCCW(angle);  // now try rotating
-
-        // please try another shape that is not a perfect square
-
-
-
-
-
-        /*
-        // Solve all sides of the triangle
-        float a=  (origoMarker.getPosition().y - clickedMarker.getPosition().y);
-        float b=   (clickedMarker.getPosition().x - origoMarker.getPosition().x);
-        //float c=  abs( sqrt(a*a + b*b));
-
-        //std::cout << "                    beta = " << beta << "\n";
-
-        float previous_x = b;
-        float previous_y = -a;
-
-        float rotated_x = rotateCCW_x(previous_x, previous_y, beta);
-        float rotated_y = rotateCCW_y(previous_x, previous_y, beta);
-
-        //std::cout << "a=" << a  << " b=" << b << " c= " << c << " alpha=" << alpha << " | prev_pos = (" << previous_y << ", " << previous_x << ") | new_pos = (" << rotated_y << ", " << rotated_x << ")\n";
-
-
-        rotatedMarker.setPosition(sf::Vector2f(rotated_x, rotated_y));
-        */
-
-
-
-
 
         /// Render
 
@@ -582,7 +559,6 @@ if(showCalculationOfCanvasPos) {
         hview->drawAll(*rwPtr);            // Show the View boundary            Green
         win->drawAll(*rwPtr, hview);       // Show the Window boundary          Red
         canvas->drawAll(*rwPtr);           // Show the Canvas with its Grid     Blue
-
 
 
         // The Gameboard (orMatrix or isoMatrix )
@@ -606,6 +582,9 @@ if(showCalculationOfCanvasPos) {
 
         }
 
+
+        CanvasPos *isoCenter = isoMat1->getMiddle_cpos();
+        isoCenter->drawAll(*rwPtr);
 
 
 

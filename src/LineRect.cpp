@@ -64,15 +64,10 @@ void LineRect::drawAll(sf::RenderTarget &rt)
     lineD[0].position = D->getSfVec();
     lineD[1].position = A->getSfVec();
 
-
-
     rt.draw(lineA, 2, sf::Lines);
     rt.draw(lineB, 2, sf::Lines);
     rt.draw(lineC, 2, sf::Lines);
     rt.draw(lineD, 2, sf::Lines);
-
-
-
 
     boundingBox->drawAll(rt);
 
@@ -133,21 +128,9 @@ CanvasPos *LineRect::getBottom_cpos()
 }
 
 
-
-
-
-void LineRect::moveToOrigo()
+CanvasPos *LineRect::getTopLeft()
 {
-
-    std::cout << "how do I move 4 things that could look anytwhere"
-    << "to anything"
-    << "bounding box first"
-    <<"whiteboard plz\n";
-}
-
-void LineRect::moveBack()
-{
-
+    return new CanvasPos(getTop_cpos()->y, getLeft_cpos()->x);
 }
 
 
@@ -178,7 +161,7 @@ void LineRect::setSize_x(float size_x)
 }
 
 
-// (--) untested
+// (-+)
 void LineRect::recalcBoundingBox()
 {
     // find out the most top point (lowest y-value)
@@ -197,7 +180,7 @@ void LineRect::recalcBoundingBox()
 }
 
 
-// (--)
+// (-+)
 // Moves all 4 corners by recalculating their positions, also recaulcaltes the new boundingBox
 void LineRect::setTopLeft(CanvasPos *_topleft)
 {
@@ -215,8 +198,8 @@ void LineRect::setTopLeft(CanvasPos *_topleft)
     CanvasPos *newTopLeft = _topleft;
 
     // Diff between the two
-    int xDiff = newTopLeft->x - oldTopLeft->x;
-    int yDiff = newTopLeft->y - oldTopLeft->y;
+    float xDiff = newTopLeft->x - oldTopLeft->x;
+    float yDiff = newTopLeft->y - oldTopLeft->y;
 
     A->y += yDiff;  A->x += xDiff;
     B->y += yDiff;  B->x += xDiff;
@@ -227,19 +210,131 @@ void LineRect::setTopLeft(CanvasPos *_topleft)
 }
 
 
+// Seems to work?
+void LineRect::moveByMiddle(CanvasPos *to_cpos)
+{
+
+    bool positive_x = false;
+    bool positive_y = false;
+
+     if(boundingBox == nullptr) {
+        logErr(cn + "setTopLeft boundingbox is nullptr\n");
+        return ;
+    }
+
+    if(boundingBox->topLeft == nullptr) {
+        logErr(cn + "setTopLeft boundingbox->topLeft is nullptr\n");
+        return ;
+    }
+
+
+    CanvasPos *middle_cpos = getMiddle_cpos();
+     //DEBUG:
+        to_cpos->dump("    to_cpos: ");
+    middle_cpos->dump("middle_cpos: ");
+              A->dump("          A: ");
+              B->dump("          B: ");
+              C->dump("          C: ");
+              D->dump("          D: ");
+
+
+
+
+    // Diff between the two
+    float xDiff = 0.0f;
+    float yDiff = 0.0f;
+
+    if(to_cpos->x > middle_cpos->x) {
+        xDiff = to_cpos->x - middle_cpos->x;
+        positive_x = true;
+    } else {
+        xDiff = middle_cpos->x - to_cpos->x;
+        positive_x = false;
+    }
+
+
+
+    if(to_cpos->y > middle_cpos->y) {
+        yDiff = to_cpos->y - middle_cpos->y;
+        positive_y = true;
+    } else {
+        yDiff = middle_cpos->y - to_cpos->y;
+        positive_y = false;
+
+    }
+
+    // Hm... Shouldnt it be -= or += depending on where we are in the carteisian plane?
+
+    if(positive_x) {
+        A->x += xDiff;
+        B->x += xDiff;
+        C->x += xDiff;
+        D->x += xDiff;
+
+    } else {
+        A->x -= xDiff;
+        B->x -= xDiff;
+        C->x -= xDiff;
+        D->x -= xDiff;
+
+    }
+
+
+    if(positive_y) {
+        A->y += yDiff;
+        B->y += yDiff;
+        C->y += yDiff;
+        D->y += yDiff;
+    } else {
+        A->y -= yDiff;
+        B->y -= yDiff;
+        C->y -= yDiff;
+        D->y -= yDiff;
+    }
+    /*
+    A->y -= yDiff;  A->x -= xDiff;
+    B->y -= yDiff;  B->x -= xDiff;
+    C->y -= yDiff;  C->x -= xDiff;
+    D->y -= yDiff;  D->x -= xDiff;
+    */
+    recalcBoundingBox();
+
+}
+
+
 
 
 void LineRect::rotateAllPointsNDegCCW(float n)
 {
-
     A->rotateAroundOrigoNDegCCW(n);
     B->rotateAroundOrigoNDegCCW(n);
     C->rotateAroundOrigoNDegCCW(n);
     D->rotateAroundOrigoNDegCCW(n);
 
+    recalcBoundingBox();
 }
 
 
+
+void LineRect::rotateAllPointsNDegCW(float n)
+{
+    A->rotateAroundOrigoNDegCW(n);
+    B->rotateAroundOrigoNDegCW(n);
+    C->rotateAroundOrigoNDegCW(n);
+    D->rotateAroundOrigoNDegCW(n);
+
+    recalcBoundingBox();
+
+}
+
+/// \brief Only works with simple rectangles! No skewed weirdness, or maybe that works too, havent tried ^^
+
+// used by "moveByMiddle()"
+CanvasPos *LineRect::getMiddle_cpos()
+{
+    // Just get the middle of the bounding box
+    return boundingBox->getMiddle_cpos();
+}
 
 
 

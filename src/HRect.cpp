@@ -6,6 +6,12 @@
 // Constructors
 
 
+HRect::HRect()
+{
+    // Default size default position
+    topLeft = new CanvasPos(0,0);
+    bottomRight = new CanvasPos(46,46);
+}
 
 // Given a size, create an hrect with default position of topleft = (0,0)
 HRect::HRect(int _sizeY, int _sizeX)
@@ -60,6 +66,21 @@ int HRect::getSize_x()
 }
 
 
+CanvasPos *HRect::getMiddle_cpos()
+{
+
+    CanvasPos *_cpos = new CanvasPos(0,0);
+
+    _cpos->x = topLeft->x + (getSize_x()/2);
+    _cpos->y = topLeft->y + (getSize_y()/2);
+
+    return _cpos;
+
+}
+
+
+
+
 // Sets topleft position,
 void HRect::setTopLeft(int cpos_y, int cpos_x)
 {
@@ -70,8 +91,6 @@ void HRect::setTopLeft(int cpos_y, int cpos_x)
 
     bottomRight = new CanvasPos( cpos_y + size_y,
                                  cpos_x + size_x );
-
-
 
 }
 
@@ -85,8 +104,6 @@ void HRect::setTopLeft(CanvasPos *topLeft_cpos)
 
     bottomRight = new CanvasPos( topLeft->y + size_y,
                                  topLeft->x + size_x );
-
-
 
 }
 

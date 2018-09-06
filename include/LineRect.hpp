@@ -35,8 +35,17 @@ void setSize_x(float size_x);
     CanvasPos *getLeft_cpos();
     CanvasPos *getRight_cpos();
     CanvasPos *getBottom_cpos();
+    CanvasPos *getMiddle_cpos();
+
+
+CanvasPos *getTopLeft();
+
+
+void moveByMiddle(CanvasPos *_cpos);
+
 
     void rotateAllPointsNDegCCW(float n);
+    void rotateAllPointsNDegCW(float n);
 
     // Vars
     CanvasPos *A = nullptr;

@@ -16,16 +16,22 @@ public:
     IsoMatrix();
     IsoMatrix(OrMatrix *);
     void drawAll(sf::RenderTarget& rt);
-void setTopLeft(int , int );
-void setTopLeft(CanvasPos *cpos);
-void setMiddleToCpos(CanvasPos *cpos);
+    void setTopLeft(int , int );
+    void setTopLeft(CanvasPos *cpos);
+    void setPosByNewMiddle(CanvasPos *cpos);
+    void moveToOrigo();
+    void moveBack();
 void scale2x();
-void rotateNDegCCW(float n);
+    void rotateNDegCCW(float n);
+    void rotateNDegCW(float n);
+    CanvasPos *getMiddle_cpos();
+
 
 
 private:
     std::string cn = "IsoMatrix.cpp";
     CanvasPos *topleft;
+    CanvasPos *prev_cpos;
     OrMatrix *orMat;    // The parent matrix object
     LineRect *lrect;
 };

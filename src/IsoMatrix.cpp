@@ -22,8 +22,6 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
                              (ORMATRIX_TILE_WIDTH_PX * orMat->getCols()) + 2);
 
 
-    std::cout << "IsoMatrix topleft_cpos = (" << topleft->y << ", " << topleft->x << ")\n";
-
     // Exact square copy of the Ortho Matrix
     /*lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
                           new CanvasPos(topleft->y, topleft->x + 460),
@@ -33,11 +31,22 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
 
 
 
-    std::cout << "IsoMatrix constructor hardcoded debug\n\n";
-    lrect = new LineRect(new CanvasPos(46,92),
+    std::cout << "Remember: IsoMatrix is set to HARDCODED values!\n\n";
+    /*lrect = new LineRect(new CanvasPos(46,92),
                          new CanvasPos(92,138),
                          new CanvasPos(138,92),
-                         new CanvasPos(92,46));
+                         new CanvasPos(92,46)); // en 45grader roterade kvadrat */
+
+    lrect = new LineRect( new CanvasPos(0,46),
+                          new CanvasPos(138,92),
+                          new CanvasPos(276,46),
+                          new CanvasPos(138,0) ); // Squashed square
+
+    /*lrect = new LineRect(new CanvasPos(46,92),
+                         new CanvasPos(92,138),
+                         new CanvasPos(368,92),
+                         new CanvasPos(92,46));*/
+
     setTopLeft(new CanvasPos(46,46));
 
 }
@@ -56,18 +65,33 @@ void IsoMatrix::setTopLeft(CanvasPos *_topleft)
     lrect->setTopLeft(_topleft);
 }
 
-void IsoMatrix::setMiddleToCpos(CanvasPos *cpos)
-{
-    lrect->setTopLeft(new CanvasPos(-46,-46));
-    // Find middle point
-    std::cout << "find middle point\n";
 
-    // Set all points around it
-    std::cout << "setmiddle stub\n";
+
+/// Beware: works with limited amount of shapes!
+void IsoMatrix::setPosByNewMiddle(CanvasPos *cpos)
+{
+    lrect->moveByMiddle(cpos);
 }
 
 
+void IsoMatrix::moveToOrigo()
+{
+    // Store away old position of middle
+    prev_cpos = getMiddle_cpos()->clone();
+    setPosByNewMiddle(new CanvasPos(0,0));  // Move the object (by middle) to origo
+}
 
+
+void IsoMatrix::moveBack()
+{
+    // Return the object to its previous position, by middle , not topleft
+    setPosByNewMiddle(prev_cpos);
+}
+
+CanvasPos *IsoMatrix::getMiddle_cpos()
+{
+    return lrect->getMiddle_cpos();
+}
 
 void IsoMatrix::scale2x()
 {
@@ -77,13 +101,26 @@ void IsoMatrix::scale2x()
 
 void IsoMatrix::rotateNDegCCW(float n)
 {
+    std::cout << "rotateNDegCCW fix\n";
+    //moveToOrigo();
+    {
+        // Move to origo and back? for now does it where it is, against a origo in cpos(0,0)
+        lrect->rotateAllPointsNDegCCW(n);
+        topleft = lrect->getTopLeft()->clone();
+    }
+   // moveBack();
+}
+
+void IsoMatrix::rotateNDegCW(float n)
+{
+
     // Move to origo and back? for now does it where it is, against a origo in cpos(0,0)
-    lrect->rotateAllPointsNDegCCW(n);
-
-    // Update topleft now that we've altered the points
-
-
-
+    moveToOrigo();
+    {
+        lrect->rotateAllPointsNDegCW(n);
+        topleft = lrect->getTopLeft()->clone();
+    }
+    moveBack();
 }
 
 
