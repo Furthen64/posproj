@@ -1,5 +1,6 @@
+#include <SFML/Graphics.hpp>
+#include "HView.hpp"
 #include "Utilities/Utils.hpp"
-
 
 // Seems to work for a couple of weeks now (2018-04) havent given thoughts about memory DEALLOCATION though...
 // (-+)
@@ -183,6 +184,17 @@ void logWarn (std::string str)
 }
 
 
+void hlog (std::string str)
+{
+
+    // Open up the Logger singleton and write to file
+    Logger *logger;
+    logger = logger->getInstance();
+
+    logger->hlog(str);
+}
+
+
 // Counter-Clockwise rotation , working from an origopoint on CanvasPos(0,0)
 // (-+)
 float rotateCCW_x(float previous_y, float previous_x, float angleCCW_deg)
@@ -225,3 +237,40 @@ float glConv_y(int windowPos_y)
 {
     return (float)windowPos_y;
 }
+
+
+
+
+
+CanvasPos *scrpos_to_cpos(ScreenPos *scrpos)
+{
+
+
+    WindowSingleton *win;
+    win = win->getInstance();
+    HView *hview = win->hview;
+
+    float y = hview->getTopLeft_y() + scrpos->y;
+    float x = hview->getTopLeft_x() + scrpos->x;
+
+    return new CanvasPos(y,x);
+
+}
+
+
+ScreenPos *cpos_to_scrpos(CanvasPos *cpos)
+{
+
+    WindowSingleton *win;
+    win = win->getInstance();
+    HView *hview = win->hview;
+
+    float y = hview->getTopLeft_y() - cpos->y;
+    float x = hview->getTopLeft_x() - cpos->x;
+
+    return new ScreenPos(y,x);
+
+
+}
+
+

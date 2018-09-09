@@ -5,8 +5,9 @@
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
 #include "Constants.hpp"
-#include "HView.hpp"
+class HView;
 
 
 
@@ -30,17 +31,17 @@ public:
             m_instanceSingleton;
     }
 
-    // Basic functions
+    // Regular functions
+
     void allocateWindow();
     sf::RenderWindow *getRwPtr();
-void drawAll(sf::RenderTarget &rt, HView *hview);
 
-
-
+    // Public members
+    HView *hview = nullptr;                     // Set when allocateWindow() is run
 
 private:
 
-// Singleton specifics
+    // Singleton specifics
     WindowSingleton() {  }
     ~WindowSingleton() { }
     // private copy constructor and assignment operator
@@ -51,11 +52,12 @@ private:
 
 
 
-// Regular private members
+    // Regular private members
 
     bool windowAllocated = false;
     std::string cn = "WindowSingleton.cpp";
-    sf::RenderWindow *rwPtr = nullptr;               // Set when allocateWindow() is run
+    sf::RenderWindow *rwPtr = nullptr;          // Set when allocateWindow() is run
+
 
     bool fpsLockOn = true;  // Overridden by HConfig
     int fpsLock = 30;       // Overridden by HConfig

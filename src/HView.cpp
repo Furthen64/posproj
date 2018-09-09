@@ -144,3 +144,18 @@ std::string HView::toString()
     str += ")";
     return str;
 }
+
+
+void HView::dump()
+{
+    std::cout << toString() << "\n";
+}
+
+
+
+void HView::moveView(float relativeY, float relativeX)
+{
+
+    setTopLeft( topLeft->y + relativeY, topLeft->x + relativeX);
+}
+

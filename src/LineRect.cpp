@@ -233,14 +233,6 @@ void LineRect::moveByMiddle(CanvasPos *to_cpos)
 
 
     CanvasPos *middle_cpos = getMiddle_cpos();
-     //DEBUG:
-        to_cpos->dump("    to_cpos: ");
-    middle_cpos->dump("middle_cpos: ");
-              A->dump("          A: ");
-              B->dump("          B: ");
-              C->dump("          C: ");
-              D->dump("          D: ");
-
 
 
 

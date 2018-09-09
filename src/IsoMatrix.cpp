@@ -108,7 +108,9 @@ CanvasPos *IsoMatrix::getTopLeft_cpos()
 
 void IsoMatrix::scale_y(float scaleFactor)
 {
+    moveByTopLeftSaveMiddle(new CanvasPos(0,0));
     lrect->scale_y( scaleFactor );
+    moveBack();
 }
 
 
@@ -194,10 +196,9 @@ rt.draw(spinRect);
 
 
 
-// please test
+// (-+)
 void IsoMatrix::moveByTopLeftSaveMiddle(CanvasPos *_cpos)
 {
-    std::cout << "Untested moveByTopLeftSaveMiddle\n";
 
     prev_cpos = getMiddle_cpos();
 

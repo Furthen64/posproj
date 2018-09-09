@@ -10,15 +10,14 @@
 class HView
 {
 
-// lagt till nya funktioner
-// view rör sig inte enligt sfml:s view /eller så gör den det, men det reflekteras inte när man kör drawAll/
 public:
 
-HView();
-HView(sf::Vector2f _a, sf::Vector2f _b);
+    HView();
+    HView(sf::Vector2f _a, sf::Vector2f _b);
 
-int getTopLeft_y();
-int getTopLeft_x();
+
+    int getTopLeft_y();
+    int getTopLeft_x();
 
 std::string toString();
 
@@ -27,6 +26,10 @@ void updateWindowView();
 void setTopLeft(CanvasPos *ptr);    // Updates the Window view with this new position
 void setTopLeft(int y, int x);      // Updates the Window view with this new position
 void drawAll(sf::RenderTarget &rt);
+
+
+    void moveView(float relativeY, float relativeX);
+    void dump();
 
 private:
     std::string cn = "HView.cpp";

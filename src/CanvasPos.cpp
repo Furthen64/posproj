@@ -1,7 +1,9 @@
 #include "CanvasPos.hpp"
 
-#include "Utilities/Utils.hpp"
 #include <assert.h>
+
+#include "Utilities/Utils.hpp"
+#include "HView.hpp"
 
 CanvasPos::CanvasPos()
 {
@@ -130,6 +132,18 @@ void CanvasPos::rotateAroundOrigoNDegCW(float n)
 }
 
 
+sf::Vector2f CanvasPos::getSfPositionByCpos(CanvasPos *cpos, bool adaptForView)
+{
+    WindowSingleton *win;
+    win = win->getInstance();
+    HView *hview = win->hview;
+
+    if(adaptForView) {
+        return sf::Vector2f(hview->getTopLeft_x() + cpos->x, hview->getTopLeft_y() + cpos->y);
+    }
+
+    return sf::Vector2f(cpos->x, cpos->y);
+}
 
 
 

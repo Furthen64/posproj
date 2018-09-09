@@ -20,12 +20,36 @@ public:
     TextFactory();
 
 
+
+
+
+    static sf::Text *getTextShowingPosition(std::string preStr , int fontSizePx,  float value_y, float value_x, sf::Color sfColor)
+    {
+        ResourceHolder *res;
+        res = res->getInstance();
+
+        std::string fullStr = preStr + " ( ";
+        fullStr += std::to_string(value_y);
+        fullStr += ", ";
+        fullStr += std::to_string(value_x);
+        fullStr += ")";
+        sf::Text *sftext = new sf::Text(fullStr, *(res->fixedsysFont), fontSizePx);
+
+        sftext->setFillColor(sfColor);
+
+        // Text Style ?
+        // sftext->setStyle(sf::Text::Bold | sf::Text::Underlined);
+
+        // Set default position
+        sftext->setPosition(0,0);
+
+        return sftext;
+
+    }
+
     // (--)
     static sf::Text *getText(std::string inputStr, int fontSizePx, sf::Color color)
     {
-
-
-
 
 
         ResourceHolder *res;
@@ -33,14 +57,11 @@ public:
 
         // What!!??! DPONT DETGE DISTRACTED??? I GET DISTRACTED ALL TEH TIME
 
-        sf::Text *sftext = new sf::Text(inputStr, *(res->fixedsysFont) , fontSizePx);   // Hardcoded what font to use and size
+        sf::Text *sftext = new sf::Text(inputStr, *(res->fixedsysFont) , fontSizePx);
 
-        // set the color
         sftext->setFillColor(color);
 
-        // set the text style
-        //sftext->setStyle(sf::Text::Bold | sf::Text::Underlined);
-        sftext->setPosition(1,1);
+        sftext->setPosition(0,0);
 
         return sftext;
     }

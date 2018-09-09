@@ -4,7 +4,7 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1536271554 source:c:\github\posproj\src\core.cpp
+1536515160 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
@@ -15,14 +15,16 @@
 	<random>
 	<SFML/OpenGL.hpp>
 	"Singletons/Logger.hpp"
+	"Utilities/Utils.hpp"
 	"TextFactory.hpp"
 
-1535795508 source:c:\github\posproj\src\main.cpp
+1536354848 source:c:\github\posproj\src\main.cpp
 	<SFML/Graphics.hpp>
 	"Core.hpp"
+	"Utilities/Utils.hpp"
 	<iostream>
 
-1536051119 c:\github\posproj\include\core.hpp
+1536495520 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
 	"../src/Singletons/HConfig.hpp"
@@ -30,14 +32,15 @@
 	"../src/Singletons/ResourceHolder.hpp"
 	"Constants.hpp"
 	"RenderTree.hpp"
-	"Utilities/Utils.hpp"
 	"LineRect.hpp"
 	"Canvas.hpp"
+	"ScreenPos.hpp"
 	"CanvasPos.hpp"
 	"IsoMatrix.hpp"
 	"OrMatrix.hpp"
 
-1536152258 source:c:\github\posproj\src\utilities\utils.cpp
+1536515089 source:c:\github\posproj\src\utilities\utils.cpp
+	<SFML/Graphics.hpp>
 	"Utilities/Utils.hpp"
 
 1525593210 c:\fat64\libs\sfml_2.5.0_fat64\include\sfml\graphics.hpp
@@ -449,8 +452,9 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1535808873 source:c:\github\posproj\src\singletons\windowsingleton.cpp
+1536408909 source:c:\github\posproj\src\singletons\windowsingleton.cpp
 	"WindowSingleton.hpp"
+	"HView.hpp"
 	"HConfig.hpp"
 
 1535109880 c:\github\posproj\include\singletons\windowsingleton.hpp
@@ -461,12 +465,11 @@
 
 1535876926 c:\github\posproj\include\constants.hpp
 
-1535808824 c:\github\posproj\src\singletons\windowsingleton.hpp
+1536319722 c:\github\posproj\src\singletons\windowsingleton.hpp
 	<string>
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
-	"HView.hpp"
 
 1535876940 source:c:\github\posproj\src\canvas.cpp
 	"Canvas.hpp"
@@ -509,7 +512,7 @@
 	"CanvasPos.hpp"
 	"Constants.hpp"
 
-1536184245 c:\github\posproj\include\utilities\utils.hpp
+1536515099 c:\github\posproj\include\utilities\utils.hpp
 	<iostream>
 	<cmath>
 	<time.h>
@@ -517,7 +520,10 @@
 	<cerrno>
 	<cstring>
 	<clocale>
+	"ScreenPos.hpp"
+	"CanvasPos.hpp"
 	"../../src/Singletons/Logger.hpp"
+	"../../src/Singletons/WindowSingleton.hpp"
 	<unistd.h>
 	<direct.h>
 
@@ -525,13 +531,13 @@
 	"OrMatrix.hpp"
 	"Utilities/Utils.hpp"
 
-1535807037 c:\github\posproj\include\hview.hpp
+1536514228 c:\github\posproj\include\hview.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
 	"CanvasPos.hpp"
 
-1535807328 source:c:\github\posproj\src\hview.cpp
+1536514293 source:c:\github\posproj\src\hview.cpp
 	"HView.hpp"
 	<math.h>
 	"Singletons/WindowSingleton.hpp"
@@ -556,32 +562,35 @@
 1535531424 source:c:\github\posproj\src\singletons\resourceholder.cpp
 	"ResourceHolder.hpp"
 
-1535531543 c:\github\posproj\include\textfactory.hpp
+1536405116 c:\github\posproj\include\textfactory.hpp
 	"../src/Singletons/ResourceHolder.hpp"
 
-1536222129 source:c:\github\posproj\src\canvaspos.cpp
+1536515011 source:c:\github\posproj\src\canvaspos.cpp
 	"CanvasPos.hpp"
-	"Utilities/Utils.hpp"
 	<assert.h>
+	"Utilities/Utils.hpp"
+	"HView.hpp"
 
-1536226102 c:\github\posproj\include\canvaspos.hpp
+1536515107 c:\github\posproj\include\canvaspos.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
+	"ScreenPos.hpp"
+	"../src/Singletons/WindowSingleton.hpp"
 
-1535801469 source:c:\github\posproj\src\singletons\hconfig.cpp
+1536353936 source:c:\github\posproj\src\singletons\hconfig.cpp
 	"HConfig.hpp"
 
-1535745802 c:\github\posproj\src\singletons\hconfig.hpp
+1536354006 c:\github\posproj\src\singletons\hconfig.hpp
+	<SFML/Graphics.hpp>
 	<string>
 	<iostream>
-	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535962350 source:c:\github\posproj\src\singletons\logger.cpp
+1536355217 source:c:\github\posproj\src\singletons\logger.cpp
 	"Logger.hpp"
 
-1535795726 c:\github\posproj\src\singletons\logger.hpp
+1536355295 c:\github\posproj\src\singletons\logger.hpp
 	<iostream>
 	<fstream>
 	<string>
@@ -595,7 +604,7 @@
 	"CanvasPos.hpp"
 	"Constants.hpp"
 
-1536271512 source:c:\github\posproj\src\isomatrix.cpp
+1536495571 source:c:\github\posproj\src\isomatrix.cpp
 	"IsoMatrix.hpp"
 	"Utilities/Utils.hpp"
 
@@ -620,7 +629,7 @@
 	<string>
 	"HRect.hpp"
 
-1536269422 source:c:\github\posproj\src\linerect.cpp
+1536495673 source:c:\github\posproj\src\linerect.cpp
 	"LineRect.hpp"
 	"Utilities/Utils.hpp"
 
@@ -633,4 +642,16 @@
 	<assert.h>
 	<SFML/Graphics.hpp>
 	"CanvasPos.hpp"
+
+1536515006 c:\github\posproj\include\screenpos.hpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<string>
+	"CanvasPos.hpp"
+
+1536515169 source:c:\github\posproj\src\screenpos.cpp
+	"ScreenPos.hpp"
+	<assert.h>
+	"Utilities/Utils.hpp"
+	"HView.hpp"
 

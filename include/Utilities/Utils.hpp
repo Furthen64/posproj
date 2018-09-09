@@ -8,10 +8,10 @@
 #include <cerrno>
 #include <cstring>
 #include <clocale>
-
-
-
+#include "ScreenPos.hpp"
+#include "CanvasPos.hpp"
 #include "../../src/Singletons/Logger.hpp"
+#include "../../src/Singletons/WindowSingleton.hpp"
 
 #define PI 3.1415926535897932
 
@@ -35,6 +35,7 @@ void waitForInput();
 std::string getFullUri(std::string relativeUri);
 void logErr (std::string str);
 void logWarn (std::string str);
+void hlog (std::string str);
 
 
 
@@ -48,5 +49,11 @@ float rotateCCW_y(float , float , float angleCCW_deg);
 
 float rotateCW_x(float , float , float angleCW_deg);
 float rotateCW_y(float , float , float angleCW_deg);
+
+
+// Position Utils
+CanvasPos *scrpos_to_cpos(ScreenPos *);
+ScreenPos *cpos_to_scrpos(CanvasPos *);
+
 
 #endif

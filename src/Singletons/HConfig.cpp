@@ -1,7 +1,7 @@
 #include "HConfig.hpp"
 
 
-/// \brief Loads everything into configMap
+/// \brief Loads every setting <key,value> pair into configMap for easy reach all over the code
 // (--)
 bool HConfig::loadSettingsFromDefaultsIni()
 {
@@ -19,7 +19,7 @@ bool HConfig::loadSettingsFromDefaultsIni()
 
 
 
-// (--)
+// (-+)
 bool HConfig::addSetting(std::string _key, std::string _val, std::string category)
 {
     configMap.emplace(_key, _val);
@@ -35,7 +35,7 @@ std::string HConfig::getSetting(std::string _keySearch)
 
     it = configMap.find(_keySearch);
     if (it != configMap.end()) {
-        return (*it).second;        // Dereference the found std::pair and get the "second" member, which is the value in a <key,value> pair!
+        return (*it).second;        // Dereference the found std::pair and get the "second" member, which is the value in a <key,value> pair
     }
 
     std::cout << "WARNING: " << cn << " getSetting could not find " << _keySearch << "\n";

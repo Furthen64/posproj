@@ -11,10 +11,11 @@
 
 #include "Constants.hpp"
 #include "RenderTree.hpp"
-#include "Utilities/Utils.hpp"
+
 #include "LineRect.hpp"
 #include "Canvas.hpp"
 
+#include "ScreenPos.hpp"
 #include "CanvasPos.hpp"
 #include "IsoMatrix.hpp"
 #include "OrMatrix.hpp"
@@ -90,13 +91,15 @@ public:
 
     bool allocateSingletons();
 
+    bool closeSingletons();
+
     bool setup();
 
     RunResult *lifecycle();
 
     RunResult *run();
 
-    void populateMarkers(RenderTree *);
+void populateMarkers(RenderTree *);
 
     void resume();
     void pause();
@@ -112,8 +115,6 @@ private:
     WindowSingleton *win;                 // win = win->getInstance(); to use it!
 
     Canvas *canvas = nullptr;             // See Core()
-    HView *hview = nullptr;               // See Core()
-
 
     int mouseSensitivity = 0;
 
@@ -123,6 +124,9 @@ private:
     std::string ind1 = "";
     std::string ind2 = "";
     std::string ind3 = "";
+
+void populateDebugWindow(RenderTree *, ScreenPos *, CanvasPos *);
+
 };
 
 
