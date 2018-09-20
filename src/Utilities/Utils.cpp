@@ -1,6 +1,8 @@
+#include "Utilities/Utils.hpp"
+
 #include <SFML/Graphics.hpp>
 #include "HView.hpp"
-#include "Utilities/Utils.hpp"
+
 
 // Seems to work for a couple of weeks now (2018-04) havent given thoughts about memory DEALLOCATION though...
 // (-+)
@@ -273,4 +275,54 @@ ScreenPos *cpos_to_scrpos(CanvasPos *cpos)
 
 }
 
+
+/// \brief relativeUri have a syntax like: "data\filename.txt"
+// (--)
+std::string getFullUri(std::string relativeUri)
+{
+    std::string cn = "Utils.cpp";
+
+    char *cwd = new char[512];
+    cwd = getCurrentDir(cwd, 512);
+    if(cwd == nullptr) {
+        std::cout << "ERROR " << cn << " getFullUri() cannot get working dir, " << errno << "\n";
+    }
+
+    std::string fullUri = cwd;
+
+    fullUri += "\\..\\";
+    fullUri += relativeUri;
+
+    return fullUri;
+}
+
+
+
+
+
+
+
+
+// (++)
+void initRandomizer()
+{
+
+    srand(time(0));
+}
+
+
+// (++)
+int randBetween(int lowNr, int highNr)
+{
+    return rand()%(highNr-lowNr + 1) + lowNr;
+}
+
+
+
+// (++)
+void waitForInput()
+{
+    std::cout << "\nPress enter to continue...\n";
+    getchar();
+}
 

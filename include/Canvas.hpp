@@ -25,6 +25,9 @@ public:
     HView *getHView();
 
 
+
+
+
 private:
     std::string cn = "Core.cpp";
     HView *hview = nullptr;             // Wrapper for the sf::View class, just so I can work more easily with it, adding helper members like "topLeft"

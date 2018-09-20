@@ -15,7 +15,12 @@
 
 #include <SFML/OpenGL.hpp>
 
+
+
+
 #include "Singletons/Logger.hpp"
+
+#include "FileManager.hpp"
 
 #include "Utilities/Utils.hpp"
 #include "TextFactory.hpp"
@@ -39,14 +44,10 @@ Core::Core()
     // Allocate all Core members
     canvas = new Canvas();
 
-    // Store handy pointers in Core
-
+    // Assign handy pointers in Core
     WindowSingleton *win;
     win = win->getInstance();
-
-    std::cout << "hview: \n";
     win->hview = canvas->getHView();
-    win->hview->dump();
 }
 
 
@@ -71,7 +72,16 @@ RunResult *Core::lifecycle()
 bool Core::setup()
 {
     hlog("core::setup()------------------------------------\n");
-    // Read all the settings
+
+
+    /// Load all textures
+    ResourceHolder *res;
+    res = res->getInstance();
+    res->loadTextures();
+    hlog("nr of textures loaded: " + std::to_string(res->nrOfTextures()) + "\n") ;
+
+    /// Read all the settings
+
     HConfig *cfg;
     cfg = cfg->getInstance();
     cfg->loadSettingsFromDefaultsIni();
@@ -86,6 +96,20 @@ bool Core::setup()
             logErr(cn + " Could not convert string to int: \"" + settingStr + "\"\n");
         }
     }
+
+
+    // Setup Window (FPS)
+
+    std::string fpsLockOnStr = cfg->getSetting("fpsLockOn");        if(fpsLockOnStr == "") { logErr("setting fpsLockOn not found");}
+    int fpsLockOn = stoi(fpsLockOnStr);
+
+    std::string fpsLockStr = cfg->getSetting("fpsLock");            if(fpsLockStr == "") { logErr("setting fpsLock not found");}
+    int fpsLock = std::stoi(fpsLockStr);
+
+    if(fpsLockOn) {
+        rwPtr->setFramerateLimit(fpsLock);
+    }
+
     hlog("------ setup done\n\n");
 
 
@@ -94,9 +118,8 @@ bool Core::setup()
 
 
 void Core::resume() { isRunning = true; }
+
 void Core::pause()  { isRunning = false; }
-
-
 
 /// Not done, needs more consideration
 void Core::resizeWindow()
@@ -108,10 +131,6 @@ void Core::resizeWindow()
 
 
     win->hview->resizeViewToWindow();
-    win->hview->dump();
-
-
-
 }
 
 
@@ -174,19 +193,6 @@ void Core::populateDebugWindow(RenderTree *rtree, ScreenPos *mouse_scrpos, Canva
         rtree->addMiscText(textPtr);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
@@ -218,29 +224,19 @@ RunResult *Core::run()
     RenderTree *rendertree = new RenderTree();  // For all the Text objects and loose debug objects visible on screen
 
     /// Place our View at startup position
-    win->hview->dump();
     win->hview->setTopLeft(-100,-100);
-
-
-
-    /// Populate a couple of markers
-    /*populateMarkers(rendertree);*/
-
 
     /// Debug Objects
     OrMatrix *orMat1 = new OrMatrix(5,10);
     orMat1->setPosition(new CanvasPos(184,184));
-
-
     IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
+
+
+    FileManager *fmgr = new FileManager();
+    fmgr->readRegularFile( getFullUri("data/maps/default.txt"),1,isoMat1);
 
     isoMat1->rotateNDegCCW(45);
 
-
-
-
-        /*bool rotEnabled = true;
-    float rotAngle = 1;*/
 
 
 
@@ -398,36 +394,8 @@ RunResult *Core::run()
 
 
 
-
-
             // Delete debug output before adding new one
             rendertree->clearMiscTexts();
-
-
-            /*
-            // Debug output, view topleft text
-            {
-
-                // Create text object from factory to display topleft of view
-                sf::Text *textPtr = TextFactory::getText(hview->toString(),15,sf::Color(55,250,55,255));
-
-
-                // sfml's "setPosition()" operates in sfml canvas space.
-                // So we need to adjust with our view to always lock this to what is displayed on the Window.
-                // We do this by offseting with view's topleft.
-
-
-                textPtr->setPosition(hview->getTopLeft_x() + 6,
-                                     hview->getTopLeft_y() + 4);
-
-
-
-                // Add it to the render tree
-                rendertree->addMiscText(textPtr);
-            }
-
-            */
-
 
         }
 
@@ -444,12 +412,13 @@ RunResult *Core::run()
 
         // The Gameboard (orMatrix or isoMatrix )
 
-       // orMat1->drawAll(*rwPtr);
-      //  isoMat1->drawAll(*rwPtr);
-//        CanvasPos *isoCenter = isoMat1->getMiddle_cpos();
-        //isoCenter->drawAll(*rwPtr);
+        //orMat1->drawAll(*rwPtr);
+        //isoMat1->drawAll(*rwPtr);
 
-        // RenderTree contents
+
+
+
+         // RenderTree contents
         for (std::vector<sf::Text *>::iterator textObjIt = rendertree->miscTexts.begin(); textObjIt!= rendertree->miscTexts.end(); ++textObjIt)
         {
             // Dereference our iterator into an sf::Text *

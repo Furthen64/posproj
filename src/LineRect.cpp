@@ -180,7 +180,7 @@ void LineRect::recalcBoundingBox()
     CanvasPos *_topLeft = new CanvasPos( top->y, left->x);
     CanvasPos *_bottomRight = new CanvasPos( bottom->y, right->x);
 
-    boundingBox = new HRect(_topLeft, _bottomRight);
+    boundingBox = new CRect(_topLeft, _bottomRight);
 }
 
 

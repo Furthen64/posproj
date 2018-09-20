@@ -4,8 +4,15 @@
 
 #include <string>
 #include <iostream>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "Constants.hpp"
+
+
+
+
+/// Inside the game code you use strings to find textures, "GRASS001".
+/// The maps themselves use simple numbers (001,002) for ease of writing maps but don't use them here in the code.
 
 
 
@@ -13,8 +20,6 @@
 ///  Create a handle wherever:
 ///     ResourceHolder *res;
 ///     res = res->getInstance();
-
-
 
 
 class ResourceHolder
@@ -37,6 +42,24 @@ public:
     sf::Font *fixedsysFont;
 
 
+int loadTextures();
+
+void dump();
+
+void pushTexture(std::string _name, sf::Texture _texture);
+sf::Texture getTexture(std::string _key);
+
+bool applyTexture(std::string textureName, sf::Texture *texture, bool startGLContext);
+bool applyTextureById(unsigned int _textureId, sf::Texture *texture, bool startGLContext);
+
+std::string getTextureNameByIndex(int nr);  // Only used by Map to get the string name
+
+std::unordered_map<std::string,sf::Texture> getTextureMap();
+
+int nrOfTextures();
+
+
+
 
 private:
 
@@ -53,7 +76,8 @@ private:
 
     // Regular private members
         std::string cn = "ResourceHolder.cpp";
-
+bool loadedTextures = false;
+std::unordered_map<std::string,sf::Texture> textureMap;
 
 
 

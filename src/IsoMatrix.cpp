@@ -1,9 +1,37 @@
 #include "IsoMatrix.hpp"
 #include "Utilities/Utils.hpp"
+#include "Singletons/ResourceHolder.hpp"
 
 IsoMatrix::IsoMatrix()
 {
     std::cout << "Warning: unallocated IsoMatrix!\n";
+
+    {
+        ResourceHolder *resHolder;
+        resHolder = resHolder->getInstance();
+
+        int _textureId = 551;
+        std::string textureName = resHolder->getTextureNameByIndex(_textureId);
+
+        bool result = resHolder->applyTexture(textureName, &texture, true);
+
+        if(!result) {
+            std::cout << "ERROR GameMatrix creation, cannot find texture id \"" << _textureId << "\".\n";
+            return ;
+        }
+    }
+
+    sprite = sf::Sprite(texture);
+}
+
+
+/// \brief Creates a dummy isomatrix with no real data
+IsoMatrix::IsoMatrix(int _rows, int _cols)
+{
+    rows = _rows;
+    cols = _cols;
+
+    orMat = new OrMatrix(_rows, _cols);
 }
 
 
@@ -15,17 +43,11 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
     if(_orMat == nullptr) {
         logErr(cn + " constructor failed, nullptr argument\n");
         throw std::runtime_error( "ERROR:  constructor IsoMatrix failed, nullptr argument" );
-
     }
 
     orMat = _orMat;
 
-    /*topleft =  new CanvasPos( (ORMATRIX_TILE_HEIGHT_PX * orMat->getRows()) + 2 ,
-                             (ORMATRIX_TILE_WIDTH_PX * orMat->getCols()) + 2) ;*/
-
     topleft = orMat->getTopLeft_cpos()->clone();
-
-
 
     lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
                           new CanvasPos(topleft->y, topleft->x + (orMat->getCols() * ORMATRIX_TILE_WIDTH_PX) ),
@@ -57,6 +79,26 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
                          new CanvasPos(92,46));*/
 
 
+}
+
+
+
+
+
+int IsoMatrix::getCols()
+{
+    return cols;
+}
+
+int IsoMatrix::getRows()
+{
+    return rows;
+}
+
+
+OrMatrix *IsoMatrix::getOrMatrix()
+{
+    return orMat;
 }
 
 

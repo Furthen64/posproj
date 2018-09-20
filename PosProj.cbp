@@ -15,6 +15,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-static -static-libgcc -static-libstdc++ -Wall -pedantic" />
+					<Add option="-D_Win32_" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
@@ -35,6 +36,7 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-static -static-libgcc -static-libstdc++ -Wall -pedantic" />
+					<Add option="-D_Win32_" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
@@ -55,35 +57,68 @@
 			<Add directory="$(#sfml.lib)" />
 			<Add directory="$(#mingw.lib)" />
 		</Linker>
+		<Unit filename="include/BinarySearchTree.hpp" />
+		<Unit filename="include/Block.hpp" />
+		<Unit filename="include/Bus.hpp" />
+		<Unit filename="include/BusRoute.hpp" />
+		<Unit filename="include/CRect.hpp" />
 		<Unit filename="include/Canvas.hpp" />
 		<Unit filename="include/CanvasPos.hpp" />
 		<Unit filename="include/Constants.hpp" />
 		<Unit filename="include/Core.hpp" />
-		<Unit filename="include/HRect.hpp" />
+		<Unit filename="include/FileManager.hpp" />
+		<Unit filename="include/Graph.hpp" />
+		<Unit filename="include/Grid.hpp" />
 		<Unit filename="include/HView.hpp" />
+		<Unit filename="include/HurkaMap.hpp" />
+		<Unit filename="include/HurkaMatrix.hpp" />
 		<Unit filename="include/Input.hpp" />
 		<Unit filename="include/IsoMatrix.hpp" />
 		<Unit filename="include/IsoPos.hpp" />
+		<Unit filename="include/IsoRect.hpp" />
 		<Unit filename="include/LineRect.hpp" />
+		<Unit filename="include/Link.hpp" />
+		<Unit filename="include/Locomotive.hpp" />
+		<Unit filename="include/Node.hpp" />
 		<Unit filename="include/OrMatrix.hpp" />
 		<Unit filename="include/OrPos.hpp" />
 		<Unit filename="include/RenderTree.hpp" />
+		<Unit filename="include/RoadNetwork.hpp" />
 		<Unit filename="include/ScreenPos.hpp" />
+		<Unit filename="include/SlotPath.hpp" />
+		<Unit filename="include/SlotPos.hpp" />
 		<Unit filename="include/TextFactory.hpp" />
+		<Unit filename="include/Toolbar.hpp" />
+		<Unit filename="include/TrafficManager.hpp" />
 		<Unit filename="include/Utilities/Utils.hpp" />
+		<Unit filename="src/BinarySearchTree.cpp" />
+		<Unit filename="src/Block.cpp" />
+		<Unit filename="src/Bus.cpp" />
+		<Unit filename="src/BusRoute.cpp" />
+		<Unit filename="src/CRect.cpp" />
 		<Unit filename="src/Canvas.cpp" />
 		<Unit filename="src/CanvasPos.cpp" />
 		<Unit filename="src/Core.cpp" />
-		<Unit filename="src/HRect.cpp" />
+		<Unit filename="src/Dijkstra.cpp" />
+		<Unit filename="src/FileManager.cpp" />
+		<Unit filename="src/Graph.cpp" />
+		<Unit filename="src/Grid.cpp" />
 		<Unit filename="src/HView.cpp" />
+		<Unit filename="src/HurkaMap.cpp" />
+		<Unit filename="src/HurkaMatrix.cpp" />
 		<Unit filename="src/Input.cpp" />
 		<Unit filename="src/IsoMatrix.cpp" />
 		<Unit filename="src/IsoPos.cpp" />
+		<Unit filename="src/IsoRect.cpp" />
 		<Unit filename="src/LineRect.cpp" />
+		<Unit filename="src/Link.cpp" />
+		<Unit filename="src/Locomotive.cpp" />
 		<Unit filename="src/Main.cpp" />
+		<Unit filename="src/Node.cpp" />
 		<Unit filename="src/OrMatrix.cpp" />
 		<Unit filename="src/OrPos.cpp" />
 		<Unit filename="src/RenderTree.cpp" />
+		<Unit filename="src/RoadNetwork.cpp" />
 		<Unit filename="src/ScreenPos.cpp" />
 		<Unit filename="src/Singletons/HConfig.cpp" />
 		<Unit filename="src/Singletons/HConfig.hpp" />
@@ -93,7 +128,11 @@
 		<Unit filename="src/Singletons/ResourceHolder.hpp" />
 		<Unit filename="src/Singletons/WindowSingleton.cpp" />
 		<Unit filename="src/Singletons/WindowSingleton.hpp" />
+		<Unit filename="src/SlotPath.cpp" />
+		<Unit filename="src/SlotPos.cpp" />
 		<Unit filename="src/TextFactory.cpp" />
+		<Unit filename="src/Toolbar.cpp" />
+		<Unit filename="src/TrafficManager.cpp" />
 		<Unit filename="src/Utilities/Utils.cpp" />
 		<Extensions>
 			<code_completion />

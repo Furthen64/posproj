@@ -7,9 +7,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "Constants.hpp"
+
 class HView;
-
-
 
 /// Example usage:
 ///  Create a handle wherever:
@@ -53,16 +52,9 @@ private:
 
 
     // Regular private members
-
     bool windowAllocated = false;
     std::string cn = "WindowSingleton.cpp";
     sf::RenderWindow *rwPtr = nullptr;          // Set when allocateWindow() is run
-
-
-    bool fpsLockOn = true;  // Overridden by HConfig
-    int fpsLock = 30;       // Overridden by HConfig
-
-
 
 };
 

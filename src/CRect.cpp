@@ -1,20 +1,22 @@
-#include "HRect.hpp"
+#include "CRect.hpp"
 
 
 #include "LineRect.hpp"
+
+#include "Utilities/Utils.hpp"
 ////////////////////////////////////////////
 // Constructors
 
 
-HRect::HRect()
+CRect::CRect()
 {
     // Default size default position
     topLeft = new CanvasPos(0,0);
     bottomRight = new CanvasPos(46,46);
 }
 
-// Given a size, create an hrect with default position of topleft = (0,0)
-HRect::HRect(int _sizeY, int _sizeX)
+// Given a size, create an CRect with default position of topleft = (0,0)
+CRect::CRect(int _sizeY, int _sizeX)
 {
     topLeft = new CanvasPos(0,0);
 
@@ -23,7 +25,7 @@ HRect::HRect(int _sizeY, int _sizeX)
 
 
 // TopLeft and BottomRight defines a rectangle.
-HRect::HRect(CanvasPos *_topLeft_cpos, CanvasPos *_bottomRight_cpos)
+CRect::CRect(CanvasPos *_topLeft_cpos, CanvasPos *_bottomRight_cpos)
 {
     topLeft = _topLeft_cpos;
 
@@ -31,7 +33,7 @@ HRect::HRect(CanvasPos *_topLeft_cpos, CanvasPos *_bottomRight_cpos)
 }
 
 
-HRect::HRect(LineRect *lineRect)
+CRect::CRect(LineRect *lineRect)
 {
     // find out the most top point (lowest y-value)
     CanvasPos *top = lineRect->getTop_cpos();
@@ -52,21 +54,18 @@ HRect::HRect(LineRect *lineRect)
 
 
 
-
-
-
-int HRect::getSize_y()
+int CRect::getSize_y()
 {
     return (bottomRight->y - topLeft->y);
 }
 
-int HRect::getSize_x()
+int CRect::getSize_x()
 {
     return (bottomRight->x - topLeft->x);
 }
 
 
-CanvasPos *HRect::getMiddle_cpos()
+CanvasPos *CRect::getMiddle_cpos()
 {
 
     CanvasPos *_cpos = new CanvasPos(0,0);
@@ -82,7 +81,7 @@ CanvasPos *HRect::getMiddle_cpos()
 
 
 // Sets topleft position,
-void HRect::setTopLeft(int cpos_y, int cpos_x)
+void CRect::setTopLeft(int cpos_y, int cpos_x)
 {
     int size_y = getSize_y();
     int size_x = getSize_x();
@@ -95,7 +94,7 @@ void HRect::setTopLeft(int cpos_y, int cpos_x)
 }
 
 
-void HRect::setTopLeft(CanvasPos *topLeft_cpos)
+void CRect::setTopLeft(CanvasPos *topLeft_cpos)
 {
     int size_y = getSize_y();
     int size_x = getSize_x();
@@ -108,7 +107,7 @@ void HRect::setTopLeft(CanvasPos *topLeft_cpos)
 }
 
 
-void HRect::drawAll(sf::RenderTarget &rt)
+void CRect::drawAll(sf::RenderTarget &rt)
 {
     sf::RectangleShape rect(sf::Vector2f(getSize_x(), getSize_y()));
 
@@ -125,13 +124,16 @@ void HRect::drawAll(sf::RenderTarget &rt)
 
 
 
+void CRect::dump()
+{
+    std::cout << "CRect size(" << getSize_y() << ", " << getSize_x()<< ")\n";
+}
 
 
 
+bool CRect::inside(CanvasPos *cpos)
+{
 
-
-
-
-
-
-
+        logErr(cn + " inside stub\n");
+        return false;
+}

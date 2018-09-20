@@ -1,5 +1,5 @@
-#ifndef HRECT_H
-#define HRECT_H
+#ifndef CRECT_H
+#define CRECT_H
 
 #include <iostream>
 #include <assert.h>
@@ -12,16 +12,15 @@ class LineRect; // <-- blargh inclusion
 
 
 
-class HRect
+class CRect
 {
 
 public:
 
-HRect();
-    HRect(int _sizeY, int _sizeX);
-    HRect(CanvasPos *topLeft_cpos, CanvasPos *bottomRight_cpos);
-    HRect(LineRect *lineRect);
-
+    CRect();
+    CRect(int _sizeY, int _sizeX);
+    CRect(CanvasPos *topLeft_cpos, CanvasPos *bottomRight_cpos);
+    CRect(LineRect *lineRect);
 
     void setTopLeft(CanvasPos *topLeft_cpos);
     void setTopLeft(int cpos_y, int cpos_x);
@@ -33,18 +32,19 @@ HRect();
 
 
     // General functions
-    bool containsCanvasPos(CanvasPos *cpos);
 
-    int nrTiles(); // A tile is 46 x 46 px, and the HRect is 46 x 92 px, that would mean nrTiles = 2
+    int nrTiles(); // A tile is 46 x 46 px, and the CRect is 46 x 92 px, that would mean nrTiles = 2
 
-    int compare(HRect *other);
-    int compareAbsStartPoint(HRect *other);
-    int compareSize(HRect *other);
+    int compare(CRect *other);
+    int compareAbsStartPoint(CRect *other);
+    int compareSize(CRect *other);
 
+    bool inside(CanvasPos *cpos);
     bool insideXPixles_middle(CanvasPos *point_cpos);
     bool insideYPixles_middle(CanvasPos *point_cpos);
 
-    HRect *clone();
+    CRect *clone();
+    void dump();
 
     CanvasPos *topLeft;
     CanvasPos *bottomRight;
@@ -53,7 +53,7 @@ HRect();
 
 private:
 
-    std::string cn = "HRect.cpp";
+    std::string cn = "CRect.cpp";
 };
 
 #endif

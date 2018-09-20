@@ -4,7 +4,7 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1536515160 source:c:\github\posproj\src\core.cpp
+1537434056 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
@@ -15,6 +15,7 @@
 	<random>
 	<SFML/OpenGL.hpp>
 	"Singletons/Logger.hpp"
+	"FileManager.hpp"
 	"Utilities/Utils.hpp"
 	"TextFactory.hpp"
 
@@ -39,9 +40,10 @@
 	"IsoMatrix.hpp"
 	"OrMatrix.hpp"
 
-1536515089 source:c:\github\posproj\src\utilities\utils.cpp
-	<SFML/Graphics.hpp>
+1537471984 source:c:\github\posproj\src\utilities\utils.cpp
 	"Utilities/Utils.hpp"
+	<SFML/Graphics.hpp>
+	"HView.hpp"
 
 1525593210 c:\fat64\libs\sfml_2.5.0_fat64\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -452,7 +454,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1536408909 source:c:\github\posproj\src\singletons\windowsingleton.cpp
+1536523631 source:c:\github\posproj\src\singletons\windowsingleton.cpp
 	"WindowSingleton.hpp"
 	"HView.hpp"
 	"HConfig.hpp"
@@ -463,9 +465,9 @@
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535876926 c:\github\posproj\include\constants.hpp
+1537370242 c:\github\posproj\include\constants.hpp
 
-1536319722 c:\github\posproj\src\singletons\windowsingleton.hpp
+1537432229 c:\github\posproj\src\singletons\windowsingleton.hpp
 	<string>
 	<iostream>
 	<SFML/Graphics.hpp>
@@ -475,10 +477,10 @@
 	"Canvas.hpp"
 	"Singletons/WindowSingleton.hpp"
 
-1535117719 source:c:\github\posproj\src\isopos.cpp
+1537434179 source:c:\github\posproj\src\isopos.cpp
 	"IsoPos.hpp"
 
-1535117704 c:\github\posproj\include\isopos.hpp
+1537434783 c:\github\posproj\include\isopos.hpp
 	<iostream>
 	<string>
 
@@ -499,7 +501,7 @@
 
 1535203160 source:c:\github\posproj\src\input.cpp
 
-1535548843 c:\github\posproj\include\canvas.hpp
+1537434747 c:\github\posproj\include\canvas.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -512,7 +514,7 @@
 	"CanvasPos.hpp"
 	"Constants.hpp"
 
-1536515099 c:\github\posproj\include\utilities\utils.hpp
+1537345056 c:\github\posproj\include\utilities\utils.hpp
 	<iostream>
 	<cmath>
 	<time.h>
@@ -531,7 +533,7 @@
 	"OrMatrix.hpp"
 	"Utilities/Utils.hpp"
 
-1536514228 c:\github\posproj\include\hview.hpp
+1536523114 c:\github\posproj\include\hview.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -553,32 +555,39 @@
 
 1535445643 source:c:\github\posproj\src\textfactory.cpp
 
-1535531355 c:\github\posproj\src\singletons\resourceholder.hpp
+1537344941 c:\github\posproj\src\singletons\resourceholder.hpp
 	<string>
 	<iostream>
+	<unordered_map>
 	<SFML/Graphics.hpp>
 	"Constants.hpp"
 
-1535531424 source:c:\github\posproj\src\singletons\resourceholder.cpp
+1537344991 source:c:\github\posproj\src\singletons\resourceholder.cpp
 	"ResourceHolder.hpp"
+	<iostream>
+	<fstream>
+	<list>
+	<string>
+	<utility>
+	"Utilities/Utils.hpp"
 
 1536405116 c:\github\posproj\include\textfactory.hpp
 	"../src/Singletons/ResourceHolder.hpp"
 
-1536515011 source:c:\github\posproj\src\canvaspos.cpp
+1537472030 source:c:\github\posproj\src\canvaspos.cpp
 	"CanvasPos.hpp"
 	<assert.h>
 	"Utilities/Utils.hpp"
 	"HView.hpp"
 
-1536515107 c:\github\posproj\include\canvaspos.hpp
+1537434757 c:\github\posproj\include\canvaspos.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
 	"ScreenPos.hpp"
 	"../src/Singletons/WindowSingleton.hpp"
 
-1536353936 source:c:\github\posproj\src\singletons\hconfig.cpp
+1536523756 source:c:\github\posproj\src\singletons\hconfig.cpp
 	"HConfig.hpp"
 
 1536354006 c:\github\posproj\src\singletons\hconfig.hpp
@@ -595,18 +604,20 @@
 	<fstream>
 	<string>
 
-1536271442 c:\github\posproj\include\isomatrix.hpp
+1537442154 c:\github\posproj\include\isomatrix.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
+	"IsoRect.hpp"
 	"LineRect.hpp"
 	"OrMatrix.hpp"
 	"CanvasPos.hpp"
 	"Constants.hpp"
 
-1536495571 source:c:\github\posproj\src\isomatrix.cpp
+1537344837 source:c:\github\posproj\src\isomatrix.cpp
 	"IsoMatrix.hpp"
 	"Utilities/Utils.hpp"
+	"Singletons/ResourceHolder.hpp"
 
 1525593210 c:\fat64\libs\sfml_2.5.0_fat64\include\sfml\opengl.hpp
 	<SFML/Config.hpp>
@@ -623,21 +634,21 @@
 	<GLES2/gl2platform.h>
 	<GLES2/gl2ext.h>
 
-1536271587 c:\github\posproj\include\linerect.hpp
+1537442121 c:\github\posproj\include\linerect.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
-	"HRect.hpp"
+	"CRect.hpp"
 
-1536495673 source:c:\github\posproj\src\linerect.cpp
+1537442449 source:c:\github\posproj\src\linerect.cpp
 	"LineRect.hpp"
 	"Utilities/Utils.hpp"
 
-1536221097 source:c:\github\posproj\src\hrect.cpp
+1537431704 source:c:\github\posproj\src\hrect.cpp
 	"HRect.hpp"
 	"LineRect.hpp"
 
-1536221091 c:\github\posproj\include\hrect.hpp
+1537431359 c:\github\posproj\include\hrect.hpp
 	<iostream>
 	<assert.h>
 	<SFML/Graphics.hpp>
@@ -654,4 +665,204 @@
 	<assert.h>
 	"Utilities/Utils.hpp"
 	"HView.hpp"
+
+1526055625 source:c:\github\posproj\src\binarysearchtree.cpp
+	"BinarySearchTree.hpp"
+
+1528962185 c:\github\posproj\include\binarysearchtree.hpp
+	<string>
+	<iostream>
+
+1537349934 source:c:\github\posproj\src\busroute.cpp
+	"BusRoute.hpp"
+
+1537349954 c:\github\posproj\include\busroute.hpp
+	<iostream>
+	<list>
+	"IsoPos.hpp"
+	"CanvasPos.hpp"
+
+1534287965 c:\github\posproj\include\hpos.hpp
+	<iostream>
+	<assert.h>
+
+1522830742 source:c:\github\posproj\src\dijkstra.cpp
+
+1537355168 source:c:\github\posproj\src\block.cpp
+	"Block.hpp"
+
+1537349783 c:\github\posproj\include\block.hpp
+	<SFML/Graphics.hpp>
+	"../src/Singletons/ResourceHolder.hpp"
+	"Utilities/Utils.hpp"
+	"IsoPos.hpp"
+	"IsoMatrix.hpp"
+	"Constants.hpp"
+
+1537369897 source:c:\github\posproj\src\graph.cpp
+	"Graph.hpp"
+
+1537355271 c:\github\posproj\include\graph.hpp
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	"HurkaMatrix.hpp"
+	"Node.hpp"
+	"Link.hpp"
+	"BinarySearchTree.hpp"
+
+1537350122 c:\github\posproj\include\hurkamatrix.hpp
+	"IsoPos.hpp"
+	"Utilities/Utils.hpp"
+
+1537432856 c:\github\posproj\include\node.hpp
+	<SFML/Graphics.hpp>
+	<string>
+	<iostream>
+	<climits>
+	<sstream>
+	"IsoPos.hpp"
+
+1528962185 c:\github\posproj\include\link.hpp
+	<string>
+	<iostream>
+
+1537442276 source:c:\github\posproj\src\grid.cpp
+	"Grid.hpp"
+
+1537469837 c:\github\posproj\include\grid.hpp
+	<sstream>
+	<assert.h>
+	<SFML/Graphics.hpp>
+	"IsoPos.hpp"
+	"Constants.hpp"
+	"Utilities/Utils.hpp"
+
+1537471871 source:c:\github\posproj\src\bus.cpp
+	"Bus.hpp"
+	"RoadNetwork.hpp"
+	"Utilities/Utils.hpp"
+	"HView.hpp"
+
+1537432900 c:\github\posproj\include\bus.hpp
+	<SFML/Graphics.hpp>
+	"IsoMatrix.hpp"
+	"HurkaMatrix.hpp"
+	"Block.hpp"
+	"Grid.hpp"
+	"BusRoute.hpp"
+	"SlotPath.hpp"
+
+1537470872 c:\github\posproj\include\slotpath.hpp
+	<list>
+	"Utilities/Utils.hpp"
+	"SlotPos.hpp"
+
+1537447800 c:\github\posproj\include\slotpos.hpp
+	<SFML/Graphics.hpp>
+	"../src/Singletons/ResourceHolder.hpp"
+	"IsoPos.hpp"
+	"CanvasPos.hpp"
+
+1537442320 c:\github\posproj\include\roadnetwork.hpp
+	<list>
+	<string>
+	"Graph.hpp"
+	"Bus.hpp"
+	"HurkaMatrix.hpp"
+
+1537433761 source:c:\github\posproj\src\hurkamatrix.cpp
+	"HurkaMatrix.hpp"
+
+1537432442 c:\github\posproj\include\filemanager.hpp
+	<stdio.h>
+	<exception>
+	<iostream>
+	<fstream>
+	<sstream>
+	<string>
+	<SFML/Graphics.hpp>
+	"../src/Singletons/ResourceHolder.hpp"
+	"HurkaMap.hpp"
+	"Constants.hpp"
+	"Utilities/Utils.hpp"
+
+1537433999 c:\github\posproj\include\hurkamap.hpp
+	<list>
+	<string>
+	<SFML/Graphics.hpp>
+	"IsoPos.hpp"
+	"TrafficManager.hpp"
+
+1537432034 c:\github\posproj\include\trafficmanager.hpp
+	<list>
+	"Graph.hpp"
+	"RoadNetwork.hpp"
+	"Bus.hpp"
+
+1523059652 source:c:\github\posproj\src\link.cpp
+	"Link.hpp"
+
+1537434374 source:c:\github\posproj\src\node.cpp
+	"Node.hpp"
+	"Link.hpp"
+
+1537434385 source:c:\github\posproj\src\locomotive.cpp
+	"Locomotive.hpp"
+	"Utilities/Utils.hpp"
+
+1537434197 c:\github\posproj\include\locomotive.hpp
+	"SFML/Graphics.hpp"
+	"IsoPos.hpp"
+
+1537434586 source:c:\github\posproj\src\filemanager.cpp
+	"FileManager.hpp"
+
+1537434816 source:c:\github\posproj\src\hurkamap.cpp
+	"HurkaMap.hpp"
+
+1537471111 c:\github\posproj\include\crect.hpp
+	<iostream>
+	<assert.h>
+	<SFML/Graphics.hpp>
+	"CanvasPos.hpp"
+
+1537441910 source:c:\github\posproj\src\crect.cpp
+	"CRect.hpp"
+	"LineRect.hpp"
+
+1537470989 c:\github\posproj\include\isorect.hpp
+	<iostream>
+	<assert.h>
+	<SFML/Graphics.hpp>
+	"CanvasPos.hpp"
+	"IsoPos.hpp"
+
+1537442485 source:c:\github\posproj\src\slotpath.cpp
+	"SlotPath.hpp"
+
+1537447977 source:c:\github\posproj\src\slotpos.cpp
+	"SlotPos.hpp"
+	"HView.hpp"
+
+1537472089 source:c:\github\posproj\src\toolbar.cpp
+	"Toolbar.hpp"
+
+1537472081 c:\github\posproj\include\toolbar.hpp
+	<SFML/Graphics.hpp>
+	"CRect.hpp"
+	"Utilities/Utils.hpp"
+
+1537471459 source:c:\github\posproj\src\isorect.cpp
+	"IsoRect.hpp"
+	"HView.hpp"
+	"Grid.hpp"
+	"Utilities/Utils.hpp"
+
+1537471639 source:c:\github\posproj\src\roadnetwork.cpp
+	"RoadNetwork.hpp"
+
+1537471857 source:c:\github\posproj\src\trafficmanager.cpp
+	"TrafficManager.hpp"
 

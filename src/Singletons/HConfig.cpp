@@ -12,6 +12,7 @@ bool HConfig::loadSettingsFromDefaultsIni()
 
     // Hardcoded:
     configMap.emplace("mouseSensitivity", "5");
+    configMap.emplace("fpsLockOn", "1");
     configMap.emplace("fpsLock", "30");
 
     return true;
@@ -28,7 +29,7 @@ bool HConfig::addSetting(std::string _key, std::string _val, std::string categor
 }
 
 
-// (--)
+// (-+)
 std::string HConfig::getSetting(std::string _keySearch)
 {
     std::map<std::string,std::string>::iterator it;

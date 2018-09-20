@@ -19,7 +19,7 @@ public:
     int getTopLeft_y();
     int getTopLeft_x();
 
-std::string toString();
+    std::string toString();
 
 void resizeViewToWindow();
 void updateWindowView();

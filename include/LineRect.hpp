@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-#include "HRect.hpp" // <-- "CanvasPos.hpp"
+#include "CRect.hpp" // <-- "CanvasPos.hpp"
 
 
 /// A rectangle made up of 4 lines.
@@ -56,7 +56,7 @@ void moveByMiddle(CanvasPos *_cpos);
 
 private:
     CanvasPos *prevPos = nullptr;   // Used by moveToOrigo and moveBack
-    HRect *boundingBox = nullptr;   // Used to know topleft corner
+    CRect *boundingBox = nullptr;   // Used to know topleft corner
     std::string cn = "LineRect.cpp";
 };
 

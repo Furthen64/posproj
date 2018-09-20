@@ -13,6 +13,7 @@
 #include "../../src/Singletons/Logger.hpp"
 #include "../../src/Singletons/WindowSingleton.hpp"
 
+
 #define PI 3.1415926535897932
 
 
@@ -54,6 +55,8 @@ float rotateCW_y(float , float , float angleCW_deg);
 // Position Utils
 CanvasPos *scrpos_to_cpos(ScreenPos *);
 ScreenPos *cpos_to_scrpos(CanvasPos *);
+
+std::string getFullUri(std::string relativeUri);
 
 
 #endif

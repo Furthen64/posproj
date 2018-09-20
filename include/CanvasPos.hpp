@@ -11,7 +11,8 @@
 
 // see Canvas.hpp for more information on what the Canvas and its position mean
 
-/// CanvasPos is the main game position class. If you need to render it on the screen , use the ScreenPos class, and the function ScreenPos->getFromCanvasPos()
+/// CanvasPos is the main game position class, values in pixels.
+/// If you need to render it on the screen , use the ScreenPos class, and the function ScreenPos->getFromCanvasPos()
 /// CanvasPos is used for:
 /// * GAME LOGIC
 
@@ -24,7 +25,7 @@ public:
     CanvasPos(float,float);
     CanvasPos(sf::Vector2f _vecPos);
     CanvasPos(CanvasPos *other);
-
+    CanvasPos(int _y, int _x, int _ymid, int _xmid);
 
     void drawAll(sf::RenderTarget &rt);
     void dump(std::string ind);
@@ -32,9 +33,8 @@ public:
     CanvasPos *clone();
 
 
-sf::Vector2f getSfVec();
-bool isEqual(CanvasPos *other);
-
+    sf::Vector2f getSfVec();
+    bool isEqual(CanvasPos *other);
 
     void testCanvasPos(int debugLevel = 0); // Unit test
 
@@ -45,6 +45,9 @@ bool isEqual(CanvasPos *other);
 
     float y;
     float x;
+
+    float ymid; // The middle position, not always set
+    float xmid;
 
 
 

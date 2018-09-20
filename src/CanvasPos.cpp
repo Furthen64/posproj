@@ -9,6 +9,21 @@ CanvasPos::CanvasPos()
 {
     y = 0;
     x = 0;
+
+    ymid = 0;
+    xmid = 0;
+}
+
+
+CanvasPos::CanvasPos(int _y, int _x)
+{
+
+    y = (float)_y;
+    x = (float)_x;
+
+    ymid = 0;
+    xmid = 0;
+
 }
 
 
@@ -19,10 +34,12 @@ CanvasPos::CanvasPos(float _y,float _x)
 
 }
 
-CanvasPos::CanvasPos(int _y, int _x)
+CanvasPos::CanvasPos(int _y, int _x, int _ymid, int _xmid)
 {
     y = (int)_y;
     x = (int)_x;
+    ymid = (int)_ymid;
+    xmid = (int)_xmid;
 }
 
 CanvasPos::CanvasPos(sf::Vector2f _vecPos)
