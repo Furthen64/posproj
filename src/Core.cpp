@@ -222,38 +222,38 @@ void Core::handleRMB()
 
 void Core::handleLMB(bool *lmbPressed, int *clickIndex, IsoMatrix *isoMat1)
 {
-            (*lmbPressed) = true;
-            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
+        (*lmbPressed) = true;
+        sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
 
-            ScreenPos *mouse_scrpos = new ScreenPos(mousePos_i);
-            CanvasPos *mouse_cpos   = scrpos_to_cpos(mouse_scrpos);
+        ScreenPos *mouse_scrpos = new ScreenPos(mousePos_i);
+        CanvasPos *mouse_cpos   = scrpos_to_cpos(mouse_scrpos);
 
-            // IsoMat1
-            if(clickIndex == 0) {
-                isoMat1->rotateNDegCCW(45);
-            }
-
-
-            if( (*clickIndex) == 1) {
-                isoMat1->scale_y(0.5);
-            }
-            if( (*clickIndex) == 2) {
-                isoMat1->setTopLeft(32,30);
-            }
-            if( (*clickIndex) == 3) {
-
-            }
-            (*clickIndex) = (*clickIndex)+1;
+        // IsoMat1
+        if( (*clickIndex) == 0) {
+            isoMat1->rotateNDegCCW(45);
+        }
 
 
-            // Delete all other old text objects that we've created
-            rendertree->clearMiscTexts();
+        if( (*clickIndex) == 1) {
+            isoMat1->scale_y(0.5);
+        }
+        if( (*clickIndex) == 2) {
+            isoMat1->setTopLeft(32,30);
+        }
+        if( (*clickIndex) == 3) {
 
-            populateDebugWindow(rendertree, mouse_scrpos, mouse_cpos);
+        }
+        (*clickIndex) = (*clickIndex)+1;
+
+
+        // Delete all other old text objects that we've created
+        rendertree->clearMiscTexts();
+
+        populateDebugWindow(rendertree, mouse_scrpos, mouse_cpos);
 
 }
 
-/// \brief Makes a new run of the editor, called from lifeCycle()
+/// \brief called from lifeCycle()
 /// \brief A window and all the singletons and managers are already allocated. run() will do the main loop of the editor,
 /// \brief taking care of events, updating logic and drawing everything.
 // (---)
@@ -282,7 +282,6 @@ RunResult *Core::run()
     win->hview->setTopLeft(-100,-100);
 
     /// Debug Objects
-
     OrMatrix *orMat1 = new OrMatrix(win->isoMatRows, win->isoMatCols);
     orMat1->setPosition(new CanvasPos(0,0));
     IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
@@ -301,13 +300,13 @@ RunResult *Core::run()
 
 
 
+    // Events
     while (rwPtr->isOpen())
     {
-
         if(!isRunning) {
 
-            /// Paused
-            // Check for Events
+            // Game is Paused, run a simple loop
+
             while (rwPtr->pollEvent(event)) {
                 if (event.type == sf::Event::GainedFocus) {
                     resume();
@@ -317,9 +316,6 @@ RunResult *Core::run()
             continue;
         }
 
-
-
-        /// Events
 
         while (rwPtr->pollEvent(event))
         {
@@ -370,11 +366,7 @@ RunResult *Core::run()
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed && isRunning)
         {
             handleLMB(&lmbPressed, &clickIndex, isoMat1);
-
         }
-
-
-
 
 
 
@@ -390,7 +382,10 @@ RunResult *Core::run()
 
 
 
+
+        ///
         /// Render
+        ///
 
         rwPtr->clear();                 // Clear window
         rwPtr->pushGLStates();          // Needed for Gl Stuff below
@@ -407,7 +402,7 @@ RunResult *Core::run()
 
         //orMat1->drawAll(*rwPtr);
         isoMat1->drawAll(*rwPtr);
-        hmap->draw(*rwPtr);
+        //hmap->draw(*rwPtr);
 
 
         // Debug objects

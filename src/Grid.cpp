@@ -12,7 +12,7 @@ Grid::Grid(int _rows, int _cols)
     cols = _cols;
 
 
-    texture.loadFromFile(getFullUri("data\\textures\\GRASS1.png"));
+    texture.loadFromFile(getFullUri("data\\textures\\GRID3.png"));
     sprite = sf::Sprite(texture);
 
     textureSelected.loadFromFile(getFullUri("data\\textures\\GRID_SELECTED.png"));
