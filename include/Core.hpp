@@ -105,7 +105,8 @@ void populateMarkers(RenderTree *);
     void pause();
     void resizeWindow();
 
-
+void handleRMB();
+void handleLMB(bool *lmbPressed, int *clickIndex, IsoMatrix *isoMat1);
 
 
 private:
@@ -117,6 +118,8 @@ private:
     WindowSingleton *win;                 // win = win->getInstance(); to use it!
 
     Canvas *canvas = nullptr;             // See Core()
+
+    RenderTree *rendertree = nullptr;                 // All the things we want to draw
 
     int mouseSensitivity = 0;
 

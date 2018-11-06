@@ -622,13 +622,6 @@ static CanvasPos *itoc(IsoPos *isopos)
 
     CanvasPos *cpos;
 
-    // Create an ORMATRIX of current isomatrix size
-    OrMatrix *tempor = new OrMatrix(win->isoMatRows, win->isoMatCols);
-
-
-
-
-
     int cposY = Grid::convert_iso_to_y( isopos->y, isopos->x, 64, 32, 2);
     int cposX = Grid::convert_iso_to_x( isopos->y, isopos->x, 64, 32, 2);
 

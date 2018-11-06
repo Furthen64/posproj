@@ -4,7 +4,7 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1541500390 source:c:\github\posproj\src\core.cpp
+1541500698 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
@@ -25,7 +25,7 @@
 	"Utilities/Utils.hpp"
 	<iostream>
 
-1541500388 c:\github\posproj\include\core.hpp
+1541501124 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
 	"../src/Singletons/HConfig.hpp"
@@ -729,11 +729,11 @@
 	<string>
 	<iostream>
 
-1538031218 source:c:\github\posproj\src\grid.cpp
+1541500725 source:c:\github\posproj\src\grid.cpp
 	"Grid.hpp"
 	"HView.hpp"
 
-1537723487 c:\github\posproj\include\grid.hpp
+1541500713 c:\github\posproj\include\grid.hpp
 	<sstream>
 	<assert.h>
 	<SFML/Graphics.hpp>
@@ -820,7 +820,7 @@
 	"SFML/Graphics.hpp"
 	"IsoPos.hpp"
 
-1538031082 source:c:\github\posproj\src\filemanager.cpp
+1541500428 source:c:\github\posproj\src\filemanager.cpp
 	"FileManager.hpp"
 
 1537517848 source:c:\github\posproj\src\hurkamap.cpp
@@ -859,7 +859,7 @@
 	"CRect.hpp"
 	"Utilities/Utils.hpp"
 
-1537613906 source:c:\github\posproj\src\isorect.cpp
+1541500756 source:c:\github\posproj\src\isorect.cpp
 	"IsoRect.hpp"
 	"HView.hpp"
 	"Grid.hpp"

@@ -187,12 +187,71 @@ void Core::populateDebugWindow(RenderTree *rtree, ScreenPos *mouse_scrpos, Canva
         textPtr->setPosition(topleft->toVecf());
         rtree->addMiscText(textPtr);
     }
+}
 
 
+// (-+)
+void Core::handleRMB()
+{
 
+    sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
+
+    int clickedY = mousePos_i.y;
+    int clickedX = mousePos_i.x;
+
+    int centerY = ceil(rwPtr->getSize().y/2);       // SCREEN HEIGHT / 2
+    int centerX = ceil(rwPtr->getSize().x/2);       // SCREEN WIDTH / 2
+
+    // Find out how far it is to that clicked position
+    int relativeY = clickedY - centerY;
+
+    // Adjust value for pan speed / mouse sensitivity and also use magic nrs for ratio of screen
+    relativeY =  ( (float) relativeY * mouseSensitivity/80 );
+
+    // Now, do x too
+    int relativeX = clickedX - centerX;
+    relativeX =  ( (float) relativeX * mouseSensitivity/120 );
+
+    // Update the view against this relative motion
+    win->hview->moveView( relativeY, relativeX );
 
 }
 
+
+
+
+void Core::handleLMB(bool *lmbPressed, int *clickIndex, IsoMatrix *isoMat1)
+{
+            (*lmbPressed) = true;
+            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
+
+            ScreenPos *mouse_scrpos = new ScreenPos(mousePos_i);
+            CanvasPos *mouse_cpos   = scrpos_to_cpos(mouse_scrpos);
+
+            // IsoMat1
+            if(clickIndex == 0) {
+                isoMat1->rotateNDegCCW(45);
+            }
+
+
+            if( (*clickIndex) == 1) {
+                isoMat1->scale_y(0.5);
+            }
+            if( (*clickIndex) == 2) {
+                isoMat1->setTopLeft(32,30);
+            }
+            if( (*clickIndex) == 3) {
+
+            }
+            (*clickIndex) = (*clickIndex)+1;
+
+
+            // Delete all other old text objects that we've created
+            rendertree->clearMiscTexts();
+
+            populateDebugWindow(rendertree, mouse_scrpos, mouse_cpos);
+
+}
 
 /// \brief Makes a new run of the editor, called from lifeCycle()
 /// \brief A window and all the singletons and managers are already allocated. run() will do the main loop of the editor,
@@ -201,16 +260,7 @@ void Core::populateDebugWindow(RenderTree *rtree, ScreenPos *mouse_scrpos, Canva
 RunResult *Core::run()
 {
 
-
-    /*/// Unit Testing
-    {
-        CanvasPos  *cpos = new CanvasPos(0,0);
-        cpos->testCanvasPos();
-    }
-    */
-
     hlog("Core::run()-------------------------------------\n");
-
 
 
     /// Create and setup objects needed in this scope for the game loop
@@ -220,8 +270,6 @@ RunResult *Core::run()
     bool lmbPressed = false;
     win = win->getInstance();
     int clickIndex = 0;
-    RenderTree *rendertree = new RenderTree();  // For all the Text objects and loose debug objects visible on screen
-
 
 
     /// Define the size of the gameboard by setting IsoMatrix Rows and Cols
@@ -321,44 +369,7 @@ RunResult *Core::run()
         // Left mouse button pressed
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed && isRunning)
         {
-
-            lmbPressed = true;
-            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
-
-            ScreenPos *mouse_scrpos = new ScreenPos(mousePos_i);
-            CanvasPos *mouse_cpos   = scrpos_to_cpos(mouse_scrpos);
-
-
-
-
-            // IsoMat1
-            if(clickIndex == 0) {
-                isoMat1->rotateNDegCCW(45);
-
-
-            }
-
-
-            if(clickIndex == 1) {
-                isoMat1->scale_y(0.5);
-
-
-            }
-            if(clickIndex == 2) {
-
-                isoMat1->setTopLeft(32,30);
-            }
-            if(clickIndex == 3) {
-
-            }
-            clickIndex++;
-
-
-            // Delete all other old text objects that we've created
-            rendertree->clearMiscTexts();
-
-            populateDebugWindow(rendertree, mouse_scrpos, mouse_cpos);
-
+            handleLMB(&lmbPressed, &clickIndex, isoMat1);
 
         }
 
@@ -374,39 +385,7 @@ RunResult *Core::run()
         // Right mouse button pressed - Pan the map
         if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
-
-            sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
-
-            int clickedY = mousePos_i.y;
-            int clickedX = mousePos_i.x;
-
-            int centerY = ceil(rwPtr->getSize().y/2);       // SCREEN HEIGHT / 2
-            int centerX = ceil(rwPtr->getSize().x/2);       // SCREEN WIDTH / 2
-
-            // Find out how far it is to that clicked position
-            int relativeY = clickedY - centerY;
-
-            // Adjust value for pan speed / mouse sensitivity and also use magic nrs for ratio of screen
-            relativeY =  ( (float) relativeY * mouseSensitivity/80 );
-
-
-
-            // Now, do x too
-            int relativeX = clickedX - centerX;
-            relativeX =  ( (float) relativeX * mouseSensitivity/120 );
-
-
-
-
-            // Update the view against this relative motion
-
-            win->hview->moveView( relativeY, relativeX );
-
-
-
-            // Delete debug output before adding new one
-            rendertree->clearMiscTexts();
-
+            handleRMB();
         }
 
 
@@ -502,6 +481,8 @@ bool Core::allocateSingletons()
     logger = logger->getInstance();
     logger->bootLogger();
 
+
+    rendertree = new RenderTree();
 
     return true;
 

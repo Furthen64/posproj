@@ -181,12 +181,10 @@ void IsoRect::calculateBounds()
 
 
     // Setup extreme limits
-    int minX = 9990;
-    int minY = 9990;
     int maxX = 0;
     int maxY = 0;
 
-    int x;
+
 
 
     /// Go over every tile
@@ -207,6 +205,10 @@ void IsoRect::calculateBounds()
             // CanvasPos *cpos = Grid::convert_iso_to_gpix_topleft(new IsoPos(Y,X), 1);
 
             /*
+    int x;
+            int minX = 9990;
+    int minY = 9990;
+
             x = Grid::convert_iso_to_gpix_x_topleft(Y,X, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 1);
             y = Grid::convert_iso_to_gpix_y_topleft(Y,X, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 1);
 
@@ -502,8 +504,7 @@ void IsoRect::draw(sf::RenderTarget& rt)
 
     WindowSingleton *win;
     win = win->getInstance();
-    HView *hview = win->hview;
-
+    //HView *hview = win->hview;
     if(drawable) {
 
         // Create Grid objects and draw them as you would the grid, but with different texture

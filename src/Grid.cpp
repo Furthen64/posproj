@@ -36,12 +36,8 @@ void Grid::draw( sf::RenderTarget& rt)
     CanvasPos *cpos;
     WindowSingleton *win;
     win = win->getInstance();
-    HView *hview = win->hview;
 
-
-
-    // Draw Y x X amount of grid tiles at the right positions :>
-
+    // Draw Y x X amount of grid tiles at the right positions
     for(int Y = 0; Y < rows; Y++) {
 
         for(int X = 0; X < cols; X++) {
