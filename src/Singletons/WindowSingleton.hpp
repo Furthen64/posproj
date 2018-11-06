@@ -38,6 +38,9 @@ public:
     // Public members
     HView *hview = nullptr;                     // Set when allocateWindow() is run
 
+    int isoMatRows = -1;
+    int isoMatCols = -1;
+
 private:
 
     // Singleton specifics

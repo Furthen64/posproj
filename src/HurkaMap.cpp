@@ -29,14 +29,14 @@ HurkaMap::HurkaMap(std::string _fullUriMapName, int **_matrix, int mtxRows, int 
 
 
 
-/// \brief Will find the index, the int position in the blocklist, where a HPos * matches up
+/// \brief Will find the index, the int position in the blocklist, where an IsoPos matches up
 /// \param blockpos Allocated, values set, a position on the gameboard where an object is drawn (a Block)
 /// \return index on OK, -1 on FAIL
 // See  docs\ HurkaMap - indexInList.png
 // (-+)
 int HurkaMap::indexInBlockList(IsoPos *blockpos)
 {
-    int debugLevel = 0;
+    int debugLevel =1;
     int nr = 0;
     Block *workBlock = nullptr;
     int searchId1 = -1;
@@ -50,9 +50,9 @@ int HurkaMap::indexInBlockList(IsoPos *blockpos)
     }
 
     if(debugLevel >=1) {
-            std::cout << "** indexInBlockList() \n{";
-            std::cout << "param blockpos:\n";
-            blockpos->dump("  ");
+        std::cout << "** indexInBlockList() \n{";
+        std::cout << "param blockpos:\n";
+        blockpos->dump("  ");
     }
 
 
@@ -66,7 +66,7 @@ int HurkaMap::indexInBlockList(IsoPos *blockpos)
     {
         workBlock = (*it);
 
-        searchId2 = Node::genIDfrom_abs_iso( workBlock->getHPos() );
+        searchId2 = Node::genIDfrom_abs_iso( workBlock->get_isopos() );
 
         if(searchId1 == searchId2) {
             if(debugLevel >=1) {
@@ -120,7 +120,7 @@ void HurkaMap::dump(std::string ind)
     for(std::list<Block *>::iterator it = blockList.begin(); it != blockList.end(); ++it)
     {
         workBlock = (*it);
-        std::cout << workBlock->getHPos()->absToString() << " ";
+        std::cout << workBlock->get_isopos()->absToString() << " ";
     }
     std::cout << "\n" << ind << "}\n";
 }
@@ -153,7 +153,7 @@ void HurkaMap::dumpEverythingAtPos(IsoPos *searchPos, TrafficManager *tm, std::s
 
         workBlock = (*it);
 
-        if(workBlock->getHPos()->compareAbsIso(searchPos) == 0) {
+        if(workBlock->get_isopos()->compareAbsIso(searchPos) == 0) {
 
             workBlock->minimaldump(ind2);
 
@@ -262,7 +262,7 @@ int HurkaMap::placeNewOrSwapRoad(IsoPos *roadPos, int debugLevel)
             // Current Block on position
             workBlock = (*it);
 
-            currPosID = Node::genIDfrom_abs_iso(workBlock->getHPos());
+            currPosID = Node::genIDfrom_abs_iso(workBlock->get_isopos());
 
 
 
@@ -350,14 +350,14 @@ int HurkaMap::placeNewOrSwapRoad(IsoPos *roadPos, int debugLevel)
             // First find a block on the same layer
 
             if(!sameLayer) {
-                currLayer = Grid::layerNrInBlockList(workBlock->getHPos());
+                currLayer = Grid::layerNrInBlockList(workBlock->get_isopos());
 
 
                 if(currLayer == searchPosLayer) {
 
                    if(debugLevel >=2) {
                         std::cout << ind << "This workblock is at same layer:\n";
-                        workBlock->getHPos()->dump("   ");
+                        workBlock->get_isopos()->dump("   ");
                         std::cout << "\n";
                    }
 
@@ -370,11 +370,11 @@ int HurkaMap::placeNewOrSwapRoad(IsoPos *roadPos, int debugLevel)
 
                 // Now find the right position in the blocklist here at this layer
 
-                if(IsoPos::ArightOfB(workBlock->getHPos(), roadPos) ) {
+                if(IsoPos::ArightOfB(workBlock->get_isopos(), roadPos) ) {
 
                     if(debugLevel >=2) {
                         std::cout << ind << "Comparing with ArightOFB(workblock, roadpos):\n";
-                        workBlock->getHPos()->dump("  ");
+                        workBlock->get_isopos()->dump("  ");
                         roadPos->dump("  ");
                     }
 
@@ -419,7 +419,7 @@ int HurkaMap::placeNewOrSwapRoad(IsoPos *roadPos, int debugLevel)
 
                 workBlock = (*it);
 
-                currLayer = Grid::layerNrInBlockList(workBlock->getHPos());
+                currLayer = Grid::layerNrInBlockList(workBlock->get_isopos());
 
                 if(currLayer > searchPosLayer) {
 

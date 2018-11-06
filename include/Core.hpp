@@ -110,6 +110,8 @@ void populateMarkers(RenderTree *);
 
 private:
 
+    bool coredebuglevel = 0;
+
     sf::RenderWindow *rwPtr = nullptr;       // Set after we allocateWindow from the singleton, done in Core() constructor
 
     WindowSingleton *win;                 // win = win->getInstance(); to use it!

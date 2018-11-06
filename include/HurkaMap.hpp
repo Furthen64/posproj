@@ -20,10 +20,6 @@
 // 2018-05-17       jörgen engström         CR15 Making the Matrix size, same size as GameMatrix
 
 
-
-
-using namespace sf;
-
 class HurkaMap
 {
 public:
@@ -33,41 +29,33 @@ public:
     ~HurkaMap();
 
 
-    void draw(RenderTarget& rt);
+    void draw(sf::RenderTarget& rt);
 
     void testList();
 
     int placeNewOrSwapRoad(IsoPos *roadPos, int debugLevel);
-
     int placeNewRoad(IsoPos *roadPos, int debugLevel );
-
-    int indexInBlockList(IsoPos *);
-
-    int **getMatrix();
-
-
-    int layerNrInBlockList(IsoPos *);
 
     void putBlockList(std::list<Block *> _blockList);
 
-    std::string fullUriMapName;
+    int indexInBlockList(IsoPos *);
+    int **getMatrix();
+    int layerNrInBlockList(IsoPos *);
+    int getNrBlocks();
 
     HurkaMatrix *getRoadHMatrix();
 
-
-    int getNrBlocks();
+    std::string fullUriMapName;
 
 
     // Debug utils
 
     void dumpEverythingAtPos(IsoPos *, TrafficManager *, std::string );
-
     void dump(std::string);
-
-    // public members
 
     int getRows() { return matrixRows; }
     int getCols() { return matrixCols; }
+
 private:
 
     std::list<Block *> blockList; // All the blocks we render

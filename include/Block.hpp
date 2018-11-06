@@ -23,11 +23,22 @@ public:
 
     Block(IsoPos *, std::string );
     Block(IsoPos *, int );
+    Block(CanvasPos *, std::string );
 
-    void draw( sf::RenderTarget& rt);
+void draw( sf::RenderTarget& rt);
 
     void dump(std::string);
     void minimaldump(std::string ind);
+
+void setPos(CanvasPos *_cpos);
+void setPos(IsoPos  *_isopos);
+
+
+
+IsoPos *get_isopos();
+CanvasPos *get_cpos();
+
+
 
     int getTextureID();
 
@@ -40,8 +51,6 @@ public:
     void set_gpix_pos_by_abs_iso(IsoPos *_abs_iso);
     void setCanvasPos_byIsoPos(IsoPos *isopos);
 
-    IsoPos *getHPos();
-
 
 
 
@@ -52,8 +61,10 @@ private:
     std::string textureName;
     sf::Sprite sprite;
     sf::Vector2f pos_vec2f;
+
     std::string cn = "Block.cpp";
-    IsoPos *hpos;
+    IsoPos *isopos;
+    CanvasPos *cpos;
 };
 
 #endif

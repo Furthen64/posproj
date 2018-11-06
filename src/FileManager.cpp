@@ -96,6 +96,8 @@ FileManager::FileManager()
 HurkaMap *FileManager::readRegularFile(std::string fullUri, int debugLevel, IsoMatrix *isomat)
 {
 
+
+
     // Returnobject HurkaMap
     HurkaMap *resultMap = nullptr;  // Allocated later when we have the matrix of objects (001,007,... etc)
 
@@ -117,9 +119,6 @@ HurkaMap *FileManager::readRegularFile(std::string fullUri, int debugLevel, IsoM
 
 
 
-
-
-
     if(debugLevel >= 1) { std::cout << "\n\nreadRegularFile( " << fullUri << ") \n{\n"; }
 
 
@@ -131,15 +130,14 @@ HurkaMap *FileManager::readRegularFile(std::string fullUri, int debugLevel, IsoM
         return nullptr;
     }
 
-    if(mapRows > isomat->getRows()) {
-        std::cout << "ERROR " << cn << " file loaded is larger in height than the gamematrix allows for!\n";
-        return nullptr;
+    if(mapRows > isomat->getRows() || mapCols > isomat->getCols() ) {
+
+        logWarn("Isomatrix needed resizing\n");
+        std::cout << "Warning " << cn << " file map size = (" << mapRows << ", " << mapCols << ") but the IsoMatrix size is = (" << isomat->getRows() << ", " << isomat->getCols() << ") ! \n";
+        isomat->resizeMatrix(mapRows, mapCols);
+
     }
 
-    if(mapCols > isomat->getCols()) {
-        std::cout << "ERROR " << cn << " file loaded is larger in width than the gamematrix allows for!\n";
-        return nullptr;
-    }
 
 
 
@@ -441,10 +439,7 @@ bool FileManager::verifyFile(std::string fullUri, int *rows, int *cols, int debu
 
         /// Get the first line
         std::getline(infile, line);
-
         lineRowNr++;
-
-
         nrElementsM++;
         firstLineLength = line.length();
 
@@ -509,6 +504,7 @@ bool FileManager::verifyFile(std::string fullUri, int *rows, int *cols, int debu
 
 
     } else {
+
         // Could not open the file
         std::cout << "ERROR " << cn << ": Could not open file \"" << fullUri << "\"!\n";
 

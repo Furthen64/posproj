@@ -4,11 +4,11 @@
 #include <sstream>
 #include <assert.h>
 
-
 #include <SFML/Graphics.hpp>
 
 
-
+#include "../src/Singletons/WindowSingleton.hpp"
+#include "OrMatrix.hpp"
 #include "IsoPos.hpp"
 #include "Constants.hpp"
 #include "Utilities/Utils.hpp"
@@ -28,9 +28,9 @@ public:
 
     void draw( sf::RenderTarget& rt);
 
-    void setVisible(CanvasPos *);
+    void setSelectedTile(CanvasPos *);
 
-    void hideVisible();
+    void hideSelectedTile();
 
     // Search function
     //IsoPos *findTile(HRect *entireGameBoard, CanvasPos *searchpos_gpix_middle, std::string ind, sf::RenderTarget& rt, std::string recursionName);
@@ -71,7 +71,7 @@ static int layerNrInBlockList(IsoPos *searchPos)
 
     int debugLevel = 0;
 
-    int matrixRows = NR_GRIDS_HEIGHT;
+    int matrixRows = NR_GRIDS_HEIGHT;   // Hardcoded fixme
     int matrixCols = NR_GRIDS_WIDTH;
 
 
@@ -103,20 +103,11 @@ static int layerNrInBlockList(IsoPos *searchPos)
     int xDownRight = 0;
 
     if(debugLevel >=1) {
-
         std::cout << "\n\n* layerNrInBlockList()\n{";
+        std::cout << ind1 << " - matrix size(: " << matrixRows << ", matrixCols: " << matrixCols << "\n\n";
+        std::cout << ind1 << " - layerNr:" << layerNr << "\n";
 
-        std::cout << ind1 << "matrixRows= " << matrixRows << ", matrixCols= " << matrixCols << "\n\n";
-
-    }
-
-
-
-
-
-    if(debugLevel >=1) {
-        std::cout << ind1 << "Loop1:\n" << ind1 << "----------\n";
-        std::cout << ind1 << "layerNr=" << layerNr << "\n";
+        std::cout << "\n\n" << ind1 << " - loop1:      \n" << ind1 << "----------\n";
     }
 
     while(yDown < matrixRows)
@@ -211,8 +202,6 @@ static int layerNrInBlockList(IsoPos *searchPos)
     // We did not find anything
     return -1;
 }
-
-
 
 
 
@@ -456,6 +445,7 @@ static int isoToGpixMiddleX(IsoPos *iso_pos, int typeOfElement, int _debugLevel)
 // (--)
 static int convert_iso_to_x(int M, int N, int width, int height, int typeOfElement)
 {
+
     std::string cn = "Grid.hpp";
 
     if(width == 0 || height == 0) {
@@ -463,7 +453,9 @@ static int convert_iso_to_x(int M, int N, int width, int height, int typeOfEleme
         return -1;
     }
 
-    int globalXOffset= 1500;
+    /*int globalXOffset= 1500;
+    int initialXOffset = 0;*/
+    int globalXOffset= 0;
     int initialXOffset = 0;
     int xOffset = 0;
     int xStep = 0;
@@ -527,7 +519,6 @@ static int convert_iso_to_x(int M, int N, int width, int height, int typeOfEleme
 static int convert_iso_to_y(int M, int N, int width, int height, int typeOfElement)
 {
 
-
     if(width == 0 || height == 0) {
         std::cout << "ERROR grid.hpp height or width = 0 in call to convert_iso_to_pix_y!!\n";
         return -1;
@@ -538,8 +529,12 @@ static int convert_iso_to_y(int M, int N, int width, int height, int typeOfEleme
     int Y = M;
     int X = N;
 
-    int globalYOffset= 500;
-    int globalXOffset= 1500;
+    /*int globalYOffset= 500;
+    int globalXOffset= 1500;*/
+
+    int globalYOffset= 0;
+    int globalXOffset= 0;
+
     int initialYOffset = 0;
     int initialXOffset = 0;
     int yOffset = 0;
@@ -614,20 +609,31 @@ static int convert_iso_to_y(int M, int N, int width, int height, int typeOfEleme
 
 
     return yOffset + yStep;
+
 }
 
 
 
 
-// (--)
-static CanvasPos *convert_iso_to_gpix_topleft(IsoPos *isopos, int typeOfElement)
+static CanvasPos *itoc(IsoPos *isopos)
 {
-    CanvasPos *cpos = new CanvasPos();
+    WindowSingleton *win;
+    win = win->getInstance();
 
-    // we have y  and x
+    CanvasPos *cpos;
 
-    cpos->y = convert_iso_to_y(isopos->y, isopos->x, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, typeOfElement);
-    cpos->x = convert_iso_to_x(isopos->y, isopos->x, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, typeOfElement);
+    // Create an ORMATRIX of current isomatrix size
+    OrMatrix *tempor = new OrMatrix(win->isoMatRows, win->isoMatCols);
+
+
+
+
+
+    int cposY = Grid::convert_iso_to_y( isopos->y, isopos->x, 64, 32, 2);
+    int cposX = Grid::convert_iso_to_x( isopos->y, isopos->x, 64, 32, 2);
+
+
+    cpos = new CanvasPos(cposY,cposX);
 
 
     return cpos;
@@ -637,59 +643,6 @@ static CanvasPos *convert_iso_to_gpix_topleft(IsoPos *isopos, int typeOfElement)
 
 
 
-/// \brief Takes isopos data, defaults to GRID texture size, and converts to gpix data
-// (--)
-static CanvasPos *convert_iso_to_gpix_middle(IsoPos *isopos)
-{
-    CanvasPos *cpos = new CanvasPos();
-
-    // we have y and x
-    cpos->ymid= Grid::isoToGpixMiddleY(isopos, 0, 0);
-    cpos->xmid= Grid::isoToGpixMiddleX(isopos, 0, 0);
-
-    return cpos;
-}
-
-
-
-
-
-/// \brief Takes gpix data, defaults to GRID texture size, and converts to isometric tile position
-static CanvasPos *convert_gpix_to_iso(IsoPos *pix_pos)
-{
-/*
-@HURKALUMO
-
-
-FRÅN ISOMETRIC TILL KVADRAT:
-
-	*		markera enbart isometriska gridden
-	*		scale höjdled 198%
-	*		rotate 45 degs
-*/
-
-
-
-    std::cout << "ERROR grid.hpp convert_gpix_to_iso() Stub code for now, should use findTile later\n";
-    return nullptr;
-    //HPos *retobj = convert_gpix_to_iso(pix_pos, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT);
-
-
-}
-
-
-
-
-
-
-
-
-// see findTile()
-static IsoPos *convert_gpix_to_iso(CanvasPos *pix_pos, int width, int height)
-{
-    std::cout << "ERROR: Grid.hpp Function convert_gpix_to_iso is deprecated! Please use Grid::findTile() instead.\n";
-    return nullptr;
-}
 
 
 private:
@@ -701,11 +654,13 @@ private:
     sf::Sprite sprite;
     sf::Sprite spriteSelected;
 
-    sf::Vector2f selected_iso_pos;
-    bool drawSelectedGrid = false;
+    sf::Vector2f selectedTile_vec2f;
+    bool drawSelectedTile = false;
 
-    int width;
-    int height;
+
+    int rows;
+    int cols;
+
 
     sf::Font font;
     sf::Text text;
@@ -727,4 +682,6 @@ private:
 };
 
 
+
 #endif
+

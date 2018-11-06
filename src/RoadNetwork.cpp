@@ -734,7 +734,7 @@ void RoadNetwork::createSlotPathFromDijkstraResult(DijkstraResult *dijkstraResul
     }
 
     Node *workNode;
-    CanvasPos *work_cpos;
+  //  CanvasPos *work_cpos;
     std::list<SlotPos *> *slotPositions = nullptr;
     std::string str;
 
@@ -755,7 +755,7 @@ void RoadNetwork::createSlotPathFromDijkstraResult(DijkstraResult *dijkstraResul
         temp_isopos->x = temp_isopos->relx + rect->absStart->x;
 
 
-        work_cpos = Grid::convert_iso_to_gpix_topleft(temp_isopos,2);
+        // fixme after position functions work: work_cpos = Grid::convert_iso_to_gpix_topleft(temp_isopos,2);
 
 /*
         workPos->y = Grid::convert_iso_to_y(workPos->y, workPos->x, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 2);   // rendered as a GRID
@@ -765,7 +765,7 @@ void RoadNetwork::createSlotPathFromDijkstraResult(DijkstraResult *dijkstraResul
         // Now we have a gpix point of reference for generating all the tiny steps the bus will take inside a road
 
         // alpha-0.2:  make this better
-        slotPositions = SlotPath::getSlotPosesOnBlockSituation(work_cpos, 101, 0);
+       // fixme:  slotPositions = SlotPath::getSlotPosesOnBlockSituation(work_cpos, 101, 0);
 
 
         slotpath->addListOfSlotPositions(slotPositions);

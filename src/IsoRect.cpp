@@ -202,12 +202,14 @@ void IsoRect::calculateBounds()
 
 
             // FIXME untested:
-            CanvasPos *cpos = Grid::convert_iso_to_gpix_topleft(new IsoPos(Y,X), 1);
+            logErr("functions missing\n");
+
+            // CanvasPos *cpos = Grid::convert_iso_to_gpix_topleft(new IsoPos(Y,X), 1);
 
             /*
             x = Grid::convert_iso_to_gpix_x_topleft(Y,X, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 1);
             y = Grid::convert_iso_to_gpix_y_topleft(Y,X, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 1);
-            */
+
 
 
             if(x < minX) {
@@ -241,7 +243,7 @@ void IsoRect::calculateBounds()
                 bottomBound->y = cpos->y + GRID_TEXTURE_HEIGHT;
                 bottomBound->x = cpos->x;
             }
-
+            */
         }
 
     }
@@ -509,17 +511,20 @@ void IsoRect::draw(sf::RenderTarget& rt)
         for(int Y=this->absStart->y; Y < (this->absStart->y + this->rows); Y++) {
 
             for(int X=this->absStart->x; X < (this->absStart->x + this->cols); X++) {
-
+                /*
                 sf::Vector2f vecpos = sf::Vector2f();
+
                 CanvasPos *cpos = Grid::convert_iso_to_gpix_topleft(new IsoPos(Y,X), 0);
-                /*currPos.y = Grid::convert_iso_to_gpix_y_topleft(Y,X, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 0);
-                currPos.x = Grid::convert_iso_to_gpix_x_topleft(Y,X, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 0);*/
+                currPos.y = Grid::convert_iso_to_gpix_y_topleft(Y,X, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 0);
+                currPos.x = Grid::convert_iso_to_gpix_x_topleft(Y,X, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 0);
 
                 vecpos.y += hview->getTopLeft_y();
                 vecpos.x += hview->getTopLeft_x();
 
                 sprite.setPosition(vecpos);
                 rt.draw(sprite);
+
+                */
 
             }
         }

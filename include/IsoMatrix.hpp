@@ -24,6 +24,7 @@ public:
     void setTopLeft(CanvasPos *);
     void setPosByNewMiddle(CanvasPos *);
 
+void resizeMatrix(int _newRows, int _newCols);
     void moveToOrigo();
     void moveByTopLeftSaveMiddle(CanvasPos *);
     void moveBack();
@@ -53,13 +54,16 @@ IsoRect *getIsoRect();
 
 private:
     std::string cn = "IsoMatrix.cpp";
-    CanvasPos *topleft;
-    CanvasPos *prev_cpos;
-    OrMatrix *orMat;    // The parent matrix object
-    LineRect *lrect;
 
     int cols;
     int rows;
+
+    CanvasPos *topleft;
+    CanvasPos *prev_cpos;
+
+    OrMatrix *orMat;    // The origin matrix object
+    LineRect *lrect;    // Should be synched with this cols and rows and topleft position
+
 
     sf::Sprite sprite;
     sf::Texture texture;

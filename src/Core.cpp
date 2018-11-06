@@ -2,7 +2,6 @@
 //
 // Some Tips & Trix can be found at       https://beta.etherpad.org/p/fat64_2       (2018-09)
 
-
 #include "Core.hpp"
 
 #include <stdexcept>
@@ -12,11 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include <random>
-
 #include <SFML/OpenGL.hpp>
-
-
-
 
 #include "Singletons/Logger.hpp"
 
@@ -193,6 +188,9 @@ void Core::populateDebugWindow(RenderTree *rtree, ScreenPos *mouse_scrpos, Canva
         rtree->addMiscText(textPtr);
     }
 
+
+
+
 }
 
 
@@ -216,6 +214,7 @@ RunResult *Core::run()
 
 
     /// Create and setup objects needed in this scope for the game loop
+
     RunResult *rres = new RunResult();
     sf::Event event;
     bool lmbPressed = false;
@@ -223,19 +222,27 @@ RunResult *Core::run()
     int clickIndex = 0;
     RenderTree *rendertree = new RenderTree();  // For all the Text objects and loose debug objects visible on screen
 
+
+
+    /// Define the size of the gameboard by setting IsoMatrix Rows and Cols
+    win->isoMatRows = 10;
+    win->isoMatCols = 10;
+
+    Grid *grid = new Grid(win->isoMatRows,win->isoMatCols);
+
     /// Place our View at startup position
     win->hview->setTopLeft(-100,-100);
 
     /// Debug Objects
-    OrMatrix *orMat1 = new OrMatrix(5,10);
-    orMat1->setPosition(new CanvasPos(184,184));
-    IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
 
+    OrMatrix *orMat1 = new OrMatrix(win->isoMatRows, win->isoMatCols);
+    orMat1->setPosition(new CanvasPos(0,0));
+    IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
+    isoMat1->setTopLeft(new CanvasPos(30,186));
 
     FileManager *fmgr = new FileManager();
-    fmgr->readRegularFile( getFullUri("data/maps/default.txt"),1,isoMat1);
 
-    isoMat1->rotateNDegCCW(45);
+    HurkaMap *hmap = fmgr->readRegularFile( getFullUri("data\\maps\\simple_2.txt"), coredebuglevel,isoMat1);
 
 
 
@@ -326,17 +333,20 @@ RunResult *Core::run()
 
             // IsoMat1
             if(clickIndex == 0) {
-                isoMat1->scale_y(0.5);
+                isoMat1->rotateNDegCCW(45);
+
+
             }
 
 
             if(clickIndex == 1) {
+                isoMat1->scale_y(0.5);
 
-                isoMat1->scale_y(2.0);
+
             }
             if(clickIndex == 2) {
 
-                isoMat1->scale_y(0.5);
+                isoMat1->setTopLeft(32,30);
             }
             if(clickIndex == 3) {
 
@@ -406,15 +416,26 @@ RunResult *Core::run()
         rwPtr->clear();                 // Clear window
         rwPtr->pushGLStates();          // Needed for Gl Stuff below
 
+
+
         win->hview->drawAll(*rwPtr);            // Show the View boundary            Green
         canvas->drawAll(*rwPtr);           // Show the Canvas with its Grid     Blue
+
+        grid->draw(*rwPtr);
 
 
         // The Gameboard (orMatrix or isoMatrix )
 
         //orMat1->drawAll(*rwPtr);
-        //isoMat1->drawAll(*rwPtr);
+        isoMat1->drawAll(*rwPtr);
+        hmap->draw(*rwPtr);
 
+
+        // Debug objects
+        /*block1->draw(*rwPtr);
+        block2->draw(*rwPtr);
+        block3->draw(*rwPtr);
+        blockA->draw(*rwPtr);*/
 
 
 
@@ -440,38 +461,6 @@ RunResult *Core::run()
 
         //// OpenGL Extras
         rwPtr->popGLStates();       // from a PushGlStates further up
-
-
-
-
-        // Draw dotted line
-        /*
-        glPushAttrib(GL_ENABLE_BIT);// glPushAttrib is done to return everything to normal after drawing
-        glPushMatrix();
-
-        glOrtho(hview->getTopLeft_x() , 1024 + hview->getTopLeft_x(), hview->getTopLeft_y() + 768, hview->getTopLeft_y(), 1, -1);
-
-        glColor3f(0.0f,1.0f,1.0f);
-        glLineStipple(10, 0xAAAA);
-        glEnable(GL_LINE_STIPPLE);
-        glBegin(GL_LINES);
-            glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
-            glVertex3f( glConv_x(clickedMarker.getPosition().x), glConv_y(clickedMarker.getPosition().y), 0.0f);
-        glEnd();
-
-
-        glBegin(GL_LINES);
-            glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
-            glVertex3f( glConv_x(rotatedMarker.getPosition().x), glConv_y(rotatedMarker.getPosition().y), 0.0f);
-        glEnd();
-
-        glPopMatrix();
-        glPopAttrib();
-        */
-
-
-
-
 
         rwPtr->display();
 
@@ -537,3 +526,32 @@ bool Core::closeSingletons()
 
     return true;
 }
+
+
+
+
+// Draw dotted line
+/*
+glPushAttrib(GL_ENABLE_BIT);// glPushAttrib is done to return everything to normal after drawing
+glPushMatrix();
+
+glOrtho(hview->getTopLeft_x() , 1024 + hview->getTopLeft_x(), hview->getTopLeft_y() + 768, hview->getTopLeft_y(), 1, -1);
+
+glColor3f(0.0f,1.0f,1.0f);
+glLineStipple(10, 0xAAAA);
+glEnable(GL_LINE_STIPPLE);
+glBegin(GL_LINES);
+glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
+glVertex3f( glConv_x(clickedMarker.getPosition().x), glConv_y(clickedMarker.getPosition().y), 0.0f);
+glEnd();
+
+
+glBegin(GL_LINES);
+glVertex3f( glConv_x(origoMarker.getPosition().x), glConv_y(origoMarker.getPosition().y), 0.0f);
+glVertex3f( glConv_x(rotatedMarker.getPosition().x), glConv_y(rotatedMarker.getPosition().y), 0.0f);
+glEnd();
+
+glPopMatrix();
+glPopAttrib();
+*/
+

@@ -2,10 +2,16 @@
 #include "Utilities/Utils.hpp"
 #include "Singletons/ResourceHolder.hpp"
 
+
+// (--)
 IsoMatrix::IsoMatrix()
 {
-    std::cout << "Warning: unallocated IsoMatrix!\n";
 
+    // Default magic nrs
+    int _rows = 27;
+    int _cols = 27;
+
+    logWarn(cn + " unallocated IsoMatrix\n");
     {
         ResourceHolder *resHolder;
         resHolder = resHolder->getInstance();
@@ -22,6 +28,13 @@ IsoMatrix::IsoMatrix()
     }
 
     sprite = sf::Sprite(texture);
+
+    orMat = new OrMatrix(_rows, _cols);
+
+    lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
+                          new CanvasPos(topleft->y, topleft->x + (orMat->getCols() * ORMATRIX_TILE_WIDTH_PX) ),
+                          new CanvasPos(topleft->y+(orMat->getRows() * ORMATRIX_TILE_HEIGHT_PX), topleft->x+ (orMat->getCols() * ORMATRIX_TILE_WIDTH_PX) ),
+                          new CanvasPos(topleft->y+(orMat->getRows() * ORMATRIX_TILE_HEIGHT_PX), topleft->x) );
 }
 
 
@@ -32,6 +45,12 @@ IsoMatrix::IsoMatrix(int _rows, int _cols)
     cols = _cols;
 
     orMat = new OrMatrix(_rows, _cols);
+
+
+    lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
+                          new CanvasPos(topleft->y, topleft->x + (orMat->getCols() * ORMATRIX_TILE_WIDTH_PX) ),
+                          new CanvasPos(topleft->y+(orMat->getRows() * ORMATRIX_TILE_HEIGHT_PX), topleft->x+ (orMat->getCols() * ORMATRIX_TILE_WIDTH_PX) ),
+                          new CanvasPos(topleft->y+(orMat->getRows() * ORMATRIX_TILE_HEIGHT_PX), topleft->x) );
 }
 
 
@@ -47,6 +66,9 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
 
     orMat = _orMat;
 
+    rows = _orMat->getRows();
+    cols = _orMat->getCols();
+
     topleft = orMat->getTopLeft_cpos()->clone();
 
     lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
@@ -58,29 +80,25 @@ IsoMatrix::IsoMatrix(OrMatrix *_orMat)
     setTopLeft(topleft); // Run this to update lrect's topleft
 
 
-    /*
-
-    Use these to try out specific shapes:
-
-    std::cout << "Remember: IsoMatrix is set to HARDCODED values!\n\n";
-    lrect = new LineRect(new CanvasPos(46,92),
-                         new CanvasPos(92,138),
-                         new CanvasPos(138,92),
-                         new CanvasPos(92,46)); // 45 deg rotated square
-
-    lrect = new LineRect( new CanvasPos(0,46),
-                          new CanvasPos(138,92),
-                          new CanvasPos(276,46),
-                          new CanvasPos(138,0) ); // Squashed square
-
-    lrect = new LineRect(new CanvasPos(46,92),
-                         new CanvasPos(92,138),
-                         new CanvasPos(368,92),
-                         new CanvasPos(92,46));*/
-
 
 }
 
+
+/// \brief Resizes the IsoMatrix object. Note: It will remove the connection to the "OrMatrix" !
+void IsoMatrix::resizeMatrix(int _newRows, int _newCols)
+{
+    rows = _newRows;
+    cols = _newCols;
+
+    // We can no longer have a relationship to the old orMat because it is invalid
+    orMat = nullptr;
+
+    lrect = new LineRect( new CanvasPos(topleft->y, topleft->x),
+                          new CanvasPos(topleft->y, topleft->x + (cols * ORMATRIX_TILE_WIDTH_PX) ),
+                          new CanvasPos(topleft->y+(rows * ORMATRIX_TILE_HEIGHT_PX), topleft->x+ (cols * ORMATRIX_TILE_WIDTH_PX) ),
+                          new CanvasPos(topleft->y+(rows * ORMATRIX_TILE_HEIGHT_PX), topleft->x) );
+
+}
 
 
 
@@ -247,3 +265,26 @@ void IsoMatrix::moveByTopLeftSaveMiddle(CanvasPos *_cpos)
     setTopLeft(_cpos);
 
 }
+
+
+
+
+    /*
+
+    Use these to try out specific shapes:
+
+    std::cout << "Remember: IsoMatrix is set to HARDCODED values!\n\n";
+    lrect = new LineRect(new CanvasPos(46,92),
+                         new CanvasPos(92,138),
+                         new CanvasPos(138,92),
+                         new CanvasPos(92,46)); // 45 deg rotated square
+
+    lrect = new LineRect( new CanvasPos(0,46),
+                          new CanvasPos(138,92),
+                          new CanvasPos(276,46),
+                          new CanvasPos(138,0) ); // Squashed square
+
+    lrect = new LineRect(new CanvasPos(46,92),
+                         new CanvasPos(92,138),
+                         new CanvasPos(368,92),
+                         new CanvasPos(92,46));*/

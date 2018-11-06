@@ -1,5 +1,6 @@
 #include "Block.hpp"
 
+#include "Grid.hpp"
 
 
 
@@ -16,7 +17,7 @@
 /// @param texturename   Unique string to identify a texture object with, e.g. "HOUSE001", see TextureManager class
 ///
 /// (-+)
-Block::Block(IsoPos *_hpos, std::string _textureName)
+Block::Block(IsoPos *_isopos, std::string _textureName)
 {
     int debugLevel = 0;
 
@@ -49,8 +50,13 @@ Block::Block(IsoPos *_hpos, std::string _textureName)
     }
 
 
-    // Now we have texture size, set the gPix positions
-    set_gpix_pos_by_abs_iso(_hpos);
+    //GIven an isopos , figure out where its on the canvas
+    isopos = _isopos;
+    cpos = Grid::itoc(_isopos);
+
+
+
+
 }
 
 
@@ -59,7 +65,7 @@ Block::Block(IsoPos *_hpos, std::string _textureName)
 /// @param _hpos         An HPos object with the absolute iso positions set
 /// @param _textureId    Unique integer to identify a texture object with, e.g. 001 which maps to "HOUSE001", see TextureManager class
 // (-+)
-Block::Block(IsoPos *_hpos, int _textureId)
+Block::Block(IsoPos *_isopos, int _textureId)
 {
     int debugLevel = 0;
 
@@ -85,23 +91,69 @@ Block::Block(IsoPos *_hpos, int _textureId)
         std::cout << "height= " << textureSize.height << ", width=" << textureSize.width << "\n";
     }
 
-    set_gpix_pos_by_abs_iso(_hpos);
+
+    cpos = Grid::itoc(_isopos);
+    isopos = _isopos;
+
 
 }
 
 
+// (--)
+
+Block::Block(CanvasPos *_cpos, std::string _textureName)
+{
+    int debugLevel = 2;
+
+
+    if(_textureName == "") {
+        std::cout << "ERROR " << cn << " Could not create block with empty texturename=" << _textureName << "\"!\n";
+        return ;
+    }
+
+
+    // Apply texture
+    ResourceHolder *res;
+    res = res->getInstance();
+
+
+    bool result = res->applyTexture(_textureName, &texture, false);
+    if(!result) { std::cout << "ERROR Block creation, cannot find texture \"" << _textureName << "\".\n";  return ;  }
+
+    textureName = _textureName;
 
 
 
-/// Uses the internal "hpos" object for gameworld position (e.g. it's at iso position {7,1} and at gamepix position {1000,600} )
-/// and the "viewpos" viewing position object to know where we are looking at the moment
-///
-/// @param rt       SFML RenderWindow thingie
-/// @param viewPos  A rectangle which holds the starting x and starting y for looking at the gameboard
-// (-+)
+    // Set SFML sprite
+    sprite = sf::Sprite(texture);
+    textureSize = sprite.getTextureRect();
+
+
+    if(debugLevel > 0) {
+        std::cout << "height= " << textureSize.height << ", width=" << textureSize.width << "\n";
+    }
+
+
+    // We dont have the iso position so set it to default of 0,0
+    cpos = _cpos;
+
+    logErr("block default isopos(0,0) \n");
+    isopos = new IsoPos(0,0);
+
+}
+
+
 void Block::draw( sf::RenderTarget& rt)
 {
-    logErr("block draw stub\n");
+    if(cpos == nullptr) {
+        logErr("fjant");
+    }
+    sf::Vector2f vecpos = {cpos->x, cpos->y};
+
+    sprite.setPosition(vecpos);
+
+    rt.draw(sprite);
+
     /*
     int x = hpos->x;
     int y = hpos->y;
@@ -167,9 +219,27 @@ void Block::setCanvasPos_byIsoPos(IsoPos *isopos)
 
 
 }
+
+void Block::setPos(IsoPos *_isopos)
+{
+    hlog("I have no idea what i am doing\n");
+    hlog(_isopos->absToString() + "\n");
+
+    isopos = _isopos;
+    cpos = Grid::itoc(_isopos);
+}
+
+void Block::setPos(CanvasPos *_cpos)
+{
+
+
+}
+
 void Block::set_gpix_pos_by_abs_iso(IsoPos *_abs_iso)
 {
-    logErr("block set_gpix_pos_by_abs_iso stub!\n");
+
+    logErr("block set_gpix_pos_by_abs_iso stub\n");
+//    cpos = Grid::convert_iso_to_gpix_topleft(_abs_iso, 2);
     /*
     hpos = _abs_iso;
 
@@ -221,19 +291,21 @@ Block *Block::clone()
 {
     std::cout << "Block.clone(): UNDEFINED BEHAVIOUR !! Needs more testing.\n";
 
-    Block *block = new Block(hpos->clone(), textureName);
+    Block *block = new Block(isopos->clone(), textureName);
 
     return block;
 }
 
 
-
-
-/// \return The internal Hpos pointer!
-// (--)
-IsoPos *Block::getHPos()
+IsoPos *Block::get_isopos()
 {
-    return hpos;
+    return isopos;
+}
+
+
+CanvasPos *Block::get_cpos()
+{
+    return cpos;
 }
 
 
