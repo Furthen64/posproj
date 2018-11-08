@@ -219,8 +219,7 @@ void Core::handleRMB()
 
 
 
-
-void Core::handleLMB(bool *lmbPressed, int *clickIndex, IsoMatrix *isoMat1)
+void Core::handleLMB(bool *lmbPressed, int *clickIndex, OrMatrix *orMat1, IsoMatrix *isoMat1, CanvasPos *clicked_cpos)
 {
         (*lmbPressed) = true;
         sf::Vector2i mousePos_i = sf::Mouse::getPosition( *rwPtr );
@@ -228,23 +227,57 @@ void Core::handleLMB(bool *lmbPressed, int *clickIndex, IsoMatrix *isoMat1)
         ScreenPos *mouse_scrpos = new ScreenPos(mousePos_i);
         CanvasPos *mouse_cpos   = scrpos_to_cpos(mouse_scrpos);
 
-        // IsoMat1
-        if( (*clickIndex) == 0) {
-            isoMat1->rotateNDegCCW(45);
-        }
 
+
+        /// For now, find out where we are clicking on
+        /// * CanvasPos
+        /// * Inside the OrMatrix = OrPos
+        /// * Inside the equivalent IsoMatrix = IsoPos
+
+/*
+        if( (*clickIndex) == 0) {
+*/
+            // First click sets the position inside the Ortho Matrix
+            // e.g. (0,0) the first tile
+            //      (0,1) the second tile, going right
+            clicked_cpos->copyValuesFrom(mouse_cpos);
+
+            OrPos *clicked_orpos = Grid::ctoor(clicked_cpos, orMat1);
+
+            if(clicked_orpos != nullptr) {
+
+
+                clicked_orpos->dump("clicked orpos: ");
+                std::cout << "-----\n";
+
+
+                // Now convert this Ormatrix Position into what it would be, inside a rotated square, that is, the iso version of the ortho matrix!
+                // Complicated?!
+
+                IsoPos *clicked_isopos = Grid::ortoi(clicked_orpos);
+
+            }
+
+/*
+        }
 
         if( (*clickIndex) == 1) {
+            isoMat1->rotateNDegCCW(45);
+
+        }
+
+
+        if( (*clickIndex) == 2) {
             isoMat1->scale_y(0.5);
         }
-        if( (*clickIndex) == 2) {
+        if( (*clickIndex) == 3) {
             isoMat1->setTopLeft(32,30);
         }
-        if( (*clickIndex) == 3) {
+        if( (*clickIndex) == 4) {
 
         }
         (*clickIndex) = (*clickIndex)+1;
-
+*/
 
         // Delete all other old text objects that we've created
         rendertree->clearMiscTexts();
@@ -276,7 +309,7 @@ RunResult *Core::run()
     win->isoMatRows = 10;
     win->isoMatCols = 10;
 
-    Grid *grid = new Grid(win->isoMatRows,win->isoMatCols);
+    Grid *isoGrid = new Grid(win->isoMatRows,win->isoMatCols);
 
     /// Place our View at startup position
     win->hview->setTopLeft(-100,-100);
@@ -285,7 +318,9 @@ RunResult *Core::run()
     OrMatrix *orMat1 = new OrMatrix(win->isoMatRows, win->isoMatCols);
     orMat1->setPosition(new CanvasPos(0,0));
     IsoMatrix *isoMat1 = new IsoMatrix( orMat1 );
-    isoMat1->setTopLeft(new CanvasPos(30,186));
+    CanvasPos *clicked_cpos = new CanvasPos(0,0);
+
+    //isoMat1->setTopLeft(new CanvasPos(30,186));
 
     FileManager *fmgr = new FileManager();
 
@@ -365,7 +400,8 @@ RunResult *Core::run()
         // Left mouse button pressed
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !lmbPressed && isRunning)
         {
-            handleLMB(&lmbPressed, &clickIndex, isoMat1);
+            handleLMB(&lmbPressed, &clickIndex, orMat1, isoMat1, clicked_cpos);
+
         }
 
 
@@ -395,23 +431,16 @@ RunResult *Core::run()
         win->hview->drawAll(*rwPtr);            // Show the View boundary            Green
         canvas->drawAll(*rwPtr);           // Show the Canvas with its Grid     Blue
 
-        grid->draw(*rwPtr);
+
+
+
 
 
         // The Gameboard (orMatrix or isoMatrix )
-
-        //orMat1->drawAll(*rwPtr);
+        isoGrid->draw(*rwPtr);
         isoMat1->drawAll(*rwPtr);
-        //hmap->draw(*rwPtr);
 
-
-        // Debug objects
-        /*block1->draw(*rwPtr);
-        block2->draw(*rwPtr);
-        block3->draw(*rwPtr);
-        blockA->draw(*rwPtr);*/
-
-
+        clicked_cpos->drawAll(*rwPtr);
 
          // RenderTree contents
         for (std::vector<sf::Text *>::iterator textObjIt = rendertree->miscTexts.begin(); textObjIt!= rendertree->miscTexts.end(); ++textObjIt)

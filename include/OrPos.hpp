@@ -9,9 +9,16 @@
 class OrPos
 {
 public:
-    OrPos() {}
+    OrPos();
+    OrPos(float _y, float _x);
+
+    float y;
+    float x;
+
+    void dump(std::string ind);
 
 private:
+
  std::string cn = "OrPos.cpp";
 
 

@@ -89,10 +89,21 @@ CanvasPos *CanvasPos::clone()
     return new CanvasPos(y,x);
 }
 
+void CanvasPos::copyValuesFrom(CanvasPos *other)
+{
+    this->y = other->y;
+    this->x = other->x;
+    this->ymid = other->ymid;
+    this->xmid = other->xmid;
+}
+
+// (--)
 bool CanvasPos::isEqual(CanvasPos *other)
 {
     if( ( (int)other->y == (int)this->y) &&
-        ( (int)other->x == (int)this->x) ) {
+        ( (int)other->x == (int)this->x) &&
+        ( (int)other->ymid == (int)this->ymid) &&
+        ( (int)other->xmid == (int)this->xmid) ) {
             return true;
         }
 

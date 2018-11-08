@@ -8,7 +8,9 @@
 
 
 #include "../src/Singletons/WindowSingleton.hpp"
+#include "CanvasPos.hpp"
 #include "OrMatrix.hpp"
+#include "OrPos.hpp"
 #include "IsoPos.hpp"
 #include "Constants.hpp"
 #include "Utilities/Utils.hpp"
@@ -614,7 +616,8 @@ static int convert_iso_to_y(int M, int N, int width, int height, int typeOfEleme
 
 
 
-
+// The new and improved way of converting from Iso Position to Canvas Position!
+// see also ctoi
 static CanvasPos *itoc(IsoPos *isopos)
 {
     WindowSingleton *win;
@@ -631,6 +634,62 @@ static CanvasPos *itoc(IsoPos *isopos)
 
     return cpos;
 }
+
+
+
+
+/// \brief Converts from a CanvasPos to an Orthogonal Matrix Position
+/// \return returns an indexed position (OrPos) if found, nullptr when not found inside the OrMatrix
+// (--)
+static OrPos *ctoor(CanvasPos *cpos, OrMatrix *orMat1)
+{
+
+    // how large are each tile?
+    // each tile is ORMATRIX_TILE_WIDTH_PX pixels wide and ORMATRIX_TILE_HEIGHT_PX high
+    // so we can divide and see how many tiles we have wandered to the right (x-axis)
+
+
+    int y_nrOfTiles = (int) floor(cpos->y / ORMATRIX_TILE_HEIGHT_PX);
+
+
+
+
+    if(cpos->y < orMat1->getTopLeft_cpos()->y) {
+            return nullptr;
+    }
+    if(cpos->x < orMat1->getTopLeft_cpos()->x) {
+            return nullptr;
+    }
+
+    if(y_nrOfTiles > (orMat1->getRows()-1) )
+    {
+        return nullptr;
+    }
+
+    int x_nrOfTiles = (int) floor(cpos->x / ORMATRIX_TILE_WIDTH_PX);
+
+    if(x_nrOfTiles > (orMat1->getCols()-1)) {
+        return nullptr;
+    }
+
+
+
+
+
+    // how many tiles are there
+
+    return new OrPos(y_nrOfTiles,x_nrOfTiles);
+
+}
+
+
+static IsoPos *ortoi(OrPos *clicked_orpos)
+{
+    return new IsoPos(-1,-1);
+}
+
+
+
 
 
 

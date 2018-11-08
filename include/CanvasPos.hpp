@@ -31,7 +31,7 @@ public:
     void dump(std::string ind);
     std::string dumpToString();
     CanvasPos *clone();
-
+    void copyValuesFrom(CanvasPos *other);
 
     sf::Vector2f getSfVec();
     bool isEqual(CanvasPos *other);

@@ -4,7 +4,7 @@
 
 1535016111 c:\github\posproj\include\asdf.h
 
-1541502403 source:c:\github\posproj\src\core.cpp
+1541712858 source:c:\github\posproj\src\core.cpp
 	"Core.hpp"
 	<stdexcept>
 	<math.h>
@@ -25,7 +25,7 @@
 	"Utilities/Utils.hpp"
 	<iostream>
 
-1541501124 c:\github\posproj\include\core.hpp
+1541670646 c:\github\posproj\include\core.hpp
 	<iostream>
 	<string>
 	"../src/Singletons/HConfig.hpp"
@@ -484,10 +484,10 @@
 	<iostream>
 	<string>
 
-1535114125 source:c:\github\posproj\src\orpos.cpp
+1541710716 source:c:\github\posproj\src\orpos.cpp
 	"OrPos.hpp"
 
-1535114144 c:\github\posproj\include\orpos.hpp
+1541710673 c:\github\posproj\include\orpos.hpp
 	<iostream>
 	<string>
 
@@ -574,13 +574,13 @@
 1536401516 c:\github\posproj\include\textfactory.hpp
 	"../src/Singletons/ResourceHolder.hpp"
 
-1537468430 source:c:\github\posproj\src\canvaspos.cpp
+1541503294 source:c:\github\posproj\src\canvaspos.cpp
 	"CanvasPos.hpp"
 	<assert.h>
 	"Utilities/Utils.hpp"
 	"HView.hpp"
 
-1537431157 c:\github\posproj\include\canvaspos.hpp
+1541503170 c:\github\posproj\include\canvaspos.hpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<string>
@@ -733,12 +733,14 @@
 	"Grid.hpp"
 	"HView.hpp"
 
-1541500713 c:\github\posproj\include\grid.hpp
+1541713003 c:\github\posproj\include\grid.hpp
 	<sstream>
 	<assert.h>
 	<SFML/Graphics.hpp>
 	"../src/Singletons/WindowSingleton.hpp"
+	"CanvasPos.hpp"
 	"OrMatrix.hpp"
+	"OrPos.hpp"
 	"IsoPos.hpp"
 	"Constants.hpp"
 	"Utilities/Utils.hpp"
