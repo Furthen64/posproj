@@ -21,7 +21,7 @@ public:
 
     int compare(IsoPos *other);
     int compareAbsIso(IsoPos *other);
-
+    int compareRelIso(IsoPos *other);
 
     static bool ArightOfB(IsoPos *A, IsoPos *B)
     {
@@ -42,6 +42,21 @@ public:
         if(A->y == B->y
            &&
            A->x == B->x)
+        {
+            return 0;
+        }
+
+        return -1;
+    }
+
+
+    // (--)
+    static int compareRelIso(IsoPos *A, IsoPos *B)
+    {
+
+        if(A->rely == B->rely
+           &&
+           A->relx == B->relx)
         {
             return 0;
         }

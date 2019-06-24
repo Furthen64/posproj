@@ -30,16 +30,20 @@ Grid::Grid(int _rows, int _cols)
 void Grid::draw( sf::RenderTarget& rt)
 {
 
+
+    //std::cout << "grid.draw()       Grid size:\n";
+    //std::cout << "grid.draw()       Bounding box size:\n";
+
+/*
     todo
     this needs a bounding box
     one that automatically generates when we know the grid size!
 
     and
 
-    todo
     also needs x and y offset
-
-    CRect *boundingBox = nullptr;       // Used to move this around and to know the x and y offset to origo
+*/
+    CRect *boundingBox = nullptr;           // Used to move this around and to know the x and y offset to origo
     CanvasPos *topLeft_cpos = nullptr;      // The x and y offset from origo
 
 
@@ -52,7 +56,7 @@ void Grid::draw( sf::RenderTarget& rt)
 
 
 
-
+    // Unsure of this stuff:
 
 
 

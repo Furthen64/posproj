@@ -12,6 +12,7 @@
 #include "OrMatrix.hpp"
 #include "OrPos.hpp"
 #include "IsoPos.hpp"
+#include "CRect.hpp"
 #include "Constants.hpp"
 #include "Utilities/Utils.hpp"
 
@@ -672,15 +673,6 @@ static IsoPos *ortoi(OrPos *clicked_orpos)
 {
     return new IsoPos(-1,-1);
 }
-
-
-
-
-
-
-
-
-
 
 private:
 

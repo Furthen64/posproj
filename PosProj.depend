@@ -480,7 +480,7 @@
 1537434179 source:c:\github\posproj\src\isopos.cpp
 	"IsoPos.hpp"
 
-1537434783 c:\github\posproj\include\isopos.hpp
+1561371959 c:\github\posproj\include\isopos.hpp
 	<iostream>
 	<string>
 
@@ -733,7 +733,7 @@
 	"Grid.hpp"
 	"HView.hpp"
 
-1541721658 c:\github\posproj\include\grid.hpp
+1561372046 c:\github\posproj\include\grid.hpp
 	<sstream>
 	<assert.h>
 	<SFML/Graphics.hpp>
@@ -742,6 +742,7 @@
 	"OrMatrix.hpp"
 	"OrPos.hpp"
 	"IsoPos.hpp"
+	"CRect.hpp"
 	"Constants.hpp"
 	"Utilities/Utils.hpp"
 
