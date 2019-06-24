@@ -23,14 +23,39 @@ Grid::Grid(int _rows, int _cols)
     {
         std::cout << "ERROR " << cn << " could not load font.\n";
     }
-
-
 }
 
 
-// (-+)
+// todo needs rework i need to know exactly where and how this scales and positions!!! 2018-11
 void Grid::draw( sf::RenderTarget& rt)
 {
+
+    todo
+    this needs a bounding box
+    one that automatically generates when we know the grid size!
+
+    and
+
+    todo
+    also needs x and y offset
+
+    CRect *boundingBox = nullptr;       // Used to move this around and to know the x and y offset to origo
+    CanvasPos *topLeft_cpos = nullptr;      // The x and y offset from origo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     IsoPos *isopos;
     CanvasPos *cpos;
@@ -48,51 +73,14 @@ void Grid::draw( sf::RenderTarget& rt)
              // Generate correct CanvasPos for each tile and draw it
              cpos = Grid::itoc(isopos);
 
+          //   cpos->dump("grid-cpos: ");
+
              sprite.setPosition( cpos->getSfVec() );
              rt.draw(sprite);
 
         }
     }
 
-/* old code delete:
-
-    for(int M= 0; M<height; M++){
-        for(int N= 0; N < width; N++) {
-
-            gx = convert_iso_to_x(M,N, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT,0);
-            gy = convert_iso_to_y(M,N, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT,0);
-
-
-            wx = gx + viewHPos->x;
-            wy = gy + viewHPos->y;
-
-
-            wPos.x = wx;
-            wPos.y = wy;
-
-            sprite.setPosition(wPos);
-            rt.draw(sprite);
-
-        }
-
-    }
-
-*/
-
-/*
-    // Draw the selected grid that should be more visible
-    gx = convert_iso_to_x(selected_iso_pos.y, selected_iso_pos.x, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 0);
-    gy = convert_iso_to_y(selected_iso_pos.y, selected_iso_pos.x, GRID_TEXTURE_WIDTH, GRID_TEXTURE_HEIGHT, 0);
-
-    wx = gx+ viewHPos->x;
-    wy = gy+ viewHPos->y;
-
-    wPos.x = wx;
-    wPos.y = wy;
-
-    spriteSelected.setPosition(wPos);
-    rt.draw(spriteSelected);
-    */
 }
 
 

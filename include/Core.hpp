@@ -106,8 +106,8 @@ void populateMarkers(RenderTree *);
     void resizeWindow();
 
 void handleRMB();
-void handleLMB(bool *lmbPressed, int *clickIndex, OrMatrix *orMat1, IsoMatrix *isoMat1, CanvasPos *clicked_cpos);
 
+void handleLMB(bool *lmbPressed, int *clickIndex, OrMatrix *orMat1, IsoMatrix *isoMat1, CanvasPos *clicked_cpos, CanvasPos *rotated_cpos, CanvasPos *rotated_and_scaled_cpos);
 
 private:
 

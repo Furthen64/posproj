@@ -516,8 +516,7 @@ static int convert_iso_to_x(int M, int N, int width, int height, int typeOfEleme
 /// \param height = height of the texture
 /// \param typeOfElement 0=GRID, 1=GAMEMATRIX, 2=BLOCK
 // DOCS: see "GameMatrix_How_the_y_position_is_calculated.png"
-// (--) buggy? gets me the wrong y value (2018-08-14)
-//       testing the code from middleY-func instead
+
 static int convert_iso_to_y(int M, int N, int width, int height, int typeOfElement)
 {
 
@@ -526,13 +525,9 @@ static int convert_iso_to_y(int M, int N, int width, int height, int typeOfEleme
         return -1;
     }
 
-    //int height = GRID_TEXTURE_HEIGHT;
 
     int Y = M;
     int X = N;
-
-    /*int globalYOffset= 500;
-    int globalXOffset= 1500;*/
 
     int globalYOffset= 0;
     int globalXOffset= 0;
@@ -548,9 +543,8 @@ static int convert_iso_to_y(int M, int N, int width, int height, int typeOfEleme
     if(typeOfElement == 0 || typeOfElement == 1) {
 
 
-        //
-        // Grid or Gamematrix, let's see if we can put this in the right spot on the gameboard
-        //
+        /// Grid or Gamematrix, let's see if we can put this in the right spot on the gameboard
+
 
         initialYOffset = globalYOffset + GRID_TEXTURE_HEIGHT;
         initialXOffset = globalXOffset + (GRID_TEXTURE_WIDTH / 4 * NR_GRIDS_HEIGHT);
@@ -646,13 +640,9 @@ static OrPos *ctoor(CanvasPos *cpos, OrMatrix *orMat1)
 
     // how large are each tile?
     // each tile is ORMATRIX_TILE_WIDTH_PX pixels wide and ORMATRIX_TILE_HEIGHT_PX high
-    // so we can divide and see how many tiles we have wandered to the right (x-axis)
-
+    // so we can divide and see how many tiles we have wandered to the right (x-axis) and then check y-axis
 
     int y_nrOfTiles = (int) floor(cpos->y / ORMATRIX_TILE_HEIGHT_PX);
-
-
-
 
     if(cpos->y < orMat1->getTopLeft_cpos()->y) {
             return nullptr;
@@ -672,12 +662,7 @@ static OrPos *ctoor(CanvasPos *cpos, OrMatrix *orMat1)
         return nullptr;
     }
 
-
-
-
-
     // how many tiles are there
-
     return new OrPos(y_nrOfTiles,x_nrOfTiles);
 
 }
@@ -712,6 +697,8 @@ private:
 
     int rows;
     int cols;
+    CRect *boundingBox = nullptr;       // Used to move this around and to know the x and y offset to origo
+    CanvasPos *topLeft_cpos = nullptr;      // The x and y offset from origo
 
 
     sf::Font font;
